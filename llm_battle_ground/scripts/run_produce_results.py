@@ -59,6 +59,7 @@ def build_embedded_response(
 def main(
     logger: logging.Logger,
     in_fpath: str,
+    out_fpath: str,
     num_input_examples: int,
     num_forward_examples: int,
     step_size: int,
@@ -203,15 +204,7 @@ if __name__ == "__main__":
 
     openai.api_key = os.getenv("OPENAI_API_KEY_LOCAL", "")
 
-    outputs = main(
-        logger,
-        os.path.join(args.in_path, args.in_file_name),
-        args.num_input_examples,
-        args.num_output_examples,
-        args.step_size,
-        args.model,
-        args.temperature,
-    )
+    in_fpath = os.path.join(args.in_path, args.in_file_name)
 
     out_fname = OUTPUT_FILE_NAME.format(
         NUM_INPUT_EXAMPLES=NUM_INPUT_EXAMPLES,
@@ -221,4 +214,15 @@ if __name__ == "__main__":
         TEMPERATURE=TEMPERATURE,
     )
     out_fpath = os.path.join(args.out_path, out_fname)
+
+    outputs = main(
+        logger,
+        in_fpath,
+        out_fpath,
+        args.num_input_examples,
+        args.num_output_examples,
+        args.step_size,
+        args.model,
+        args.temperature,
+    )
     write_jsonl(out_fpath, outputs)

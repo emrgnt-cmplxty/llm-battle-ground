@@ -1,0 +1,25 @@
+[build-system]
+requires = ["poetry-core", "setuptools", "wheel"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "llm-battle-ground"
+version = "0.1.0"
+description = "LLM Battle Ground: Out of sample LLM testing."
+authors = ["Owen Colegrove <owen@emergentagi.com>"]
+license = "Apache-2.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+automata = { git = "git@github.com:emrgnt-cmplxty/automata.git" }
+python = ">=3.10,<3.12"
+black = "^23.3.0"
+python-leetcode = "^1.2.1"
+bs4 = "^0.0.1"
+python-dotenv = "^1.0.0"
+pandas = "^2.0.3"
+evalplus = "^0.1.6"
+
+[tool.black]
+line-length = 79
+include = '\.pyi?$'

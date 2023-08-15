@@ -50,7 +50,7 @@ class CompletionProvider:
                 functions=[],
             )
             return provider.standalone_call(instructions)
-        elif provider == "huggingface":
+        elif provider == hugging - face:
             # - PUT IMPLEMENTATION HERE -
             pass
         return ""

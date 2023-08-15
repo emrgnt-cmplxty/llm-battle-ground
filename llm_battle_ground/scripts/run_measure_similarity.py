@@ -24,6 +24,8 @@ MODEL = "gpt-4-0613"
 TEMPERATURE = 0.7
 N_PASS = 1
 MODE = "vanilla-zero-shot"
+NUM_INPUT_EXAMPLES = 1
+NUM_OUTPUT_EXAMPLES = 1
 
 OUTPUT_FILE_NAME = "leetcode_{MODE}_step_size_eq_{STEP_SIZE}__model_eq_{MODEL}__temperature_eq_{TEMPERATURE}__n_pass_{N_PASS}.jsonl"
 

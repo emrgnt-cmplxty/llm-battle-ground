@@ -61234,3 +61234,893 @@ end","class Solution {
 
   }
 }",
+count-array-pairs-divisible-by-k,Count Array Pairs Divisible by K,2183.0,2301.0,"<p>Given a <strong>0-indexed</strong> integer array <code>nums</code> of length <code>n</code> and an integer <code>k</code>, return <em>the <strong>number of pairs</strong></em> <code>(i, j)</code> <em>such that:</em></p>
+
+<ul>
+	<li><code>0 &lt;= i &lt; j &lt;= n - 1</code> <em>and</em></li>
+	<li><code>nums[i] * nums[j]</code> <em>is divisible by</em> <code>k</code>.</li>
+</ul>
+
+<p>&nbsp;</p>
+<p><strong class=""example"">Example 1:</strong></p>
+
+<pre>
+<strong>Input:</strong> nums = [1,2,3,4,5], k = 2
+<strong>Output:</strong> 7
+<strong>Explanation:</strong> 
+The 7 pairs of indices whose corresponding products are divisible by 2 are
+(0, 1), (0, 3), (1, 2), (1, 3), (1, 4), (2, 3), and (3, 4).
+Their products are 2, 4, 6, 8, 10, 12, and 20 respectively.
+Other pairs such as (0, 2) and (2, 4) have products 3 and 15 respectively, which are not divisible by 2.    
+</pre>
+
+<p><strong class=""example"">Example 2:</strong></p>
+
+<pre>
+<strong>Input:</strong> nums = [1,2,3,4], k = 5
+<strong>Output:</strong> 0
+<strong>Explanation:</strong> There does not exist any pair of indices whose corresponding product is divisible by 5.
+</pre>
+
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>1 &lt;= nums[i], k &lt;= 10<sup>5</sup></code></li>
+</ul>
+",3.0,False,"class Solution {
+public:
+    long long countPairs(vector<int>& nums, int k) {
+        
+    }
+};","class Solution {
+    public long countPairs(int[] nums, int k) {
+        
+    }
+}","class Solution(object):
+    def countPairs(self, nums, k):
+        """"""
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """"""
+        ","class Solution:
+    def countPairs(self, nums: List[int], k: int) -> int:
+        ","long long countPairs(int* nums, int numsSize, int k){
+
+}","public class Solution {
+    public long CountPairs(int[] nums, int k) {
+        
+    }
+}","/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var countPairs = function(nums, k) {
+    
+};","# @param {Integer[]} nums
+# @param {Integer} k
+# @return {Integer}
+def count_pairs(nums, k)
+    
+end","class Solution {
+    func countPairs(_ nums: [Int], _ k: Int) -> Int {
+        
+    }
+}","func countPairs(nums []int, k int) int64 {
+    
+}","object Solution {
+    def countPairs(nums: Array[Int], k: Int): Long = {
+        
+    }
+}","class Solution {
+    fun countPairs(nums: IntArray, k: Int): Long {
+        
+    }
+}","impl Solution {
+    pub fn count_pairs(nums: Vec<i32>, k: i32) -> i64 {
+        
+    }
+}","class Solution {
+
+    /**
+     * @param Integer[] $nums
+     * @param Integer $k
+     * @return Integer
+     */
+    function countPairs($nums, $k) {
+        
+    }
+}","function countPairs(nums: number[], k: number): number {
+
+};","(define/contract (count-pairs nums k)
+  (-> (listof exact-integer?) exact-integer? exact-integer?)
+
+  )","-spec count_pairs(Nums :: [integer()], K :: integer()) -> integer().
+count_pairs(Nums, K) ->
+  .","defmodule Solution do
+  @spec count_pairs(nums :: [integer], k :: integer) :: integer
+  def count_pairs(nums, k) do
+
+  end
+end","class Solution {
+  int countPairs(List<int> nums, int k) {
+
+  }
+}",
+construct-string-with-repeat-limit,Construct String With Repeat Limit,2182.0,2300.0,"<p>You are given a string <code>s</code> and an integer <code>repeatLimit</code>. Construct a new string <code>repeatLimitedString</code> using the characters of <code>s</code> such that no letter appears <strong>more than</strong> <code>repeatLimit</code> times <strong>in a row</strong>. You do <strong>not</strong> have to use all characters from <code>s</code>.</p>
+
+<p>Return <em>the <strong>lexicographically largest</strong> </em><code>repeatLimitedString</code> <em>possible</em>.</p>
+
+<p>A string <code>a</code> is <strong>lexicographically larger</strong> than a string <code>b</code> if in the first position where <code>a</code> and <code>b</code> differ, string <code>a</code> has a letter that appears later in the alphabet than the corresponding letter in <code>b</code>. If the first <code>min(a.length, b.length)</code> characters do not differ, then the longer string is the lexicographically larger one.</p>
+
+<p>&nbsp;</p>
+<p><strong class=""example"">Example 1:</strong></p>
+
+<pre>
+<strong>Input:</strong> s = &quot;cczazcc&quot;, repeatLimit = 3
+<strong>Output:</strong> &quot;zzcccac&quot;
+<strong>Explanation:</strong> We use all of the characters from s to construct the repeatLimitedString &quot;zzcccac&quot;.
+The letter &#39;a&#39; appears at most 1 time in a row.
+The letter &#39;c&#39; appears at most 3 times in a row.
+The letter &#39;z&#39; appears at most 2 times in a row.
+Hence, no letter appears more than repeatLimit times in a row and the string is a valid repeatLimitedString.
+The string is the lexicographically largest repeatLimitedString possible so we return &quot;zzcccac&quot;.
+Note that the string &quot;zzcccca&quot; is lexicographically larger but the letter &#39;c&#39; appears more than 3 times in a row, so it is not a valid repeatLimitedString.
+</pre>
+
+<p><strong class=""example"">Example 2:</strong></p>
+
+<pre>
+<strong>Input:</strong> s = &quot;aababab&quot;, repeatLimit = 2
+<strong>Output:</strong> &quot;bbabaa&quot;
+<strong>Explanation:</strong> We use only some of the characters from s to construct the repeatLimitedString &quot;bbabaa&quot;. 
+The letter &#39;a&#39; appears at most 2 times in a row.
+The letter &#39;b&#39; appears at most 2 times in a row.
+Hence, no letter appears more than repeatLimit times in a row and the string is a valid repeatLimitedString.
+The string is the lexicographically largest repeatLimitedString possible so we return &quot;bbabaa&quot;.
+Note that the string &quot;bbabaaa&quot; is lexicographically larger but the letter &#39;a&#39; appears more than 2 times in a row, so it is not a valid repeatLimitedString.
+</pre>
+
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= repeatLimit &lt;= s.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>s</code> consists of lowercase English letters.</li>
+</ul>
+",2.0,False,"class Solution {
+public:
+    string repeatLimitedString(string s, int repeatLimit) {
+        
+    }
+};","class Solution {
+    public String repeatLimitedString(String s, int repeatLimit) {
+        
+    }
+}","class Solution(object):
+    def repeatLimitedString(self, s, repeatLimit):
+        """"""
+        :type s: str
+        :type repeatLimit: int
+        :rtype: str
+        """"""
+        ","class Solution:
+    def repeatLimitedString(self, s: str, repeatLimit: int) -> str:
+        ","char * repeatLimitedString(char * s, int repeatLimit){
+
+}","public class Solution {
+    public string RepeatLimitedString(string s, int repeatLimit) {
+        
+    }
+}","/**
+ * @param {string} s
+ * @param {number} repeatLimit
+ * @return {string}
+ */
+var repeatLimitedString = function(s, repeatLimit) {
+    
+};","# @param {String} s
+# @param {Integer} repeat_limit
+# @return {String}
+def repeat_limited_string(s, repeat_limit)
+    
+end","class Solution {
+    func repeatLimitedString(_ s: String, _ repeatLimit: Int) -> String {
+        
+    }
+}","func repeatLimitedString(s string, repeatLimit int) string {
+    
+}","object Solution {
+    def repeatLimitedString(s: String, repeatLimit: Int): String = {
+        
+    }
+}","class Solution {
+    fun repeatLimitedString(s: String, repeatLimit: Int): String {
+        
+    }
+}","impl Solution {
+    pub fn repeat_limited_string(s: String, repeat_limit: i32) -> String {
+        
+    }
+}","class Solution {
+
+    /**
+     * @param String $s
+     * @param Integer $repeatLimit
+     * @return String
+     */
+    function repeatLimitedString($s, $repeatLimit) {
+        
+    }
+}","function repeatLimitedString(s: string, repeatLimit: number): string {
+
+};","(define/contract (repeat-limited-string s repeatLimit)
+  (-> string? exact-integer? string?)
+
+  )","-spec repeat_limited_string(S :: unicode:unicode_binary(), RepeatLimit :: integer()) -> unicode:unicode_binary().
+repeat_limited_string(S, RepeatLimit) ->
+  .","defmodule Solution do
+  @spec repeat_limited_string(s :: String.t, repeat_limit :: integer) :: String.t
+  def repeat_limited_string(s, repeat_limit) do
+
+  end
+end","class Solution {
+  String repeatLimitedString(String s, int repeatLimit) {
+
+  }
+}",
+merge-nodes-in-between-zeros,Merge Nodes in Between Zeros,2181.0,2299.0,"<p>You are given the <code>head</code> of a linked list, which contains a series of integers <strong>separated</strong> by <code>0</code>&#39;s. The <strong>beginning</strong> and <strong>end</strong> of the linked list will have <code>Node.val == 0</code>.</p>
+
+<p>For <strong>every </strong>two consecutive <code>0</code>&#39;s, <strong>merge</strong> all the nodes lying in between them into a single node whose value is the <strong>sum</strong> of all the merged nodes. The modified list should not contain any <code>0</code>&#39;s.</p>
+
+<p>Return <em>the</em> <code>head</code> <em>of the modified linked list</em>.</p>
+
+<p>&nbsp;</p>
+<p><strong class=""example"">Example 1:</strong></p>
+<img alt="""" src=""https://assets.leetcode.com/uploads/2022/02/02/ex1-1.png"" style=""width: 600px; height: 41px;"" />
+<pre>
+<strong>Input:</strong> head = [0,3,1,0,4,5,2,0]
+<strong>Output:</strong> [4,11]
+<strong>Explanation:</strong> 
+The above figure represents the given linked list. The modified list contains
+- The sum of the nodes marked in green: 3 + 1 = 4.
+- The sum of the nodes marked in red: 4 + 5 + 2 = 11.
+</pre>
+
+<p><strong class=""example"">Example 2:</strong></p>
+<img alt="""" src=""https://assets.leetcode.com/uploads/2022/02/02/ex2-1.png"" style=""width: 600px; height: 41px;"" />
+<pre>
+<strong>Input:</strong> head = [0,1,0,3,0,2,2,0]
+<strong>Output:</strong> [1,3,4]
+<strong>Explanation:</strong> 
+The above figure represents the given linked list. The modified list contains
+- The sum of the nodes marked in green: 1 = 1.
+- The sum of the nodes marked in red: 3 = 3.
+- The sum of the nodes marked in yellow: 2 + 2 = 4.
+</pre>
+
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li>The number of nodes in the list is in the range <code>[3, 2 * 10<sup>5</sup>]</code>.</li>
+	<li><code>0 &lt;= Node.val &lt;= 1000</code></li>
+	<li>There are <strong>no</strong> two consecutive nodes with <code>Node.val == 0</code>.</li>
+	<li>The <strong>beginning</strong> and <strong>end</strong> of the linked list have <code>Node.val == 0</code>.</li>
+</ul>
+",2.0,False,"/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeNodes(ListNode* head) {
+        
+    }
+};","/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode mergeNodes(ListNode head) {
+        
+    }
+}","# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def mergeNodes(self, head):
+        """"""
+        :type head: Optional[ListNode]
+        :rtype: Optional[ListNode]
+        """"""
+        ","# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeNodes(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        ","/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+struct ListNode* mergeNodes(struct ListNode* head){
+
+}","/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public int val;
+ *     public ListNode next;
+ *     public ListNode(int val=0, ListNode next=null) {
+ *         this.val = val;
+ *         this.next = next;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode MergeNodes(ListNode head) {
+        
+    }
+}","/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var mergeNodes = function(head) {
+    
+};","# Definition for singly-linked list.
+# class ListNode
+#     attr_accessor :val, :next
+#     def initialize(val = 0, _next = nil)
+#         @val = val
+#         @next = _next
+#     end
+# end
+# @param {ListNode} head
+# @return {ListNode}
+def merge_nodes(head)
+    
+end","/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public var val: Int
+ *     public var next: ListNode?
+ *     public init() { self.val = 0; self.next = nil; }
+ *     public init(_ val: Int) { self.val = val; self.next = nil; }
+ *     public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; }
+ * }
+ */
+class Solution {
+    func mergeNodes(_ head: ListNode?) -> ListNode? {
+        
+    }
+}","/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func mergeNodes(head *ListNode) *ListNode {
+    
+}","/**
+ * Definition for singly-linked list.
+ * class ListNode(_x: Int = 0, _next: ListNode = null) {
+ *   var next: ListNode = _next
+ *   var x: Int = _x
+ * }
+ */
+object Solution {
+    def mergeNodes(head: ListNode): ListNode = {
+        
+    }
+}","/**
+ * Example:
+ * var li = ListNode(5)
+ * var v = li.`val`
+ * Definition for singly-linked list.
+ * class ListNode(var `val`: Int) {
+ *     var next: ListNode? = null
+ * }
+ */
+class Solution {
+    fun mergeNodes(head: ListNode?): ListNode? {
+        
+    }
+}","// Definition for singly-linked list.
+// #[derive(PartialEq, Eq, Clone, Debug)]
+// pub struct ListNode {
+//   pub val: i32,
+//   pub next: Option<Box<ListNode>>
+// }
+// 
+// impl ListNode {
+//   #[inline]
+//   fn new(val: i32) -> Self {
+//     ListNode {
+//       next: None,
+//       val
+//     }
+//   }
+// }
+impl Solution {
+    pub fn merge_nodes(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+        
+    }
+}","/**
+ * Definition for a singly-linked list.
+ * class ListNode {
+ *     public $val = 0;
+ *     public $next = null;
+ *     function __construct($val = 0, $next = null) {
+ *         $this->val = $val;
+ *         $this->next = $next;
+ *     }
+ * }
+ */
+class Solution {
+
+    /**
+     * @param ListNode $head
+     * @return ListNode
+     */
+    function mergeNodes($head) {
+        
+    }
+}","/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     val: number
+ *     next: ListNode | null
+ *     constructor(val?: number, next?: ListNode | null) {
+ *         this.val = (val===undefined ? 0 : val)
+ *         this.next = (next===undefined ? null : next)
+ *     }
+ * }
+ */
+
+function mergeNodes(head: ListNode | null): ListNode | null {
+
+};","; Definition for singly-linked list:
+#|
+
+; val : integer?
+; next : (or/c list-node? #f)
+(struct list-node
+  (val next) #:mutable #:transparent)
+
+; constructor
+(define (make-list-node [val 0])
+  (list-node val #f))
+
+|#
+
+(define/contract (merge-nodes head)
+  (-> (or/c list-node? #f) (or/c list-node? #f))
+
+  )","%% Definition for singly-linked list.
+%%
+%% -record(list_node, {val = 0 :: integer(),
+%%                     next = null :: 'null' | #list_node{}}).
+
+-spec merge_nodes(Head :: #list_node{} | null) -> #list_node{} | null.
+merge_nodes(Head) ->
+  .","# Definition for singly-linked list.
+#
+# defmodule ListNode do
+#   @type t :: %__MODULE__{
+#           val: integer,
+#           next: ListNode.t() | nil
+#         }
+#   defstruct val: 0, next: nil
+# end
+
+defmodule Solution do
+  @spec merge_nodes(head :: ListNode.t | nil) :: ListNode.t | nil
+  def merge_nodes(head) do
+
+  end
+end","/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *   int val;
+ *   ListNode? next;
+ *   ListNode([this.val = 0, this.next]);
+ * }
+ */
+class Solution {
+  ListNode? mergeNodes(ListNode? head) {
+
+  }
+}",
+count-integers-with-even-digit-sum,Count Integers With Even Digit Sum,2180.0,2298.0,"<p>Given a positive integer <code>num</code>, return <em>the number of positive integers <strong>less than or equal to</strong></em> <code>num</code> <em>whose digit sums are <strong>even</strong></em>.</p>
+
+<p>The <strong>digit sum</strong> of a positive integer is the sum of all its digits.</p>
+
+<p>&nbsp;</p>
+<p><strong class=""example"">Example 1:</strong></p>
+
+<pre>
+<strong>Input:</strong> num = 4
+<strong>Output:</strong> 2
+<strong>Explanation:</strong>
+The only integers less than or equal to 4 whose digit sums are even are 2 and 4.    
+</pre>
+
+<p><strong class=""example"">Example 2:</strong></p>
+
+<pre>
+<strong>Input:</strong> num = 30
+<strong>Output:</strong> 14
+<strong>Explanation:</strong>
+The 14 integers less than or equal to 30 whose digit sums are even are
+2, 4, 6, 8, 11, 13, 15, 17, 19, 20, 22, 24, 26, and 28.
+</pre>
+
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= num &lt;= 1000</code></li>
+</ul>
+",1.0,False,"class Solution {
+public:
+    int countEven(int num) {
+        
+    }
+};","class Solution {
+    public int countEven(int num) {
+        
+    }
+}","class Solution(object):
+    def countEven(self, num):
+        """"""
+        :type num: int
+        :rtype: int
+        """"""
+        ","class Solution:
+    def countEven(self, num: int) -> int:
+        ","int countEven(int num){
+
+}","public class Solution {
+    public int CountEven(int num) {
+        
+    }
+}","/**
+ * @param {number} num
+ * @return {number}
+ */
+var countEven = function(num) {
+    
+};","# @param {Integer} num
+# @return {Integer}
+def count_even(num)
+    
+end","class Solution {
+    func countEven(_ num: Int) -> Int {
+        
+    }
+}","func countEven(num int) int {
+    
+}","object Solution {
+    def countEven(num: Int): Int = {
+        
+    }
+}","class Solution {
+    fun countEven(num: Int): Int {
+        
+    }
+}","impl Solution {
+    pub fn count_even(num: i32) -> i32 {
+        
+    }
+}","class Solution {
+
+    /**
+     * @param Integer $num
+     * @return Integer
+     */
+    function countEven($num) {
+        
+    }
+}","function countEven(num: number): number {
+
+};","(define/contract (count-even num)
+  (-> exact-integer? exact-integer?)
+
+  )","-spec count_even(Num :: integer()) -> integer().
+count_even(Num) ->
+  .","defmodule Solution do
+  @spec count_even(num :: integer) :: integer
+  def count_even(num) do
+
+  end
+end","class Solution {
+  int countEven(int num) {
+
+  }
+}",
+minimum-time-to-finish-the-race,Minimum Time to Finish the Race,2188.0,2295.0,"<p>You are given a <strong>0-indexed</strong> 2D integer array <code>tires</code> where <code>tires[i] = [f<sub>i</sub>, r<sub>i</sub>]</code> indicates that the <code>i<sup>th</sup></code> tire can finish its <code>x<sup>th</sup></code> successive lap in <code>f<sub>i</sub> * r<sub>i</sub><sup>(x-1)</sup></code> seconds.</p>
+
+<ul>
+	<li>For example, if <code>f<sub>i</sub> = 3</code> and <code>r<sub>i</sub> = 2</code>, then the tire would finish its <code>1<sup>st</sup></code> lap in <code>3</code> seconds, its <code>2<sup>nd</sup></code> lap in <code>3 * 2 = 6</code> seconds, its <code>3<sup>rd</sup></code> lap in <code>3 * 2<sup>2</sup> = 12</code> seconds, etc.</li>
+</ul>
+
+<p>You are also given an integer <code>changeTime</code> and an integer <code>numLaps</code>.</p>
+
+<p>The race consists of <code>numLaps</code> laps and you may start the race with <strong>any</strong> tire. You have an <strong>unlimited</strong> supply of each tire and after every lap, you may <strong>change</strong> to any given tire (including the current tire type) if you wait <code>changeTime</code> seconds.</p>
+
+<p>Return<em> the <strong>minimum</strong> time to finish the race.</em></p>
+
+<p>&nbsp;</p>
+<p><strong class=""example"">Example 1:</strong></p>
+
+<pre>
+<strong>Input:</strong> tires = [[2,3],[3,4]], changeTime = 5, numLaps = 4
+<strong>Output:</strong> 21
+<strong>Explanation:</strong> 
+Lap 1: Start with tire 0 and finish the lap in 2 seconds.
+Lap 2: Continue with tire 0 and finish the lap in 2 * 3 = 6 seconds.
+Lap 3: Change tires to a new tire 0 for 5 seconds and then finish the lap in another 2 seconds.
+Lap 4: Continue with tire 0 and finish the lap in 2 * 3 = 6 seconds.
+Total time = 2 + 6 + 5 + 2 + 6 = 21 seconds.
+The minimum time to complete the race is 21 seconds.
+</pre>
+
+<p><strong class=""example"">Example 2:</strong></p>
+
+<pre>
+<strong>Input:</strong> tires = [[1,10],[2,2],[3,4]], changeTime = 6, numLaps = 5
+<strong>Output:</strong> 25
+<strong>Explanation:</strong> 
+Lap 1: Start with tire 1 and finish the lap in 2 seconds.
+Lap 2: Continue with tire 1 and finish the lap in 2 * 2 = 4 seconds.
+Lap 3: Change tires to a new tire 1 for 6 seconds and then finish the lap in another 2 seconds.
+Lap 4: Continue with tire 1 and finish the lap in 2 * 2 = 4 seconds.
+Lap 5: Change tires to tire 0 for 6 seconds then finish the lap in another 1 second.
+Total time = 2 + 4 + 6 + 2 + 4 + 6 + 1 = 25 seconds.
+The minimum time to complete the race is 25 seconds. 
+</pre>
+
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= tires.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>tires[i].length == 2</code></li>
+	<li><code>1 &lt;= f<sub>i</sub>, changeTime &lt;= 10<sup>5</sup></code></li>
+	<li><code>2 &lt;= r<sub>i</sub> &lt;= 10<sup>5</sup></code></li>
+	<li><code>1 &lt;= numLaps &lt;= 1000</code></li>
+</ul>
+",3.0,False,"class Solution {
+public:
+    int minimumFinishTime(vector<vector<int>>& tires, int changeTime, int numLaps) {
+        
+    }
+};","class Solution {
+    public int minimumFinishTime(int[][] tires, int changeTime, int numLaps) {
+        
+    }
+}","class Solution(object):
+    def minimumFinishTime(self, tires, changeTime, numLaps):
+        """"""
+        :type tires: List[List[int]]
+        :type changeTime: int
+        :type numLaps: int
+        :rtype: int
+        """"""
+        ","class Solution:
+    def minimumFinishTime(self, tires: List[List[int]], changeTime: int, numLaps: int) -> int:
+        ","int minimumFinishTime(int** tires, int tiresSize, int* tiresColSize, int changeTime, int numLaps){
+
+}","public class Solution {
+    public int MinimumFinishTime(int[][] tires, int changeTime, int numLaps) {
+        
+    }
+}","/**
+ * @param {number[][]} tires
+ * @param {number} changeTime
+ * @param {number} numLaps
+ * @return {number}
+ */
+var minimumFinishTime = function(tires, changeTime, numLaps) {
+    
+};","# @param {Integer[][]} tires
+# @param {Integer} change_time
+# @param {Integer} num_laps
+# @return {Integer}
+def minimum_finish_time(tires, change_time, num_laps)
+    
+end","class Solution {
+    func minimumFinishTime(_ tires: [[Int]], _ changeTime: Int, _ numLaps: Int) -> Int {
+        
+    }
+}","func minimumFinishTime(tires [][]int, changeTime int, numLaps int) int {
+    
+}","object Solution {
+    def minimumFinishTime(tires: Array[Array[Int]], changeTime: Int, numLaps: Int): Int = {
+        
+    }
+}","class Solution {
+    fun minimumFinishTime(tires: Array<IntArray>, changeTime: Int, numLaps: Int): Int {
+        
+    }
+}","impl Solution {
+    pub fn minimum_finish_time(tires: Vec<Vec<i32>>, change_time: i32, num_laps: i32) -> i32 {
+        
+    }
+}","class Solution {
+
+    /**
+     * @param Integer[][] $tires
+     * @param Integer $changeTime
+     * @param Integer $numLaps
+     * @return Integer
+     */
+    function minimumFinishTime($tires, $changeTime, $numLaps) {
+        
+    }
+}","function minimumFinishTime(tires: number[][], changeTime: number, numLaps: number): number {
+
+};","(define/contract (minimum-finish-time tires changeTime numLaps)
+  (-> (listof (listof exact-integer?)) exact-integer? exact-integer? exact-integer?)
+
+  )","-spec minimum_finish_time(Tires :: [[integer()]], ChangeTime :: integer(), NumLaps :: integer()) -> integer().
+minimum_finish_time(Tires, ChangeTime, NumLaps) ->
+  .","defmodule Solution do
+  @spec minimum_finish_time(tires :: [[integer]], change_time :: integer, num_laps :: integer) :: integer
+  def minimum_finish_time(tires, change_time, num_laps) do
+
+  end
+end","class Solution {
+  int minimumFinishTime(List<List<int>> tires, int changeTime, int numLaps) {
+
+  }
+}",
+minimum-time-to-complete-trips,Minimum Time to Complete Trips,2187.0,2294.0,"<p>You are given an array <code>time</code> where <code>time[i]</code> denotes the time taken by the <code>i<sup>th</sup></code> bus to complete <strong>one trip</strong>.</p>
+
+<p>Each bus can make multiple trips <strong>successively</strong>; that is, the next trip can start <strong>immediately after</strong> completing the current trip. Also, each bus operates <strong>independently</strong>; that is, the trips of one bus do not influence the trips of any other bus.</p>
+
+<p>You are also given an integer <code>totalTrips</code>, which denotes the number of trips all buses should make <strong>in total</strong>. Return <em>the <strong>minimum time</strong> required for all buses to complete <strong>at least</strong> </em><code>totalTrips</code><em> trips</em>.</p>
+
+<p>&nbsp;</p>
+<p><strong class=""example"">Example 1:</strong></p>
+
+<pre>
+<strong>Input:</strong> time = [1,2,3], totalTrips = 5
+<strong>Output:</strong> 3
+<strong>Explanation:</strong>
+- At time t = 1, the number of trips completed by each bus are [1,0,0]. 
+  The total number of trips completed is 1 + 0 + 0 = 1.
+- At time t = 2, the number of trips completed by each bus are [2,1,0]. 
+  The total number of trips completed is 2 + 1 + 0 = 3.
+- At time t = 3, the number of trips completed by each bus are [3,1,1]. 
+  The total number of trips completed is 3 + 1 + 1 = 5.
+So the minimum time needed for all buses to complete at least 5 trips is 3.
+</pre>
+
+<p><strong class=""example"">Example 2:</strong></p>
+
+<pre>
+<strong>Input:</strong> time = [2], totalTrips = 1
+<strong>Output:</strong> 2
+<strong>Explanation:</strong>
+There is only one bus, and it will complete its first trip at t = 2.
+So the minimum time needed to complete 1 trip is 2.
+</pre>
+
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= time.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>1 &lt;= time[i], totalTrips &lt;= 10<sup>7</sup></code></li>
+</ul>
+",2.0,False,"class Solution {
+public:
+    long long minimumTime(vector<int>& time, int totalTrips) {
+        
+    }
+};","class Solution {
+    public long minimumTime(int[] time, int totalTrips) {
+        
+    }
+}","class Solution(object):
+    def minimumTime(self, time, totalTrips):
+        """"""
+        :type time: List[int]
+        :type totalTrips: int
+        :rtype: int
+        """"""
+        ","class Solution:
+    def minimumTime(self, time: List[int], totalTrips: int) -> int:
+        ","long long minimumTime(int* time, int timeSize, int totalTrips){
+
+}","public class Solution {
+    public long MinimumTime(int[] time, int totalTrips) {
+        
+    }
+}","/**
+ * @param {number[]} time
+ * @param {number} totalTrips
+ * @return {number}
+ */
+var minimumTime = function(time, totalTrips) {
+    
+};","# @param {Integer[]} time
+# @param {Integer} total_trips
+# @return {Integer}
+def minimum_time(time, total_trips)
+    
+end","class Solution {
+    func minimumTime(_ time: [Int], _ totalTrips: Int) -> Int {
+        
+    }
+}","func minimumTime(time []int, totalTrips int) int64 {
+    
+}","object Solution {
+    def minimumTime(time: Array[Int], totalTrips: Int): Long = {
+        
+    }
+}","class Solution {
+    fun minimumTime(time: IntArray, totalTrips: Int): Long {
+        
+    }
+}","impl Solution {
+    pub fn minimum_time(time: Vec<i32>, total_trips: i32) -> i64 {
+        
+    }
+}","class Solution {
+
+    /**
+     * @param Integer[] $time
+     * @param Integer $totalTrips
+     * @return Integer
+     */
+    function minimumTime($time, $totalTrips) {
+        
+    }
+}","function minimumTime(time: number[], totalTrips: number): number {
+
+};","(define/contract (minimum-time time totalTrips)
+  (-> (listof exact-integer?) exact-integer? exact-integer?)
+
+  )","-spec minimum_time(Time :: [integer()], TotalTrips :: integer()) -> integer().
+minimum_time(Time, TotalTrips) ->
+  .","defmodule Solution do
+  @spec minimum_time(time :: [integer], total_trips :: integer) :: integer
+  def minimum_time(time, total_trips) do
+
+  end
+end","class Solution {
+  int minimumTime(List<int> time, int totalTrips) {
+
+  }
+}",

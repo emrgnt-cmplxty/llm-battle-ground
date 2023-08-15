@@ -49,16 +49,16 @@ OUTPUT_FILE_NAME = (
 
 def main(
     logger: logging.Logger,
-    in_dir: str,
-    out_dir: str,
+    in_path: str,
+    out_path: str,
     run_mode: RunMode,
     model: str,
     provider: str,
     temperature: float,
     n_pass: int,
 ) -> None:
-    logger.info(f"Loading dataset file from {in_dir}.")
-    dataset = pd.read_csv(in_dir).sort_values(by=["frontend_question_id"])
+    logger.info(f"Loading dataset file from {in_path}.")
+    dataset = pd.read_csv(in_path).sort_values(by=["frontend_question_id"])
 
     provider = CompletionProvider(
         run_mode=run_mode,
@@ -67,9 +67,9 @@ def main(
         provider=provider,
     )
 
-    if os.path.exists(out_dir):
-        logger.info(f"Loading existing results from {out_dir}.")
-        outputs = read_jsonl(out_dir)
+    if os.path.exists(out_path):
+        logger.info(f"Loading existing results from {out_path}.")
+        outputs = read_jsonl(out_path)
     else:
         outputs = []
     ids = {x["frontend_question_id"] for x in outputs}
@@ -187,7 +187,7 @@ if __name__ == "__main__":
 
     openai.api_key = os.getenv("OPENAI_API_KEY_LOCAL", "")
 
-    in_dir = os.path.join(args.in_dir, args.in_file_name)
+    in_path = os.path.join(args.in_dir, args.in_file_name)
 
     out_fname = OUTPUT_FILE_NAME.format(
         MODEL=args.model,
@@ -195,15 +195,15 @@ if __name__ == "__main__":
         N_PASS=args.n_pass,
         RUN_MODE=args.run_mode,
     )
-    out_dir = os.path.join(args.out_dir, out_fname)
+    out_path = os.path.join(args.out_dir, out_fname)
 
     outputs = main(
         logger,
-        in_dir,
-        out_dir,
+        in_path,
+        out_path,
         RunMode(args.run_mode),
         args.model,
         args.temperature,
         args.n_pass,
     )
-    write_jsonl(out_dir, outputs)
+    write_jsonl(out_path, outputs)

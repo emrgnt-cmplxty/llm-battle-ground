@@ -24,3 +24,12 @@ gym = "^0.26.2"
 [tool.black]
 line-length = 79
 include = '\.pyi?$'
+exclude = '''
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | llm_battle_ground/leetcode_hard_gym
+)/
+)
+'''

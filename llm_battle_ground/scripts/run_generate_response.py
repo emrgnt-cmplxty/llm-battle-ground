@@ -37,7 +37,7 @@ DIFFICULTY_SAMPLE_RATES = {
 }
 
 OUTPUT_FILE_NAME = (
-    "leetcode_filter_ez_eq_%s_filter_med_eq_%s_filter_hrd_eq_%s__model_eq_{MODEL}__temperature_eq_{TEMPERATURE}__n_pass_{N_PASS}__mode_{RUN_MODE}.jsonl"
+    "leetcode_{RUN_MODE}__filter_ez_eq_%s_filter_med_eq_%s_filter_hrd_eq_%s__model_eq_{MODEL}__temperature_eq_{TEMPERATURE}__n_pass_{N_PASS}.jsonl"
     % (
         DIFFICULTY_SAMPLE_RATES[1],
         DIFFICULTY_SAMPLE_RATES[2],
@@ -99,7 +99,8 @@ def main(
         elif "```" in raw_response:
             cleaned_response = raw_response.split("```")[1]
             cleaned_response = cleaned_response.split("```")[0]
-
+        else:
+            cleaned_response = raw_response
         result = {
             "task_input": task_input,
             "code_prompt": code_prompt,

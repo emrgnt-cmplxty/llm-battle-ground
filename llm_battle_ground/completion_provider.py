@@ -15,8 +15,15 @@ class RunMode(Enum):
 class CompletionProvider:
     """Concrete class for completion providers"""
 
-    def __init__(self, run_mode: RunMode, model: str, temperature: float):
+    def __init__(
+        self,
+        run_mode: RunMode,
+        model: str,
+        temperature: float,
+        provider: str = "openai",
+    ):
         self.run_mode = run_mode
+        self.provider = provider
         self.model = model
         self.temperature = temperature
 
@@ -34,14 +41,19 @@ class CompletionProvider:
 
     def generate_vanilla_completion(self, instructions: str) -> str:
         """Generates a vanilla completion for the given prompt"""
-        provider = OpenAIChatCompletionProvider(
-            model=self.model,
-            temperature=self.temperature,
-            stream=True,
-            conversation=OpenAIConversation(),
-            functions=[],
-        )
-        return provider.standalone_call(instructions)
+        if self.provider == "openai":
+            provider = OpenAIChatCompletionProvider(
+                model=self.model,
+                temperature=self.temperature,
+                stream=True,
+                conversation=OpenAIConversation(),
+                functions=[],
+            )
+            return provider.standalone_call(instructions)
+        elif provider == "huggingface":
+            # - PUT IMPLEMENTATION HERE -
+            pass
+        return ""
 
     def get_formatted_instruction(
         self,

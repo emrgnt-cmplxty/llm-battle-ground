@@ -25,7 +25,7 @@ TEMPERATURE = 0.7
 N_PASS = 1
 MODE = "vanilla-zero-shot"
 
-OUTPUT_FILE_NAME = "leetcode__step_size_eq_{STEP_SIZE}__model_eq_{MODEL}__temperature_eq_{TEMPERATURE}__n_pass_{N_PASS}__mode_{MODE}.jsonl"
+OUTPUT_FILE_NAME = "leetcode_{MODE}_step_size_eq_{STEP_SIZE}__model_eq_{MODEL}__temperature_eq_{TEMPERATURE}__n_pass_{N_PASS}.jsonl"
 
 
 def calc_similarity(

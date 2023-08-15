@@ -1,3 +1,4 @@
+import os
 import json
 
 
@@ -11,3 +12,7 @@ def read_jsonl(in_jsonl_path: str) -> list:
         jsonl_loaded.append(result)
 
     return jsonl_loaded
+
+
+def get_root_fpath() -> str:
+    return os.path.dirname(os.path.abspath(__file__))

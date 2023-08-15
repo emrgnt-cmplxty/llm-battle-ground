@@ -19,6 +19,7 @@ bs4 = "^0.0.1"
 python-dotenv = "^1.0.0"
 pandas = "^2.0.3"
 evalplus = "^0.1.6"
+gym = "^0.26.2"
 
 [tool.black]
 line-length = 79

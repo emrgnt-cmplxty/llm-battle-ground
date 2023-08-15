@@ -169,6 +169,7 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
+
     log_level = getattr(logging, args.log_level.upper(), logging.INFO)
 
     logging.basicConfig(
@@ -189,12 +190,12 @@ if __name__ == "__main__":
     out_fpath = os.path.join(args.out_path, out_fname)
 
     outputs = main(
-        logger,
-        in_fpath,
-        out_fpath,
-        RunMode(args.run_mode),
-        args.model,
-        args.temperature,
-        args.n_pass,
+        logger=logger,
+        in_fpath=in_fpath,
+        out_fpath=out_fpath,
+        run_mode=RunMode(args.run_mode),
+        model=args.model,
+        temperature=args.temperature,
+        n_pass=args.n_pass,
     )
     write_jsonl(out_fpath, outputs)

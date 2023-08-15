@@ -156,7 +156,7 @@ def main(
             )
 
             prompt = provider.get_formatted_instruction(
-                input_context, num_forward_examples + buffer
+                task_input=input_context, num_forward_examples=num_forward_examples + buffer
             )
 
             result = {
@@ -292,6 +292,7 @@ if __name__ == "__main__":
     in_fpath = os.path.join(args.in_path, args.in_file_name)
 
     out_fname = OUTPUT_FILE_NAME.format(
+        MODE=MODE,
         NUM_INPUT_EXAMPLES=args.num_input_examples,
         NUM_OUTPUT_EXAMPLES=args.num_output_examples,
         STEP_SIZE=args.step_size,

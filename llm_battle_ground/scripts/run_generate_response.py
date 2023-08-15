@@ -25,6 +25,7 @@ DEFAULT_OUTPUT_PATH = os.path.join(script_directory, "..", "results")
 NUM_INPUT_EXAMPLES = 10
 NUM_OUTPUT_EXAMPLES = 5
 MODEL = "gpt-4-0613"
+PROVIDER = "openai"
 TEMPERATURE = 0.7
 RUN_MODE = "vanilla-zero-shot"
 N_PASS = 1
@@ -52,6 +53,7 @@ def main(
     out_fpath: str,
     run_mode: RunMode,
     model: str,
+    provider: str,
     temperature: float,
     n_pass: int,
 ) -> None:
@@ -62,6 +64,7 @@ def main(
         run_mode=run_mode,
         model=model,
         temperature=temperature,
+        provider=provider,
     )
 
     if os.path.exists(out_fpath):
@@ -150,6 +153,12 @@ if __name__ == "__main__":
         help="Model to use for experiment",
     )
     parser.add_argument(
+        "--provider",
+        type=str,
+        default=PROVIDER,
+        help="Provider to use for experiment",
+    )
+    parser.add_argument(
         "--temperature",
         type=float,
         default=TEMPERATURE,
@@ -189,12 +198,13 @@ if __name__ == "__main__":
     out_fpath = os.path.join(args.out_path, out_fname)
 
     outputs = main(
-        logger,
-        in_fpath,
-        out_fpath,
-        RunMode(args.run_mode),
-        args.model,
-        args.temperature,
-        args.n_pass,
+        logger=logger,
+        in_fpath=in_fpath,
+        out_fpath=out_fpath,
+        run_mode=RunMode(args.run_mode),
+        model=args.model,
+        provider=args.provider,
+        temperature=args.temperature,
+        n_pass=args.n_pass,
     )
     write_jsonl(out_fpath, outputs)

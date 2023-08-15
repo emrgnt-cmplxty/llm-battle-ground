@@ -2,6 +2,8 @@
 import textwrap
 from enum import Enum
 
+from llm_battle_ground.models.model import make_model
+
 from automata.llm import OpenAIChatCompletionProvider, OpenAIConversation
 
 
@@ -26,6 +28,10 @@ class CompletionProvider:
         self.provider = provider
         self.model = model
         self.temperature = temperature
+        if self.provider == "huggingface":
+            # means we need to load the model locally
+            # TODO: batch size
+            self.model = make_model(model, batch_size=1, temperature=temperature)
 
     def get_completion(self, **kwargs) -> str:
         """Returns the raw and cleaned completions for the given prompt"""
@@ -50,9 +56,9 @@ class CompletionProvider:
                 functions=[],
             )
             return provider.standalone_call(instructions)
-        elif provider == "huggingface":
+        elif self.provider == "huggingface":
             # - PUT IMPLEMENTATION HERE -
-            pass
+            return self.model.codegen(instructions)[0]
         return ""
 
     def get_formatted_instruction(

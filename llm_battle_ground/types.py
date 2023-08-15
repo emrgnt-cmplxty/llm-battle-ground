@@ -1,7 +1,5 @@
 from enum import Enum
 
-# FIXME - Revert these to real defaults.
-
 
 class DataDirectories(Enum):
     DATASETS = "datasets"

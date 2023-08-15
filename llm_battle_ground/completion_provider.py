@@ -29,12 +29,16 @@ class CompletionProvider:
         self.model = model
         self.temperature = temperature
         if self.provider == "openai":
-            pass # nothing needs to be done
+            pass  # nothing needs to be done
         elif self.provider:
             # means we need to load the model locally
             # TODO: batch size
-            self.model = make_model(provider=self.provider, name=self.model, batch_size=1, temperature=temperature)
-
+            self.model = make_model(
+                provider=self.provider,
+                name=self.model,
+                batch_size=1,
+                temperature=temperature,
+            )
 
     def get_completion(self, **kwargs) -> str:
         """Returns the raw and cleaned completions for the given prompt"""
@@ -59,7 +63,7 @@ class CompletionProvider:
                 functions=[],
             )
             return provider.standalone_call(instructions)
-        elif self.provider == "huggingface":
+        elif provider == "hugging-face":
             # - PUT IMPLEMENTATION HERE -
             return self.model.codegen(instructions)[0]
         return ""

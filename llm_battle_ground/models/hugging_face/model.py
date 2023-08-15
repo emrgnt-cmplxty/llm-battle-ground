@@ -1,7 +1,7 @@
 import os
 from abc import ABC, abstractmethod
 from typing import List
-from warnings import warn
+
 
 # Modify this to change cache location
 os.environ["HF_HOME"] = os.environ.get("HF_HOME", "/JawTitan/huggingface/")
@@ -389,86 +389,3 @@ class StarCoder(HFTorchDecoder):
                     min_index = min(min_index, output.index(eos))
             outputs.append(output[:min_index])
         return outputs
-
-
-def make_model(name: str, batch_size: int = 1, temperature: float = 0.8):
-    if name == "codegen-2b":
-        return HFTorchDecoder(
-            batch_size=batch_size,
-            name="Salesforce/codegen-2B-mono",
-            temperature=temperature,
-        )
-    elif name == "codegen-6b":
-        return HFTorchDecoder(
-            batch_size=batch_size,
-            name="Salesforce/codegen-6B-mono",
-            temperature=temperature,
-        )
-    elif name == "codegen2-1b":
-        return Codegen2Decoder(
-            batch_size=batch_size,
-            name="Salesforce/codegen2-1B",
-            temperature=temperature,
-        )
-    elif name == "codegen2-3b":
-        return Codegen2Decoder(
-            batch_size=batch_size,
-            name="Salesforce/codegen2-3_7B",
-            temperature=temperature,
-        )
-    elif name == "codegen2-7b":
-        return Codegen2Decoder(
-            batch_size=batch_size,
-            name="Salesforce/codegen2-7B",
-            temperature=temperature,
-        )
-    elif name == "codegen2-16b":
-        warn(
-            "codegen2-16b checkpoint is `unfinished` at this point (05/11/2023) according to their paper. "
-            "So it might not make sense to use it."
-        )
-        return Codegen2Decoder(
-            batch_size=batch_size,
-            name="Salesforce/codegen2-16B",
-            temperature=temperature,
-        )
-    elif name == "polycoder":
-        return HFTorchDecoder(
-            batch_size=batch_size,
-            name="NinedayWang/PolyCoder-2.7B",
-            temperature=temperature,
-        )
-    elif name == "santacoder":
-        return SantaCoder(
-            batch_size=batch_size, name="bigcode/santacoder", temperature=temperature
-        )
-    elif name == "incoder-1b":
-        return IncoderDecoder(
-            batch_size=batch_size, name="facebook/incoder-1B", temperature=temperature
-        )
-    elif name == "incoder-6b":
-        return IncoderDecoder(
-            batch_size=batch_size, name="facebook/incoder-6B", temperature=temperature
-        )
-    elif name == "stablelm-7b":
-        return HFTorchDecoder(
-            batch_size=batch_size,
-            name="StabilityAI/stablelm-base-alpha-7b",
-            temperature=temperature,
-        )
-    elif name == "gptneo-2b":
-        return HFTorchDecoder(
-            batch_size=batch_size,
-            name="EleutherAI/gpt-neo-2.7B",
-            temperature=temperature,
-        )
-    elif name == "gpt-j":
-        return HFTorchDecoder(
-            batch_size=batch_size, name="EleutherAI/gpt-j-6B", temperature=temperature
-        )
-    elif name == "starcoder":
-        return StarCoder(
-            batch_size=batch_size, name="bigcode/starcoder", temperature=temperature
-        )
-
-    raise ValueError(f"Invalid model name: {name}")

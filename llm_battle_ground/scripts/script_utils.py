@@ -38,6 +38,13 @@ def common_arg_parser() -> argparse.ArgumentParser:
 
     # Config args
     parser.add_argument(
+        "--provider",
+        type=str,
+        default=None,
+        help="Default provider for LLM use, e.g. `openai`.",
+    )
+
+    parser.add_argument(
         "--run_mode",
         type=str,
         default=None,

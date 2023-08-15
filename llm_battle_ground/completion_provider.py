@@ -2,9 +2,9 @@
 import textwrap
 from enum import Enum
 
-from llm_battle_ground.models import make_model
-
 from automata.llm import OpenAIChatCompletionProvider, OpenAIConversation
+
+from llm_battle_ground.models import make_model
 
 
 class RunMode(Enum):
@@ -95,8 +95,8 @@ class CompletionProvider:
             )
         elif self.run_mode == RunMode.VANILLA_ZERO_SHOT:
             task_input = kwargs.get("task_input")
-            code_prompt = kwargs.get("code_prompt")
-            if not task_input or not code_prompt:
+            code_snippet = kwargs.get("code_snippet")
+            if not task_input or not code_snippet:
                 raise ValueError("Missing required arguments.")
 
             return textwrap.dedent(
@@ -125,7 +125,7 @@ class CompletionProvider:
     Your final result should follow EXACTLY the format shown above, except for additional imports which may be added.
 
                     """
-            ).format(TASK_INPUT=task_input, CODE_PROMPT=code_prompt)
+            ).format(TASK_INPUT=task_input, CODE_PROMPT=code_snippet)
 
         else:
             raise ValueError("No such run mode.")

@@ -4,30 +4,31 @@ import os
 import random
 import re
 
-import dotenv
-import numpy as np
 import openai
 import pandas as pd
-from automata.llm import OpenAIEmbeddingProvider
 from evalplus.data import write_jsonl
 
 random.seed(0)
 
 from llm_battle_ground.completion_provider import CompletionProvider, RunMode
+from llm_battle_ground.scripts import common_arg_parser
+from llm_battle_ground.types import DataDirectories, Datasets
+from llm_battle_ground.utils import (
+    calc_similarity,
+    get_configured_logger,
+    get_root_fpath,
+    read_jsonl,
+)
 from llm_battle_ground.utils import read_jsonl
 
-dotenv.load_dotenv()
-script_directory = os.path.dirname(os.path.abspath(__file__))
-DEFAULT_INPUT_PATH = os.path.join(script_directory, "..", "datasets")
-DEFAULT_INPUT_FILE_NAME = "leetcode.csv"
-DEFAULT_OUTPUT_PATH = os.path.join(script_directory, "..", "results")
+IN_DIR = os.path.join(get_root_fpath(), DataDirectories.DATASETS.value)
+IN_FILE_NAME = Datasets.LEETCODE_FULL.value
+OUT_DIR = os.path.join(get_root_fpath(), DataDirectories.RESULTS.value)
 
-NUM_INPUT_EXAMPLES = 10
-NUM_OUTPUT_EXAMPLES = 5
-MODEL = "gpt-4-0613"
 PROVIDER = "openai"
-TEMPERATURE = 0.7
 RUN_MODE = "vanilla-zero-shot"
+MODEL = "gpt-4-0613"
+TEMPERATURE = 0.7
 N_PASS = 1
 
 # Define sample rates for different difficulties
@@ -37,8 +38,9 @@ DIFFICULTY_SAMPLE_RATES = {
     3: 1.0,  # Hard
 }
 
+
 OUTPUT_FILE_NAME = (
-    "leetcode_{RUN_MODE}__filter_ez_eq_%s_filter_med_eq_%s_filter_hrd_eq_%s__model_eq_{MODEL}__temperature_eq_{TEMPERATURE}__n_pass_{N_PASS}.jsonl"
+    "leetcode_generation__provider_eq_{PROVIDER}__{RUN_MODE}__filter_ez_eq_%s_filter_med_eq_%s_filter_hrd_eq_%s__model_eq_{MODEL}__temperature_eq_{TEMPERATURE}__n_pass_{N_PASS}.jsonl"
     % (
         DIFFICULTY_SAMPLE_RATES[1],
         DIFFICULTY_SAMPLE_RATES[2],
@@ -72,124 +74,76 @@ def main(
         outputs = read_jsonl(out_path)
     else:
         outputs = []
-    ids = {x["frontend_question_id"] for x in outputs}
 
-    for loc in range(0, len(dataset)):
+    observed_ids = {x["frontend_question_id"] for x in outputs}
+    max_observed_id = max(observed_ids, default=0)
+
+    for loc in range(len(dataset)):
         entry = dataset.iloc[loc]
         difficulty = entry["difficulty"]
-        print("difficulty = ", difficulty)
         sample_rate = DIFFICULTY_SAMPLE_RATES.get(
             difficulty, 0.25
-        )  # Use difficulty to determine sample rate
+        )  # Use difficulty to determine sample rate, default to 25% if not-set (RARE)
         rnd_gen = random.random()
-        print("rnd_gen = ", rnd_gen)
+
         if rnd_gen > sample_rate:
+            logger.info("Continuing due to sample rate.")
             continue
 
+        # Skipping past previously processed problems
         frontend_question_id = dataset.iloc[loc]["frontend_question_id"]
-        if frontend_question_id in ids:
+        if frontend_question_id in observed_ids:
+            logger.info(
+                "Continuing because this problem has been processed previously."
+            )
             continue
 
-        end_snippet = "....\n"
-        task_input = f"{entry.cleaned_snippet.replace(end_snippet,'.')} {entry.cleaned_forward_completion}"
-        code_prompt = entry["python3_snippet"]
-        raw_response = provider.get_completion(
-            task_input=task_input, code_prompt=code_prompt
-        )
-        if "```python" in raw_response:
-            cleaned_response = raw_response.split("```python")[1]
-            cleaned_response = cleaned_response.split("```")[0]
-        elif "```" in raw_response:
-            cleaned_response = raw_response.split("```")[1]
-            cleaned_response = cleaned_response.split("```")[0]
+        # Since we use rng, we need to skip past old max when re-loading data
+        if frontend_question_id <= max_observed_id:
+            logger.info(
+                "Continuing because this problem has been processed previously."
+            )
+            continue
         else:
-            cleaned_response = raw_response
+            if max_observed_id != 0:
+                logger.info("Processing first example, resetting max_observed_id to 0.")
+                max_observed_id = 0
+
+        # Generating input for completion
+        task_input = (
+            f"{entry.cleaned_snippet} {entry.cleaned_forward_completion}"
+        )
+        code_snippet = entry["python3_snippet"]
+        raw_response = provider.get_completion(
+            task_input=task_input, code_snippet=code_snippet
+        )
         result = {
             "task_input": task_input,
-            "code_prompt": code_prompt,
+            "code_snippet": code_snippet,
             "raw_response": raw_response,
-            "cleaned_response": cleaned_response,
             "n_pass": n_pass,
             "difficulty": difficulty,
             "frontend_question_id": frontend_question_id,
             "loc": loc,
         }
         outputs.append(result)
-        write_jsonl(out_dir, outputs)
+        write_jsonl(out_path, outputs)
 
     return outputs
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--log-level",
-        type=str,
-        default="INFO",
-        help="Logging level, e.g. DEBUG, INFO, WARNING, ERROR, CRITICAL",
-    )
-    parser.add_argument(
-        "--in-path",
-        type=str,
-        default=DEFAULT_INPUT_PATH,
-        help="Directory path to the input dataset",
-    )
-    parser.add_argument(
-        "--in-file-name",
-        type=str,
-        default=DEFAULT_INPUT_FILE_NAME,
-        help="Filename for input file.",
-    )
-    parser.add_argument(
-        "--out-path",
-        type=str,
-        default=DEFAULT_OUTPUT_PATH,
-        help="Path to save the results",
-    )
-    parser.add_argument(
-        "--model",
-        type=str,
-        default=MODEL,
-        help="Model to use for experiment",
-    )
-    parser.add_argument(
-        "--provider",
-        type=str,
-        default=PROVIDER,
-        help="Provider to use for experiment",
-    )
-    parser.add_argument(
-        "--temperature",
-        type=float,
-        default=TEMPERATURE,
-        help="Temperature to use for experiment",
-    )
-    parser.add_argument(
-        "--run-mode",
-        type=str,
-        default=RUN_MODE,
-        help="Which run mode to use for experiment",
-    )
-    parser.add_argument(
-        "--n-pass",
-        type=int,
-        default=N_PASS,
-        help="Number of passes.",
-    )
+    parser = 
 
     args = parser.parse_args()
-    log_level = getattr(logging, args.log_level.upper(), logging.INFO)
-
-    logging.basicConfig(
-        level=log_level, format="%(asctime)s - %(levelname)s - %(message)s"
-    )
-    logger = logging.getLogger()
+    logger = get_configured_logger(__name__, args.log_level)
 
     openai.api_key = os.getenv("OPENAI_API_KEY_LOCAL", "")
 
-    in_path = os.path.join(args.in_dir, args.in_file_name)
+    in_path = os.path.join(args.in_dir or IN_DIR, args.in_file_name or IN_FILE_NAME)
 
     out_fname = OUTPUT_FILE_NAME.format(
+        PROVIDER=args.provider,
         MODEL=args.model,
         TEMPERATURE=args.temperature,
         N_PASS=args.n_pass,

@@ -6,35 +6,38 @@ import numpy as np
 import openai
 import pandas as pd
 from automata.llm import OpenAIEmbeddingProvider
-from evalplus.data import write_jsonl
 from bs4 import BeautifulSoup
+from evalplus.data import write_jsonl
 
 from llm_battle_ground.completion_provider import CompletionProvider, RunMode
-from llm_battle_ground.types import Datasets, DataDirectories
+from llm_battle_ground.scripts import common_arg_parser
+from llm_battle_ground.types import DataDirectories, Datasets
 from llm_battle_ground.utils import (
+    calc_similarity,
     get_configured_logger,
     get_root_fpath,
-    calc_similarity,
     read_jsonl,
 )
-from llm_battle_ground.scripts import common_arg_parser
 
 # Pathing
 IN_DIR = os.path.join(get_root_fpath(), DataDirectories.DATASETS.value)
 IN_FILE_NAME = Datasets.LEETCODE_FULL.value
 OUT_DIR = os.path.join(get_root_fpath(), DataDirectories.RESULTS.value)
-OUT_FILE_NAME = "leetcode_{RUN_MODE}_step_size_eq_{STEP_SIZE}__num_input_examples_eq_{NUM_OUTPUT_EXAMPLES}__num_output_examples_eq_{NUM_OUTPUT_EXAMPLES}__buffer_eq_{BUFFER}__model_eq_{MODEL}__temperature_eq_{TEMPERATURE}__n_pass_{N_PASS}.jsonl"
+OUT_FILE_NAME = "leetcode_{RUN_MODE}__step_size_eq_{STEP_SIZE}__num_input_examples_eq_{NUM_OUTPUT_EXAMPLES}__num_output_examples_eq_{NUM_OUTPUT_EXAMPLES}__buffer_eq_{BUFFER}__model_eq_{MODEL}__temperature_eq_{TEMPERATURE}__n_pass_{N_PASS}.jsonl"
 
 # Local constants
 NUM_INPUT_EXAMPLES = 20
 NUM_OUTPUT_EXAMPLES = 20
 STEP_SIZE = 40
 BUFFER = 10
+
 # Default input constants
 MODEL = "gpt-4-0613"
 TEMPERATURE = 0.7
 N_PASS = 1
 RUN_MODE = "similarity"
+
+# TODO - Add provider to this script.
 
 
 class LeetCodeProcessor:
@@ -350,10 +353,6 @@ class SimilarityExperiment:
 
 if __name__ == "__main__":
     # Initialization
-    openai.api_key = os.getenv("OPENAI_API_KEY_LOCAL", "")
-    # TODO - Rename this to `OPENAI_API_KEY`
-    openai.api_key = os.getenv("OPENAI_API_KEY_LOCAL", "")
-
     parser = common_arg_parser()
     parser.add_argument(
         "--num-input-examples",
@@ -381,7 +380,12 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
-    logger = get_configured_logger(args.log_level)
+
+    if args.provider == "openai":
+        # TODO - Rename this to `OPENAI_API_KEY`
+        openai.api_key = os.getenv("OPENAI_API_KEY_LOCAL", "")
+
+    logger = get_configured_logger(__name__, args.log_level)
 
     # Create the experiment and run it
     experiment = SimilarityExperiment(logger, args)

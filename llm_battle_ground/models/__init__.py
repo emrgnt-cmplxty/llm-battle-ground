@@ -1,8 +1,17 @@
 from warnings import warn
-from llm_battle_ground.models.hugging_face.model import HFTorchDecoder, Codegen2Decoder, SantaCoder, IncoderDecoder, StarCoder
+
+from llm_battle_ground.models.hugging_face.model import (
+    Codegen2Decoder,
+    HFTorchDecoder,
+    IncoderDecoder,
+    SantaCoder,
+    StarCoder,
+)
 
 
-def make_model_hugging_face(name: str, batch_size: int = 1, temperature: float = 0.8):
+def make_model_hugging_face(
+    name: str, batch_size: int = 1, temperature: float = 0.8
+):
     if name == "codegen-2b":
         return HFTorchDecoder(
             batch_size=batch_size,
@@ -51,15 +60,21 @@ def make_model_hugging_face(name: str, batch_size: int = 1, temperature: float =
         )
     elif name == "santacoder":
         return SantaCoder(
-            batch_size=batch_size, name="bigcode/santacoder", temperature=temperature
+            batch_size=batch_size,
+            name="bigcode/santacoder",
+            temperature=temperature,
         )
     elif name == "incoder-1b":
         return IncoderDecoder(
-            batch_size=batch_size, name="facebook/incoder-1B", temperature=temperature
+            batch_size=batch_size,
+            name="facebook/incoder-1B",
+            temperature=temperature,
         )
     elif name == "incoder-6b":
         return IncoderDecoder(
-            batch_size=batch_size, name="facebook/incoder-6B", temperature=temperature
+            batch_size=batch_size,
+            name="facebook/incoder-6B",
+            temperature=temperature,
         )
     elif name == "stablelm-7b":
         return HFTorchDecoder(
@@ -75,18 +90,26 @@ def make_model_hugging_face(name: str, batch_size: int = 1, temperature: float =
         )
     elif name == "gpt-j":
         return HFTorchDecoder(
-            batch_size=batch_size, name="EleutherAI/gpt-j-6B", temperature=temperature
+            batch_size=batch_size,
+            name="EleutherAI/gpt-j-6B",
+            temperature=temperature,
         )
     elif name == "starcoder":
         return StarCoder(
-            batch_size=batch_size, name="bigcode/starcoder", temperature=temperature
+            batch_size=batch_size,
+            name="bigcode/starcoder",
+            temperature=temperature,
         )
 
     raise ValueError(f"Invalid model name: {name}")
 
 
-def make_model(provider: str, name: str, batch_size: int = 1, temperature: float = 0.8):
+def make_model(
+    provider: str, name: str, batch_size: int = 1, temperature: float = 0.8
+):
     if provider == "huggingface":
-        return make_model_hugging_face(name, batch_size=batch_size, temperature=temperature)
+        return make_model_hugging_face(
+            name, batch_size=batch_size, temperature=temperature
+        )
     else:
         raise NotImplementedError("No such provider.")

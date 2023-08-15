@@ -30,9 +30,9 @@ def calc_similarity(
     return dot_product / (magnitude_a * magnitude_b)
 
 
-def get_configured_logger(log_level: str) -> logging.Logger:
+def get_configured_logger(name: str, log_level: str) -> logging.Logger:
     log_level = getattr(logging, log_level.upper(), logging.INFO)
     logging.basicConfig(
         level=log_level, format="%(asctime)s - %(levelname)s - %(message)s"
     )
-    return logging.getLogger()
+    return logging.getLogger(name)

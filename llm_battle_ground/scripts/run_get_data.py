@@ -8,9 +8,9 @@ import leetcode
 import leetcode.auth
 import pandas as pd
 
+from llm_battle_ground.scripts import common_arg_parser
 from llm_battle_ground.types import DataDirectories, Datasets
 from llm_battle_ground.utils import get_configured_logger, get_root_fpath
-from llm_battle_ground.scripts import common_arg_parser
 
 OUT_DIR = os.path.join(get_root_fpath(), DataDirectories.DATASETS.value)
 OUT_FILE_NAME = Datasets.LEETCODE_FULL.value
@@ -148,7 +148,7 @@ if __name__ == "__main__":
     parser = common_arg_parser()
     args = parser.parse_args()
 
-    logger = get_configured_logger(args.log_level)
+    logger = get_configured_logger(__name__, args.log_level)
 
     out_fpath = os.path.join(
         args.out_dir or OUT_DIR, args.out_file_name or OUT_FILE_NAME

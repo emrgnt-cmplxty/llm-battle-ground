@@ -1,6 +1,7 @@
 """Module for the completion provider"""
 import textwrap
 from enum import Enum
+from typing import Optional
 
 from automata.llm import OpenAIChatCompletionProvider, OpenAIConversation
 
@@ -42,7 +43,7 @@ class CompletionProvider:
             # means we need to load the model locally
             # TODO: batch size
             self.completion_instance = make_model(
-                provider=self.provider,
+                provider=self.provider.value,
                 name=self.model,
                 batch_size=1,
                 temperature=temperature,
@@ -66,7 +67,7 @@ class CompletionProvider:
         )
 
     def generate_vanilla_completion(
-        self, instructions: str, code_snippet: str
+        self, instructions: str, code_snippet: Optional[str] = None
     ) -> str:
         """Generates a vanilla completion for the given prompt"""
         if self.provider == LLMProviders.OPENAI:

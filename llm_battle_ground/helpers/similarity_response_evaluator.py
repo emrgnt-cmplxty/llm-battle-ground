@@ -1,6 +1,7 @@
 import numpy as np
-from llm_battle_ground.helpers.leet_code_processor import LeetCodeProcessor
 from automata.llm import OpenAIEmbeddingProvider
+
+from llm_battle_ground.helpers.leet_code_processor import LeetCodeProcessor
 
 
 class SimilarityResponseEvaluator:

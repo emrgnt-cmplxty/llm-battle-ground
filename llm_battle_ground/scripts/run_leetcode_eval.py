@@ -1,10 +1,12 @@
 import argparse
 import logging
-from typing import List, Tuple
 import os
 from time import sleep
+from typing import List, Tuple
+
 import pandas as pd
-from llm_battle_ground.types import DataDirectories, Datasets
+from evalplus.data import write_jsonl
+
 from llm_battle_ground.leetcode_hard_gym.leetcode_env.environment import (
     LeetCodeEnv,
 )
@@ -13,13 +15,13 @@ from llm_battle_ground.leetcode_hard_gym.leetcode_env.types import (
     ProgrammingLanguage,
 )
 from llm_battle_ground.scripts import common_arg_parser
+from llm_battle_ground.types import DataDirectories, Datasets
 from llm_battle_ground.utils import (
     extract_code,
     get_configured_logger,
     get_root_fpath,
     read_jsonl,
 )
-from evalplus.data import write_jsonl
 
 DEFAULT_WAIT_TIME = 5  # seconds
 
@@ -57,9 +59,7 @@ def load_data(args: dict, in_path: str) -> Tuple[pd.DataFrame, pd.DataFrame]:
     return leetcode_reference_data, generated_answers
 
 
-def establish_output_path(
-    args: argparse.Namespace, in_file_name: str
-) -> str:
+def establish_output_path(args: argparse.Namespace, in_file_name: str) -> str:
     out_dir = args.out_dir or DataDirectories.RESULTS.value
     out_file_name = args.out_file_name or in_file_name.replace(
         "_generation__", "_evaluation__"

@@ -1,8 +1,8 @@
 import logging
-import numpy as np
 import os
 import random
 
+import numpy as np
 import openai
 import pandas as pd
 from evalplus.data import write_jsonl
@@ -158,8 +158,10 @@ if __name__ == "__main__":
         args.in_dir or IN_DIR, args.in_file_name or IN_FILE_NAME
     )
 
+    args.provider = args.provider or LLMProviders(PROVIDER)
+
     out_file_name = args.out_file_name or OUTPUT_FILE_NAME.format(
-        PROVIDER=args.provider or LLMProviders(PROVIDER),
+        PROVIDER=args.provider.value,
         MODEL=args.model or MODEL,
         # note if temperature = 0, regular approach will evaluate to false and use default
         TEMPERATURE=args.temperature
@@ -175,7 +177,7 @@ if __name__ == "__main__":
         logger,
         in_path,
         out_path,
-        args.provider or PROVIDER,
+        args.provider,
         RunMode(args.run_mode or RUN_MODE),
         args.model or MODEL,
         args.temperature or TEMPERATURE,

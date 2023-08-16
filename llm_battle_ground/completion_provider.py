@@ -67,7 +67,7 @@ class CompletionProvider:
             )
             return provider.standalone_call(instructions)
         elif self.provider == "hugging-face":
-            return f"{code_snippet}\n{self.model.codegen(instructions)[0]}"
+            return f"{code_snippet}\n{self.model.codegen(instructions, num_samples=1)[0]}"
         else:
             raise ValueError("No such provider.")
 

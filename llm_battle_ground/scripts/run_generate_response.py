@@ -151,7 +151,10 @@ if __name__ == "__main__":
     out_file_name = args.out_file_name or OUTPUT_FILE_NAME.format(
         PROVIDER=args.provider or PROVIDER,
         MODEL=args.model or MODEL,
-        TEMPERATURE=args.temperature or TEMPERATURE,
+        # note if temperature = 0, regular approach will evaluate to false and use default
+        TEMPERATURE=args.temperature
+        if args.temperature is not None
+        else TEMPERATURE,
         N_PASS=args.n_pass or N_PASS,
         RUN_MODE=args.run_mode or RUN_MODE,
     )

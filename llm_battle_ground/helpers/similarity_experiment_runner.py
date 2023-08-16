@@ -13,6 +13,7 @@ from llm_battle_ground.utils import calc_similarity, read_jsonl
 from llm_battle_ground.types import DataDirectories, Datasets
 from llm_battle_ground.utils import get_root_fpath
 
+from evalplus.data import write_jsonl
 
 # Pathing
 IN_DIR = os.path.join(get_root_fpath(), DataDirectories.DATASETS.value)
@@ -72,7 +73,10 @@ class SimilarityExperimentRunner:
 
         self.logger.info(f"Loading dataset file from {in_dir}.")
         dataset = pd.read_csv(in_dir).sort_values(by=["frontend_question_id"])
+
         self.processor.augment_dataset(dataset)
+        # Filter out rows with empty raw_content
+        dataset = dataset[pd.notna(dataset["raw_content"])]
 
         if os.path.exists(self.out_dir):
             self.logger.info(f"Loading existing results from {self.out_dir}.")
@@ -100,15 +104,18 @@ class SimilarityExperimentRunner:
             try:
                 if iloc + self.args.num_output_examples >= len(dataset):
                     break
+
                 input_context = "\n".join(
-                    f"Example {counter + 1}: {dataset.iloc[i]['example_statement']}"
+                    f"Example {counter + 1}: {dataset.iloc[i]['example_statement']}..."
                     for counter, i in enumerate(
                         range(iloc - self.args.num_input_examples, iloc)
                     )
                 )
 
+                logging.info(f"Running for input context:\n{input_context}")
+
                 expected_response = "\n".join(
-                    f"Example {counter + 1}: {dataset.iloc[i]['example_statement']}"
+                    f"Example {counter + 1}: {dataset.iloc[i]['example_statement']}..."
                     for counter, i in enumerate(
                         range(
                             iloc,
@@ -132,6 +139,8 @@ class SimilarityExperimentRunner:
                     num_forward_examples=self.args.num_output_examples
                     + self.args.buffer,
                 )
+
+                logging.info(f"Running for with formatted prompt:\n{prompt}")
 
                 result = {
                     "input_context": input_context,

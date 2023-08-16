@@ -1,4 +1,9 @@
 .env
 *.bak
 **/__pycache__/**
-playground/*
+
+# Local sandbox environments
+playground/
+datasets_debug/
+results_debug/
+notebooks/

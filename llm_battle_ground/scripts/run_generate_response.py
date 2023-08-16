@@ -19,10 +19,12 @@ from llm_battle_ground.utils import (
     read_jsonl,
 )
 
+# Pathing
 IN_DIR = os.path.join(get_root_fpath(), DataDirectories.DATASETS.value)
 IN_FILE_NAME = Datasets.LEETCODE_FULL.value
 OUT_DIR = os.path.join(get_root_fpath(), DataDirectories.RESULTS.value)
 
+# Local configurations
 PROVIDER = "openai"
 RUN_MODE = "vanilla-zero-shot"
 MODEL = "gpt-4-0613"
@@ -144,10 +146,10 @@ if __name__ == "__main__":
     )
 
     out_file_name = args.out_file_name or OUTPUT_FILE_NAME.format(
-        PROVIDER=args.provider,
-        MODEL=args.model,
-        TEMPERATURE=args.temperature,
-        N_PASS=args.n_pass,
+        PROVIDER=args.provider or PROVIDER,
+        MODEL=args.model or MODEL,
+        TEMPERATURE=args.temperature or TEMPERATURE,
+        N_PASS=args.n_pass or N_PASS,
         RUN_MODE=args.run_mode or RUN_MODE,
     )
     out_path = os.path.join(args.out_dir or OUT_DIR, out_file_name)

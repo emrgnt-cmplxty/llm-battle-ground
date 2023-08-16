@@ -12,7 +12,7 @@ NUM_INPUT_EXAMPLES = 20
 NUM_OUTPUT_EXAMPLES = 20
 STEP_SIZE = 40
 BUFFER = 10
-
+PROVIDER = "openai"
 
 if __name__ == "__main__":
     # Initialization
@@ -44,7 +44,8 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    if args.provider == "openai":
+    provider = args.provider or PROVIDER
+    if provider == "openai":
         # TODO - Rename this to `OPENAI_API_KEY`
         openai.api_key = os.getenv("OPENAI_API_KEY_LOCAL", "")
 

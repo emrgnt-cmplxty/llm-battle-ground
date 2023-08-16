@@ -4,6 +4,8 @@ from enum import Enum
 
 from automata.llm import OpenAIChatCompletionProvider, OpenAIConversation
 
+# from llm_battle_ground.models import make_model
+
 
 class RunMode(Enum):
     """Specifies the mode of running the completion provider"""
@@ -15,10 +17,28 @@ class RunMode(Enum):
 class CompletionProvider:
     """Concrete class for completion providers"""
 
-    def __init__(self, run_mode: RunMode, model: str, temperature: float):
+    def __init__(
+        self,
+        run_mode: RunMode,
+        model: str,
+        temperature: float,
+        provider: str = "openai",
+    ):
         self.run_mode = run_mode
+        self.provider = provider
         self.model = model
         self.temperature = temperature
+        if self.provider == "openai":
+            pass  # nothing needs to be done
+        elif self.provider:
+            # means we need to load the model locally
+            # TODO: batch size
+            self.model = make_model(
+                provider=self.provider,
+                name=self.model,
+                batch_size=1,
+                temperature=temperature,
+            )
 
     def get_completion(self, **kwargs) -> str:
         """Returns the raw and cleaned completions for the given prompt"""
@@ -34,14 +54,19 @@ class CompletionProvider:
 
     def generate_vanilla_completion(self, instructions: str) -> str:
         """Generates a vanilla completion for the given prompt"""
-        provider = OpenAIChatCompletionProvider(
-            model=self.model,
-            temperature=self.temperature,
-            stream=True,
-            conversation=OpenAIConversation(),
-            functions=[],
-        )
-        return provider.standalone_call(instructions)
+        if self.provider == "openai":
+            provider = OpenAIChatCompletionProvider(
+                model=self.model,
+                temperature=self.temperature,
+                stream=True,
+                conversation=OpenAIConversation(),
+                functions=[],
+            )
+            return provider.standalone_call(instructions)
+        elif provider == "hugging-face":
+            # - PUT IMPLEMENTATION HERE -
+            return self.model.codegen(instructions)[0]
+        return ""
 
     def get_formatted_instruction(
         self,
@@ -70,8 +95,8 @@ class CompletionProvider:
             )
         elif self.run_mode == RunMode.VANILLA_ZERO_SHOT:
             task_input = kwargs.get("task_input")
-            code_prompt = kwargs.get("code_prompt")
-            if not task_input or not code_prompt:
+            code_snippet = kwargs.get("code_snippet")
+            if not task_input or not code_snippet:
                 raise ValueError("Missing required arguments.")
 
             return textwrap.dedent(
@@ -100,7 +125,7 @@ class CompletionProvider:
     Your final result should follow EXACTLY the format shown above, except for additional imports which may be added.
 
                     """
-            ).format(TASK_INPUT=task_input, CODE_PROMPT=code_prompt)
+            ).format(TASK_INPUT=task_input, CODE_PROMPT=code_snippet)
 
         else:
             raise ValueError("No such run mode.")

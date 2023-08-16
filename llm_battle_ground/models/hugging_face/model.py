@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from typing import List
 
 # Modify this to change cache location
-os.environ["HF_HOME"] = os.environ.get("HF_HOME", "/JawTitan/huggingface/")
+# os.environ["HF_HOME"] = os.environ.get("HF_HOME", "/JawTitan/huggingface/")
 
 # Acknowledgements:
 # Modified from https://github.com/evalplus/evalplus/blob/master/codegen/model.py
@@ -18,7 +18,7 @@ from transformers import (
 
 HUMANEVAL_EOS = ["\nclass", "\ndef", "\n#", "\n@", "\nprint", "\nif"]
 NON_CODE_EOS = ["<|endoftext|>", "\n```", "\n</s>", "<|endofmask|>"]
-EOS = NON_CODE_EOS
+EOS = HUMANEVAL_EOS + NON_CODE_EOS
 
 
 # Adopted from https://github.com/huggingface/transformers/pull/14897

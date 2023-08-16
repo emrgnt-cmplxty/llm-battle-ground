@@ -48,16 +48,20 @@ class CompletionProvider:
 
     def get_completion(self, **kwargs) -> str:
         """Returns the raw and cleaned completions for the given prompt"""
+        code_snippet = kwargs.get("code_snippet")
+        if not isinstance(code_snippet, str):
+            raise ValueError("Code snippet must be provided as a string.")
 
-        if self.run_mode in [RunMode.SIMILARITY, RunMode.VANILLA_ZERO_SHOT]:
-            vanilla_instructions = self.get_formatted_instruction(**kwargs)
-            raw_completion = self.generate_vanilla_completion(
-                vanilla_instructions,
-                code_snippet=kwargs.get("code_snippet"),
-            )
-        else:
+        if self.run_mode not in [
+            RunMode.SIMILARITY,
+            RunMode.VANILLA_ZERO_SHOT,
+        ]:
             raise ValueError("No such run mode.")
-        return raw_completion
+        vanilla_instructions = self.get_formatted_instruction(**kwargs)
+        return self.generate_vanilla_completion(
+            vanilla_instructions,
+            code_snippet=code_snippet,
+        )
 
     def generate_vanilla_completion(
         self, instructions: str, code_snippet: str

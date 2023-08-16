@@ -17,7 +17,7 @@ from evalplus.data import write_jsonl
 
 # Pathing
 IN_DIR = os.path.join(get_root_fpath(), DataDirectories.DATASETS.value)
-IN_FILE_NAME = Datasets.LEETCODE_FULL.value
+IN_FILE_NAME = Datasets.LEETCODE_DATASET.value
 OUT_DIR = os.path.join(get_root_fpath(), DataDirectories.RESULTS.value)
 OUT_FILE_NAME = "leetcode_{RUN_MODE}__step_size_eq_{STEP_SIZE}__num_input_examples_eq_{NUM_OUTPUT_EXAMPLES}__num_output_examples_eq_{NUM_OUTPUT_EXAMPLES}__buffer_eq_{BUFFER}__model_eq_{MODEL}__temperature_eq_{TEMPERATURE}__n_pass_{N_PASS}.jsonl"
 

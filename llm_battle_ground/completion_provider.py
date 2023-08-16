@@ -67,9 +67,11 @@ class CompletionProvider:
             assert isinstance(
                 self.completion_instance, OpenAIChatCompletionProvider
             )
-            return provider.standalone_call(instructions)
+            return self.completion_instance.standalone_call(instructions)
         elif self.provider == "hugging-face":
-            return f"{code_snippet}\n{self.model.codegen(instructions, num_samples=1)[0]}"
+            # TODO - Add assertion to protect against faulty instance
+            # e.g. assert isinstnace(...)
+            return f"{code_snippet}\n{self.completion_instance.codegen(instructions, num_samples=1)[0]}"
         else:
             raise ValueError("No such provider.")
 

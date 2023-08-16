@@ -4,7 +4,7 @@ from enum import Enum
 
 from automata.llm import OpenAIChatCompletionProvider, OpenAIConversation
 
-# from llm_battle_ground.models import make_model
+from llm_battle_ground.models import make_model
 
 
 class RunMode(Enum):
@@ -46,13 +46,16 @@ class CompletionProvider:
         if self.run_mode in [RunMode.SIMILARITY, RunMode.VANILLA_ZERO_SHOT]:
             vanilla_instructions = self.get_formatted_instruction(**kwargs)
             raw_completion = self.generate_vanilla_completion(
-                vanilla_instructions
+                vanilla_instructions,
+                code_snippet=kwargs.get("code_snippet"),
             )
         else:
             raise ValueError("No such run mode.")
         return raw_completion
 
-    def generate_vanilla_completion(self, instructions: str) -> str:
+    def generate_vanilla_completion(
+        self, instructions: str, code_snippet: str
+    ) -> str:
         """Generates a vanilla completion for the given prompt"""
         if self.provider == "openai":
             provider = OpenAIChatCompletionProvider(
@@ -63,10 +66,10 @@ class CompletionProvider:
                 functions=[],
             )
             return provider.standalone_call(instructions)
-        elif provider == "hugging-face":
-            # - PUT IMPLEMENTATION HERE -
-            return self.model.codegen(instructions)[0]
-        return ""
+        elif self.provider == "hugging-face":
+            return f"{code_snippet}\n{self.model.codegen(instructions, num_samples=1)[0]}"
+        else:
+            raise ValueError("No such provider.")
 
     def get_formatted_instruction(
         self,
@@ -99,33 +102,47 @@ class CompletionProvider:
             if not task_input or not code_snippet:
                 raise ValueError("Missing required arguments.")
 
-            return textwrap.dedent(
-                """
-    ### Introduction:
-    {TASK_INPUT}
-
-    ### Instruction:
-    Provide a response which completes the following Python code: 
-
-    code:
-    ```python
-    {CODE_PROMPT}
-    ```
-
-    ### Notes: 
-    Respond with the entire complete function definition, including a re-stated function definition.
-    Use only built-in libraries and numpy, assume no additional imports other than those provided and 'from typings import *'.
-    Optimize your algorithm to run as efficiently as possible. This is a Hard LeetCode problem, and so in the vast majority of cases
-    the appropriate solution will run in NlogN or faster. Lastly, start by re-stating the given tests into
-    the local python environment, and ensure that your final solution passes all given tests. 
-
-    ### Result:
-    When you have completed the problem or have ran out of alotted iterations or tokens, return a markdown-snippet with your final algorithmic implementation using `call_termination`. 
-    E.g. ```python\n{CODE_PROMPT}\n  #.... (Code Continued) ...```
-    Your final result should follow EXACTLY the format shown above, except for additional imports which may be added.
-
+            # if hugging-face we use a simplified version of the instructions
+            if self.provider in ["hugging-face"]:
+                return textwrap.dedent(
                     """
-            ).format(TASK_INPUT=task_input, CODE_PROMPT=code_snippet)
+        ### Introduction:
+        {TASK_INPUT}
+        
+        {STARTING_CODE}\n"""
+                ).format(
+                    TASK_INPUT=task_input,
+                    CODE_PROMPT=code_snippet,
+                    STARTING_CODE=code_snippet,
+                )
+            else:
+                return textwrap.dedent(
+                    """
+        ### Introduction:
+        {TASK_INPUT}
+    
+        ### Instruction:
+        Provide a response which completes the following Python code: 
+    
+        code:
+        ```python
+        {CODE_PROMPT}
+        ```
+    
+        ### Notes: 
+        Respond with the entire complete function definition, including a re-stated function definition.
+        Use only built-in libraries and numpy, assume no additional imports other than those provided and 'from typings import *'.
+        Optimize your algorithm to run as efficiently as possible. This is a Hard LeetCode problem, and so in the vast majority of cases
+        the appropriate solution will run in NlogN or faster. Lastly, start by re-stating the given tests into
+        the local python environment, and ensure that your final solution passes all given tests. 
+    
+        ### Result:
+        When you have completed the problem or have ran out of alotted iterations or tokens, return a markdown-snippet with your final algorithmic implementation using `call_termination`. 
+        E.g. ```python\n{CODE_PROMPT}\n  #.... (Code Continued) ...```
+        Your final result should follow EXACTLY the format shown above, except for additional imports which may be added.
+    
+                        """
+                ).format(TASK_INPUT=task_input, CODE_PROMPT=code_snippet)
 
         else:
             raise ValueError("No such run mode.")

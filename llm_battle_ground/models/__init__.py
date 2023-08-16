@@ -107,7 +107,7 @@ def make_model_hugging_face(
 def make_model(
     provider: str, name: str, batch_size: int = 1, temperature: float = 0.8
 ):
-    if provider == "huggingface":
+    if provider == "hugging-face":
         return make_model_hugging_face(
             name, batch_size=batch_size, temperature=temperature
         )

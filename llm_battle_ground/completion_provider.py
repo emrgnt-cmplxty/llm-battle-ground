@@ -5,6 +5,7 @@ from enum import Enum
 from automata.llm import OpenAIChatCompletionProvider, OpenAIConversation
 
 from llm_battle_ground.models import make_model
+from llm_battle_ground.types import LLMProviders
 
 
 class RunMode(Enum):
@@ -22,13 +23,13 @@ class CompletionProvider:
         run_mode: RunMode,
         model: str,
         temperature: float,
-        provider: str = "openai",
+        provider: LLMProviders,
     ):
         self.run_mode = run_mode
         self.provider = provider
         self.model = model
         self.temperature = temperature
-        if self.provider == "openai":
+        if self.provider == LLMProviders.OPENAI:
             self.completion_instance = OpenAIChatCompletionProvider(
                 model=self.model,
                 temperature=self.temperature,
@@ -68,12 +69,12 @@ class CompletionProvider:
         self, instructions: str, code_snippet: str
     ) -> str:
         """Generates a vanilla completion for the given prompt"""
-        if self.provider == "openai":
+        if self.provider == LLMProviders.OPENAI:
             assert isinstance(
                 self.completion_instance, OpenAIChatCompletionProvider
             )
             return self.completion_instance.standalone_call(instructions)
-        elif self.provider == "hugging-face":
+        elif self.provider == LLMProviders.HUGGING_FACE:
             # TODO - Add assertion to protect against faulty instance
             # e.g. assert isinstnace(...)
             return f"{code_snippet}\n{self.completion_instance.codegen(instructions, num_samples=1)[0]}"

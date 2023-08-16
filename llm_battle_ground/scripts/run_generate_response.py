@@ -12,7 +12,7 @@ random.seed(0)
 from llm_battle_ground.completion_provider import CompletionProvider, RunMode
 from llm_battle_ground.helpers import LeetCodeProcessor
 from llm_battle_ground.scripts import common_arg_parser
-from llm_battle_ground.types import DataDirectories, Datasets
+from llm_battle_ground.types import DataDirectories, Datasets, LLMProviders
 from llm_battle_ground.utils import (
     get_configured_logger,
     get_root_fpath,
@@ -57,7 +57,7 @@ def main(
     logger: logging.Logger,
     in_path: str,
     out_path: str,
-    provider: str,
+    provider: LLMProviders,
     run_mode: RunMode,
     model: str,
     temperature: float,
@@ -159,7 +159,7 @@ if __name__ == "__main__":
     )
 
     out_file_name = args.out_file_name or OUTPUT_FILE_NAME.format(
-        PROVIDER=args.provider or PROVIDER,
+        PROVIDER=args.provider or LLMProviders(PROVIDER),
         MODEL=args.model or MODEL,
         # note if temperature = 0, regular approach will evaluate to false and use default
         TEMPERATURE=args.temperature

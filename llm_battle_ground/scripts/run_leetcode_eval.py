@@ -20,6 +20,8 @@ from llm_battle_ground.utils import (
 )
 from evalplus.data import write_jsonl
 
+DEFAULT_WAIT_TIME = 5  # seconds
+
 
 class SessionManager:
     sessions = os.environ["LEETCODE_SESSIONS"].split(",")
@@ -31,7 +33,12 @@ class SessionManager:
 
     def get_next_session(self):
         session_id = self.SESSIONS[self.counter % len(self.SESSIONS)]
-        os.environ["LEETCODE_SESSION"] = session_id
+        logger.info(
+            f"Setting session_id = {self.SESSIONS[self.counter % len(self.SESSIONS)]}"
+        )
+        os.environ["LEETCODE_SESSION"] = self.sessions[
+            self.counter % len(self.SESSIONS)
+        ]
         self.counter += 1
         return session_id
 
@@ -76,7 +83,6 @@ def process_submission(
     lookup_entry,
     result: dict,
     logger: logging.Logger,
-    env: LeetCodeEnv,
     new_results: List[dict],
     session_manager: SessionManager,
 ):
@@ -91,16 +97,18 @@ def process_submission(
         return
 
     sub = LeetCodeSubmission(
-        code=extract_code(answer.raw_response),
+        code=extracted_code,
         lang=ProgrammingLanguage.PYTHON3,
         question_id=int(lookup_entry.question_id),
         question_slug=lookup_entry.question_slug,
     )
     new_session_id = session_manager.get_next_session()
     logger.info(f"New session id = {new_session_id}")
+    env = LeetCodeEnv()
+
     status, reward, done, submission_result = env.step(sub)
     logger.info(
-        f"Status:{status}Reward:{reward}Done:{done}Result:{submission_result}"
+        f"Status:{status}, Reward:{reward}, Done:{done}, Result:{submission_result}"
     )
     result["status"] = status
     result["reward"] = reward
@@ -114,7 +122,6 @@ def process_answer(
     leetcode_reference_data,
     existing_frontend_ids,
     logger,
-    env,
     new_results,
     session_manager,
 ):
@@ -141,7 +148,6 @@ def process_answer(
         lookup_entry,
         result,
         logger,
-        env,
         new_results,
         session_manager,
     )
@@ -153,7 +159,6 @@ def process_answers(
     leetcode_reference_data: pd.DataFrame,
     generated_answers: pd.DataFrame,
     logger: logging.Logger,
-    env: LeetCodeEnv,
     out_path: str,
     session_manager: SessionManager,
 ):
@@ -164,27 +169,27 @@ def process_answers(
     }
 
     logger.info(f"Loaded {len(new_results)} existing results")
-    print("new_results = ", new_results)
-    print("generated_answers = ", generated_answers)
-    print("out_path = ", out_path)
     logger.info(f"Looping over {len(generated_answers)} generated answers...")
     for loc in range(len(generated_answers)):
         logger.info(f"Processing answer at location {loc}...")
         answer = generated_answers.iloc[loc]
         logger.info("Processing answer...")
-        result = process_answer(
-            loc,
-            answer,
-            leetcode_reference_data,
-            existing_frontend_ids,
-            logger,
-            env,
-            new_results,
-            session_manager,
-        )
-        if result:
-            write_jsonl(out_path, new_results)
-            sleep(5)
+        try:
+            result = process_answer(
+                loc,
+                answer,
+                leetcode_reference_data,
+                existing_frontend_ids,
+                logger,
+                new_results,
+                session_manager,
+            )
+            if result:
+                write_jsonl(out_path, new_results)
+                sleep(DEFAULT_WAIT_TIME / float(len(session_manager.sessions)))
+        except Exception as e:
+            logger.error(f"Failed to process answer with {e}", exc_info=True)
+            sleep(DEFAULT_WAIT_TIME)
 
 
 if __name__ == "__main__":
@@ -199,14 +204,12 @@ if __name__ == "__main__":
 
     leetcode_reference_data, generated_answers = load_data(args, in_path)
     out_path = establish_output_path(args, in_path)
-    env = LeetCodeEnv()
     session_manager = SessionManager()
     logger.info("Processing provided answers...")
     process_answers(
         leetcode_reference_data,
         generated_answers,
         logger,
-        env,
         out_path,
         session_manager,
     )

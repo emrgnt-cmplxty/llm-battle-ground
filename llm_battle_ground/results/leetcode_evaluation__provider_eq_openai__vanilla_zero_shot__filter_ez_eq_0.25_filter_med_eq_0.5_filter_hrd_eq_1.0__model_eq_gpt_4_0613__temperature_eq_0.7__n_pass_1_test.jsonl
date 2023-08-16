@@ -297,3 +297,60 @@
 {"frontend_question_id": 713.0, "question_id": 713.0, "question_slug": "subarray-product-less-than-k", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
 {"frontend_question_id": 715.0, "question_id": 715.0, "question_slug": "range-module", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
 {"frontend_question_id": 718.0, "question_id": 718.0, "question_slug": "maximum-length-of-repeated-subarray", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 719.0, "question_id": 719.0, "question_slug": "find-k-th-smallest-pair-distance", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 720.0, "question_id": 720.0, "question_slug": "longest-word-in-dictionary", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 721.0, "question_id": 721.0, "question_slug": "accounts-merge", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 722.0, "question_id": 722.0, "question_slug": "remove-comments", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 726.0, "question_id": 726.0, "question_slug": "number-of-atoms", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 728.0, "question_id": 728.0, "question_slug": "self-dividing-numbers", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 729.0, "question_id": 729.0, "question_slug": "my-calendar-i", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 730.0, "question_id": 730.0, "question_slug": "count-different-palindromic-subsequences", "difficulty": 3.0, "status": "Runtime Error", "reward": false, "done": false}
+{"frontend_question_id": 731.0, "question_id": 731.0, "question_slug": "my-calendar-ii", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 732.0, "question_id": 732.0, "question_slug": "my-calendar-iii", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 736.0, "question_id": 736.0, "question_slug": "parse-lisp-expression", "difficulty": 3.0, "status": "Runtime Error", "reward": false, "done": false}
+{"frontend_question_id": 738.0, "question_id": 738.0, "question_slug": "monotone-increasing-digits", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 739.0, "question_id": 739.0, "question_slug": "daily-temperatures", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 741.0, "question_id": 741.0, "question_slug": "cherry-pickup", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 743.0, "question_id": 744.0, "question_slug": "network-delay-time", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 745.0, "question_id": 746.0, "question_slug": "prefix-and-suffix-search", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 749.0, "question_id": 750.0, "question_slug": "contain-virus", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 753.0, "question_id": 754.0, "question_slug": "cracking-the-safe", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 754.0, "question_id": 755.0, "question_slug": "reach-a-number", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 756.0, "question_id": 757.0, "question_slug": "pyramid-transition-matrix", "difficulty": 2.0, "status": "Submission Timed-Out", "reward": false, "done": false}
+{"frontend_question_id": 757.0, "question_id": 759.0, "question_slug": "set-intersection-size-at-least-two", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 761.0, "question_id": 763.0, "question_slug": "special-binary-string", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 762.0, "question_id": 767.0, "question_slug": "prime-number-of-set-bits-in-binary-representation", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 763.0, "question_id": 768.0, "question_slug": "partition-labels", "difficulty": 2.0, "status": "Runtime Error", "reward": false, "done": false}
+{"frontend_question_id": 765.0, "question_id": 770.0, "question_slug": "couples-holding-hands", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 768.0, "question_id": 779.0, "question_slug": "max-chunks-to-make-sorted-ii", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 769.0, "question_id": 780.0, "question_slug": "max-chunks-to-make-sorted", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 770.0, "question_id": 781.0, "question_slug": "basic-calculator-iv", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 773.0, "question_id": 787.0, "question_slug": "sliding-puzzle", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 775.0, "question_id": 790.0, "question_slug": "global-and-local-inversions", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 777.0, "question_id": 793.0, "question_slug": "swap-adjacent-in-lr-string", "difficulty": 2.0, "status": "Runtime Error", "reward": false, "done": false}
+{"frontend_question_id": 778.0, "question_id": 794.0, "question_slug": "swim-in-rising-water", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 780.0, "question_id": 796.0, "question_slug": "reaching-points", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 781.0, "question_id": 797.0, "question_slug": "rabbits-in-forest", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 782.0, "question_id": 798.0, "question_slug": "transform-to-chessboard", "difficulty": 3.0, "status": "Runtime Error", "reward": false, "done": false}
+{"frontend_question_id": 786.0, "question_id": 802.0, "question_slug": "k-th-smallest-prime-fraction", "difficulty": 2.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 788.0, "question_id": 804.0, "question_slug": "rotated-digits", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 792.0, "question_id": 808.0, "question_slug": "number-of-matching-subsequences", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 793.0, "question_id": 809.0, "question_slug": "preimage-size-of-factorial-zeroes-function", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 797.0, "question_id": 813.0, "question_slug": "all-paths-from-source-to-target", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 798.0, "question_id": 814.0, "question_slug": "smallest-rotation-with-highest-score", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 799.0, "question_id": 815.0, "question_slug": "champagne-tower", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 801.0, "question_id": 819.0, "question_slug": "minimum-swaps-to-make-sequences-increasing", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 803.0, "question_id": 821.0, "question_slug": "bricks-falling-when-hit", "difficulty": 3.0, "status": "Runtime Error", "reward": false, "done": false}
+{"frontend_question_id": 804.0, "question_id": 822.0, "question_slug": "unique-morse-code-words", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 805.0, "question_id": 823.0, "question_slug": "split-array-with-same-average", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 807.0, "question_id": 825.0, "question_slug": "max-increase-to-keep-city-skyline", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 809.0, "question_id": 827.0, "question_slug": "expressive-words", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 810.0, "question_id": 828.0, "question_slug": "chalkboard-xor-game", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 811.0, "question_id": 829.0, "question_slug": "subdomain-visit-count", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 813.0, "question_id": 831.0, "question_slug": "largest-sum-of-averages", "difficulty": 2.0, "status": "Runtime Error", "reward": false, "done": false}
+{"frontend_question_id": 815.0, "question_id": 833.0, "question_slug": "bus-routes", "difficulty": 3.0, "status": "Runtime Error", "reward": false, "done": false}
+{"frontend_question_id": 818.0, "question_id": 836.0, "question_slug": "race-car", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 820.0, "question_id": 839.0, "question_slug": "short-encoding-of-words", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 823.0, "question_id": 843.0, "question_slug": "binary-trees-with-factors", "difficulty": 2.0, "status": "Runtime Error", "reward": false, "done": false}
+{"frontend_question_id": 826.0, "question_id": 853.0, "question_slug": "most-profit-assigning-work", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 827.0, "question_id": 854.0, "question_slug": "making-a-large-island", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}

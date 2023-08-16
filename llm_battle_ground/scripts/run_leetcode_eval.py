@@ -31,7 +31,12 @@ class SessionManager:
 
     def get_next_session(self):
         session_id = self.SESSIONS[self.counter % len(self.SESSIONS)]
-        os.environ["LEETCODE_SESSION"] = session_id
+        logger.info(
+            f"Setting session_id = {self.SESSIONS[self.counter % len(self.SESSIONS)]}"
+        )
+        os.environ["LEETCODE_SESSION"] = self.sessions[
+            self.counter % len(self.SESSIONS)
+        ]
         self.counter += 1
         return session_id
 
@@ -76,7 +81,6 @@ def process_submission(
     lookup_entry,
     result: dict,
     logger: logging.Logger,
-    env: LeetCodeEnv,
     new_results: List[dict],
     session_manager: SessionManager,
 ):
@@ -98,9 +102,11 @@ def process_submission(
     )
     new_session_id = session_manager.get_next_session()
     logger.info(f"New session id = {new_session_id}")
+    env = LeetCodeEnv()
+
     status, reward, done, submission_result = env.step(sub)
     logger.info(
-        f"Status:{status}Reward:{reward}Done:{done}Result:{submission_result}"
+        f"Status:{status}, Reward:{reward}, Done:{done}, Result:{submission_result}"
     )
     result["status"] = status
     result["reward"] = reward
@@ -114,7 +120,6 @@ def process_answer(
     leetcode_reference_data,
     existing_frontend_ids,
     logger,
-    env,
     new_results,
     session_manager,
 ):
@@ -141,7 +146,6 @@ def process_answer(
         lookup_entry,
         result,
         logger,
-        env,
         new_results,
         session_manager,
     )
@@ -153,7 +157,6 @@ def process_answers(
     leetcode_reference_data: pd.DataFrame,
     generated_answers: pd.DataFrame,
     logger: logging.Logger,
-    env: LeetCodeEnv,
     out_path: str,
     session_manager: SessionManager,
 ):
@@ -178,7 +181,6 @@ def process_answers(
             leetcode_reference_data,
             existing_frontend_ids,
             logger,
-            env,
             new_results,
             session_manager,
         )
@@ -199,14 +201,12 @@ if __name__ == "__main__":
 
     leetcode_reference_data, generated_answers = load_data(args, in_path)
     out_path = establish_output_path(args, in_path)
-    env = LeetCodeEnv()
     session_manager = SessionManager()
     logger.info("Processing provided answers...")
     process_answers(
         leetcode_reference_data,
         generated_answers,
         logger,
-        env,
         out_path,
         session_manager,
     )

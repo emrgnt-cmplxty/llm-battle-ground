@@ -35,3 +35,9 @@ exclude = '''
 )/
 )
 '''
+
+[tool.mypy]
+# other mypy configurations go here
+# uncomment if this is being really annoying again
+ignore_missing_imports = true
+exclude = '(llm_battle_ground/leetcode_hard_gym)/'

@@ -29,11 +29,17 @@ class CompletionProvider:
         self.model = model
         self.temperature = temperature
         if self.provider == "openai":
-            pass  # nothing needs to be done
+            self.completion_instance = make_model(
+                provider=self.provider,
+                name=self.model,
+                batch_size=1,
+                temperature=temperature,
+            )
+
         elif self.provider:
             # means we need to load the model locally
             # TODO: batch size
-            self.model = make_model(
+            self.completion_instance = make_model(
                 provider=self.provider,
                 name=self.model,
                 batch_size=1,
@@ -58,12 +64,8 @@ class CompletionProvider:
     ) -> str:
         """Generates a vanilla completion for the given prompt"""
         if self.provider == "openai":
-            provider = OpenAIChatCompletionProvider(
-                model=self.model,
-                temperature=self.temperature,
-                stream=True,
-                conversation=OpenAIConversation(),
-                functions=[],
+            assert isinstance(
+                self.completion_instance, OpenAIChatCompletionProvider
             )
             return provider.standalone_call(instructions)
         elif self.provider == "hugging-face":

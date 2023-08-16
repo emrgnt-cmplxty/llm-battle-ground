@@ -29,11 +29,12 @@ class CompletionProvider:
         self.model = model
         self.temperature = temperature
         if self.provider == "openai":
-            self.completion_instance = make_model(
-                provider=self.provider,
-                name=self.model,
-                batch_size=1,
-                temperature=temperature,
+            self.completion_instance = OpenAIChatCompletionProvider(
+                model=self.model,
+                temperature=self.temperature,
+                stream=True,
+                conversation=OpenAIConversation(),
+                functions=[],
             )
 
         elif self.provider:

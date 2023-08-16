@@ -40,7 +40,7 @@ DIFFICULTY_SAMPLE_RATES = {
 
 
 OUTPUT_FILE_NAME = (
-    "leetcode_generation__provider_eq_{PROVIDER}__{RUN_MODE}__filter_ez_eq_%s_filter_med_eq_%s_filter_hrd_eq_%s__model_eq_{MODEL}__temperature_eq_{TEMPERATURE}__n_pass_{N_PASS}_test.jsonl"
+    "leetcode_generation__provider_eq_{PROVIDER}__{RUN_MODE}__filter_ez_eq_%s_filter_med_eq_%s_filter_hrd_eq_%s__model_eq_{MODEL}__temperature_eq_{TEMPERATURE}__n_pass_{N_PASS}.jsonl"
     % (
         DIFFICULTY_SAMPLE_RATES[1],
         DIFFICULTY_SAMPLE_RATES[2],

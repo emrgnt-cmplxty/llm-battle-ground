@@ -174,18 +174,22 @@ def process_answers(
         logger.info(f"Processing answer at location {loc}...")
         answer = generated_answers.iloc[loc]
         logger.info("Processing answer...")
-        result = process_answer(
-            loc,
-            answer,
-            leetcode_reference_data,
-            existing_frontend_ids,
-            logger,
-            new_results,
-            session_manager,
-        )
-        if result:
-            write_jsonl(out_path, new_results)
-            sleep(DEFAULT_WAIT_TIME / float(len(session_manager.sessions)))
+        try:
+            result = process_answer(
+                loc,
+                answer,
+                leetcode_reference_data,
+                existing_frontend_ids,
+                logger,
+                new_results,
+                session_manager,
+            )
+            if result:
+                write_jsonl(out_path, new_results)
+                sleep(DEFAULT_WAIT_TIME / float(len(session_manager.sessions)))
+        except Exception as e:
+            logger.error(f"Failed to process answer with {e}", exc_info=True)
+            sleep(DEFAULT_WAIT_TIME)
 
 
 if __name__ == "__main__":

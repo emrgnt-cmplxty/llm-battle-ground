@@ -1,3 +1,5 @@
 *.csv linguist-generated=true
 *.json linguist-generated=true
 *.jsonl linguist-generated=true
+*.ipynb linguist-generated=true
+

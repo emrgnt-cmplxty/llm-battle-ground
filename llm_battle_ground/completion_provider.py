@@ -4,7 +4,7 @@ from enum import Enum
 
 from automata.llm import OpenAIChatCompletionProvider, OpenAIConversation
 
-# from llm_battle_ground.models import make_model
+from llm_battle_ground.models import make_model
 
 
 class RunMode(Enum):
@@ -29,11 +29,17 @@ class CompletionProvider:
         self.model = model
         self.temperature = temperature
         if self.provider == "openai":
-            pass  # nothing needs to be done
+            self.completion_instance = make_model(
+                provider=self.provider,
+                name=self.model,
+                batch_size=1,
+                temperature=temperature,
+            )
+
         elif self.provider:
             # means we need to load the model locally
             # TODO: batch size
-            self.model = make_model(
+            self.completion_instance = make_model(
                 provider=self.provider,
                 name=self.model,
                 batch_size=1,
@@ -55,17 +61,14 @@ class CompletionProvider:
     def generate_vanilla_completion(self, instructions: str) -> str:
         """Generates a vanilla completion for the given prompt"""
         if self.provider == "openai":
-            provider = OpenAIChatCompletionProvider(
-                model=self.model,
-                temperature=self.temperature,
-                stream=True,
-                conversation=OpenAIConversation(),
-                functions=[],
+            assert isinstance(
+                self.completion_instance, OpenAIChatCompletionProvider
             )
-            return provider.standalone_call(instructions)
-        elif provider == "hugging-face":
-            # - PUT IMPLEMENTATION HERE -
-            return self.model.codegen(instructions)[0]
+            return self.completion_instance.standalone_call(instructions)
+        elif self.provider == "hugging-face":
+            # TODO - Complete assert statement below
+            # assert isinstance(self.completion_instance,
+            return self.completion_instance.codegen(instructions)[0]
         return ""
 
     def get_formatted_instruction(

@@ -274,3 +274,26 @@
 {"frontend_question_id": 669.0, "question_id": 669.0, "question_slug": "trim-a-binary-search-tree", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
 {"frontend_question_id": 670.0, "question_id": 670.0, "question_slug": "maximum-swap", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
 {"frontend_question_id": 671.0, "question_id": 671.0, "question_slug": "second-minimum-node-in-a-binary-tree", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 674.0, "question_id": 674.0, "question_slug": "longest-continuous-increasing-subsequence", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 675.0, "question_id": 675.0, "question_slug": "cut-off-trees-for-golf-event", "difficulty": 3.0, "status": "Submission Timed-Out", "reward": false, "done": false}
+{"frontend_question_id": 676.0, "question_id": 676.0, "question_slug": "implement-magic-dictionary", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 677.0, "question_id": 677.0, "question_slug": "map-sum-pairs", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 679.0, "question_id": 679.0, "question_slug": "24-game", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 680.0, "question_id": 680.0, "question_slug": "valid-palindrome-ii", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 682.0, "question_id": 682.0, "question_slug": "baseball-game", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 684.0, "question_id": 684.0, "question_slug": "redundant-connection", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 685.0, "question_id": 685.0, "question_slug": "redundant-connection-ii", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 688.0, "question_id": 688.0, "question_slug": "knight-probability-in-chessboard", "difficulty": 2.0, "status": "Runtime Error", "reward": false, "done": false}
+{"frontend_question_id": 689.0, "question_id": 689.0, "question_slug": "maximum-sum-of-3-non-overlapping-subarrays", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 690.0, "question_id": 690.0, "question_slug": "employee-importance", "difficulty": 2.0, "status": "Runtime Error", "reward": false, "done": false}
+{"frontend_question_id": 692.0, "question_id": 692.0, "question_slug": "top-k-frequent-words", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 695.0, "question_id": 695.0, "question_slug": "max-area-of-island", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 699.0, "question_id": 699.0, "question_slug": "falling-squares", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 701.0, "question_id": 784.0, "question_slug": "insert-into-a-binary-search-tree", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 704.0, "question_id": 792.0, "question_slug": "binary-search", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 706.0, "question_id": 817.0, "question_slug": "design-hashmap", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 710.0, "question_id": 894.0, "question_slug": "random-pick-with-blacklist", "difficulty": 3.0, "status": "Submission Timed-Out", "reward": false, "done": false}
+{"frontend_question_id": 712.0, "question_id": 712.0, "question_slug": "minimum-ascii-delete-sum-for-two-strings", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 713.0, "question_id": 713.0, "question_slug": "subarray-product-less-than-k", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 715.0, "question_id": 715.0, "question_slug": "range-module", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 718.0, "question_id": 718.0, "question_slug": "maximum-length-of-repeated-subarray", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}

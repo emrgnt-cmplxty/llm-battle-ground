@@ -20,6 +20,8 @@ from llm_battle_ground.utils import (
 )
 from evalplus.data import write_jsonl
 
+DEFAULT_WAIT_TIME = 5  # seconds
+
 
 class SessionManager:
     sessions = os.environ["LEETCODE_SESSIONS"].split(",")
@@ -95,7 +97,7 @@ def process_submission(
         return
 
     sub = LeetCodeSubmission(
-        code=extract_code(answer.raw_response),
+        code=extracted_code,
         lang=ProgrammingLanguage.PYTHON3,
         question_id=int(lookup_entry.question_id),
         question_slug=lookup_entry.question_slug,
@@ -167,9 +169,6 @@ def process_answers(
     }
 
     logger.info(f"Loaded {len(new_results)} existing results")
-    print("new_results = ", new_results)
-    print("generated_answers = ", generated_answers)
-    print("out_path = ", out_path)
     logger.info(f"Looping over {len(generated_answers)} generated answers...")
     for loc in range(len(generated_answers)):
         logger.info(f"Processing answer at location {loc}...")
@@ -186,7 +185,7 @@ def process_answers(
         )
         if result:
             write_jsonl(out_path, new_results)
-            sleep(5)
+            sleep(DEFAULT_WAIT_TIME / float(len(session_manager.sessions)))
 
 
 if __name__ == "__main__":

@@ -22,11 +22,11 @@ poetry run python llm_battle_ground/scripts/run_generate_similarity.py --step-si
 ## To create the completion data
 
 ```bash
-poetry run python llm_battle_ground/scripts/run_generate_response.py --model=gpt-3.5-turbo-0613  --n-pass=1 --run-mode="vanilla-zero-shot"
+poetry run python llm_battle_ground/scripts/run_generate_response.py --model=gpt-3.5-turbo-0613 --run-mode="vanilla-zero-shot" --in-file-name="leetcode_sampled.csv"
 ```
 
 ```bash
-poetry run python llm_battle_ground/scripts/run_generate_response.py --model=gpt-3.5-turbo-0613  --n-pass=1 --run-mode="vanilla-zero-shot"
+poetry run python llm_battle_ground/scripts/run_generate_response.py --model=gpt-4-0613 --run-mode="vanilla-zero-shot"  --in-file-name="leetcode_sampled.csv"
 ```
 
 ## To run the LeetCode Evaluation

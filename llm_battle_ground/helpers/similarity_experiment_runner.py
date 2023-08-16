@@ -14,9 +14,18 @@ from llm_battle_ground.utils import calc_similarity, get_root_fpath, read_jsonl
 
 # Pathing
 IN_DIR = os.path.join(get_root_fpath(), DataDirectories.DATASETS.value)
-IN_FILE_NAME = Datasets.LEETCODE_DATASET.value
-OUT_DIR = os.path.join(get_root_fpath(), DataDirectories.RESULTS.value)
-OUT_FILE_NAME = "leetcode_{RUN_MODE}__step_size_eq_{STEP_SIZE}__num_input_examples_eq_{NUM_OUTPUT_EXAMPLES}__num_output_examples_eq_{NUM_OUTPUT_EXAMPLES}__buffer_eq_{BUFFER}__model_eq_{MODEL}__temperature_eq_{TEMPERATURE}__n_pass_{N_PASS}.jsonl"
+IN_FILE_NAME = Datasets.LEETCODE_FULL.value
+OUT_DIR = os.path.join(
+    get_root_fpath(),
+    DataDirectories.RESULTS.value,
+    "leetcode",
+    "provider",
+    "{PROVIDER}",
+    "{MODEL}",
+    "{RUN_MODE}",
+)
+
+OUT_FILE_NAME = "similarity_{IN_FILE_NAME}__{MODEL}__step_size_eq_{STEP_SIZE}__num_input_examples_eq_{NUM_OUTPUT_EXAMPLES}__num_output_examples_eq_{NUM_OUTPUT_EXAMPLES}__buffer_eq_{BUFFER}__temperature_eq_{TEMPERATURE}__n_pass_{N_PASS}.jsonl"
 
 # Default input constants
 MODEL = "gpt-4-0613"
@@ -45,22 +54,30 @@ class SimilarityExperimentRunner:
         self.output_file_name = (
             self.args.out_file_name
             or OUT_FILE_NAME.format(
+                IN_FILE_NAME=(args.in_file_name or IN_FILE_NAME)
+                .replace(".csv", "")
+                .replace(".jsonl", ""),
+                MODEL=self.args.model.replace("-", "_").replace(".", "p"),
+                STEP_SIZE=self.args.step_size,
                 NUM_INPUT_EXAMPLES=self.args.num_input_examples,
                 NUM_OUTPUT_EXAMPLES=self.args.num_output_examples,
                 BUFFER=self.args.buffer,
-                STEP_SIZE=self.args.step_size,
-                MODEL=self.args.model,
-                TEMPERATURE=self.args.temperature,
-                RUN_MODE=RUN_MODE,
+                TEMPERATURE=str(self.args.temperature).replace(".", "p"),
                 N_PASS=self.args.n_pass,
             ).replace("-", "_")
         )
 
-        self.out_dir = os.path.join(
-            self.args.out_dir or OUT_DIR,
+        self.out_path = os.path.join(
+            self.args.out_dir
+            or OUT_DIR.format(
+                PROVIDER=self.args.provider or PROVIDER,
+                MODEL=self.args.model.replace("-", "_").replace(".", "p"),
+                RUN_MODE=RUN_MODE,
+            ),
             self.output_file_name,
         )
-        print("self.out_dir = ", self.out_dir)
+        if not os.path.exists(os.path.dirname(self.out_path)):
+            os.makedirs(os.path.dirname(self.out_path))
 
     def run(self) -> list:
         """Run the experiment."""
@@ -77,9 +94,9 @@ class SimilarityExperimentRunner:
         # Filter out rows with empty raw_content
         dataset = dataset[pd.notna(dataset["raw_content"])]
 
-        if os.path.exists(self.out_dir):
-            self.logger.info(f"Loading existing results from {self.out_dir}.")
-            outputs = read_jsonl(self.out_dir)
+        if os.path.exists(self.out_path):
+            self.logger.info(f"Loading existing results from {self.out_path}.")
+            outputs = read_jsonl(self.out_path)
             if len(outputs) > 0:
                 start_index = outputs[-1]["iloc"] + self.args.step_size
             else:
@@ -89,7 +106,7 @@ class SimilarityExperimentRunner:
             start_index = self.args.num_input_examples + 1
 
         self._generate_similarity(dataset, start_index, self.provider, outputs)
-        write_jsonl(self.out_dir, outputs)
+        write_jsonl(self.out_path, outputs)
         return outputs
 
     def _generate_similarity(
@@ -194,7 +211,7 @@ class SimilarityExperimentRunner:
                 self.logger.info(f"Similarity = {similarity}")
 
                 outputs.append(result)
-                write_jsonl(self.out_dir, outputs)
+                write_jsonl(self.out_path, outputs)
             except:
                 self.logger.exception(f"Failed to process {iloc}.")
                 continue

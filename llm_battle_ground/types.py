@@ -16,7 +16,8 @@ class DataDirectories(Enum):
 
 
 class Datasets(Enum):
-    LEETCODE_DATASET = "leetcode_full.csv"
+    LEETCODE_FULL = "leetcode_full.csv"
+    LEETCODE_SAMPLED = "leetcode_sampled.csv"
 
 
 class LLMProviders(Enum):

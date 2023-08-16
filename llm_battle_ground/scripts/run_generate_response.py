@@ -1,15 +1,11 @@
 import logging
 import os
-import random
-
-import numpy as np
 import openai
 import pandas as pd
 from evalplus.data import write_jsonl
 
-random.seed(0)
-
 from llm_battle_ground.completion_provider import CompletionProvider, RunMode
+from llm_battle_ground.constants import DATA_DIRECTORY
 from llm_battle_ground.helpers import LeetCodeProcessor
 from llm_battle_ground.scripts import common_arg_parser
 from llm_battle_ground.types import DataDirectories, Datasets, LLMProviders
@@ -20,9 +16,18 @@ from llm_battle_ground.utils import (
 )
 
 # Pathing
-IN_DIR = os.path.join(get_root_fpath(), DataDirectories.DATASETS.value)
-IN_FILE_NAME = Datasets.LEETCODE_DATASET.value
-OUT_DIR = os.path.join(get_root_fpath(), DataDirectories.RESULTS.value)
+IN_FILE_NAME = Datasets.LEETCODE_FULL.value
+OUT_DIR = os.path.join(
+    get_root_fpath(),
+    DataDirectories.RESULTS.value,
+    "leetcode",
+    "provider",
+    "{PROVIDER}",
+    "{MODEL}",
+    "generation",
+)
+OUT_FILE_NAME = "generation_{IN_FILE_NAME}__{MODEL}__run_mode_eq_{RUN_MODE}__temperature_eq_{TEMPERATURE}__n_pass_{N_PASS}.jsonl"
+
 
 # Local configurations
 PROVIDER = "openai"
@@ -31,25 +36,7 @@ MODEL = "gpt-4-0613"
 TEMPERATURE = 0.7
 N_PASS = 1
 
-# Define sample rates for different difficulties
-DIFFICULTY_SAMPLE_RATES = {
-    1: 0.25,  # Easy
-    2: 0.50,  # Medium
-    3: 1.0,  # Hard
-}
-
-
 MAX_VAL = int(1e10)
-
-
-OUTPUT_FILE_NAME = (
-    "leetcode_generation__provider_eq_{PROVIDER}__{RUN_MODE}__filter_ez_eq_%s_filter_med_eq_%s_filter_hrd_eq_%s__model_eq_{MODEL}__temperature_eq_{TEMPERATURE}__n_pass_{N_PASS}.jsonl"
-    % (
-        DIFFICULTY_SAMPLE_RATES[1],
-        DIFFICULTY_SAMPLE_RATES[2],
-        DIFFICULTY_SAMPLE_RATES[3],
-    )
-)
 
 
 # TODO - Build a helper class to assist this script in experiment running.
@@ -89,18 +76,10 @@ def main(
     min_observed_id = (
         outputs[-1]["frontend_question_id"] if outputs else MAX_VAL
     )
-    print(f"outputs = {outputs}, len(outputs) = {len(outputs)}")
+
     for loc in range(len(dataset)):
         entry = dataset.iloc[loc]
         difficulty = entry["difficulty"]
-        sample_rate = DIFFICULTY_SAMPLE_RATES.get(
-            difficulty, 0.25
-        )  # Use difficulty to determine sample rate, default to 25% if not-set (RARE)
-        rnd_gen = random.random()
-
-        if rnd_gen > sample_rate:
-            logger.info("Continuing due to sample rate.")
-            continue
 
         # Skipping past previously processed problems
         frontend_question_id = int(dataset.iloc[loc]["frontend_question_id"])
@@ -155,24 +134,34 @@ if __name__ == "__main__":
     openai.api_key = os.getenv("OPENAI_API_KEY_LOCAL", "")
 
     in_path = os.path.join(
-        args.in_dir or IN_DIR, args.in_file_name or IN_FILE_NAME
+        args.in_dir or DATA_DIRECTORY, args.in_file_name or IN_FILE_NAME
     )
 
     args.provider = args.provider or LLMProviders(PROVIDER)
 
-    out_file_name = args.out_file_name or OUTPUT_FILE_NAME.format(
+    out_file_name = args.out_file_name or OUT_FILE_NAME.format(
+        IN_FILE_NAME=(args.in_file_name or IN_FILE_NAME)
+        .replace(".csv", "")
+        .replace(".jsonl", ""),
         PROVIDER=args.provider.value,
-        MODEL=args.model or MODEL,
+        MODEL=(args.model or MODEL).replace("-", "_").replace(".", "p"),
         # note if temperature = 0, regular approach will evaluate to false and use default
-        TEMPERATURE=args.temperature
+        TEMPERATURE=str(args.temperature).replace(".", "p")
         if args.temperature is not None
         else TEMPERATURE,
         N_PASS=args.n_pass or N_PASS,
         RUN_MODE=args.run_mode or RUN_MODE,
     )
-    out_path = os.path.join(
-        args.out_dir or OUT_DIR, out_file_name.replace("-", "_")
+    out_dir = args.out_dir or OUT_DIR.format(
+        PROVIDER=args.provider.value or PROVIDER,
+        MODEL=(args.model or MODEL).replace("-", "_").replace(".", "p"),
     )
+
+    if not os.path.exists(out_dir):
+        os.makedirs(out_dir)
+
+    out_path = os.path.join(out_dir, out_file_name.replace("-", "_"))
+
     outputs = main(
         logger,
         in_path,

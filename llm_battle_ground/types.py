@@ -16,5 +16,4 @@ class DataDirectories(Enum):
 
 
 class Datasets(Enum):
-    LEETCODE_FULL = "leetcode_full.csv"
-    LEETCODE_DEMO = "leetcode_demo.csv"
+    LEETCODE_DATASET = "leetcode_full.csv"

@@ -21,7 +21,7 @@ from llm_battle_ground.utils import (
 
 # Pathing
 IN_DIR = os.path.join(get_root_fpath(), DataDirectories.DATASETS.value)
-IN_FILE_NAME = Datasets.LEETCODE_FULL.value
+IN_FILE_NAME = Datasets.LEETCODE_DATASET.value
 OUT_DIR = os.path.join(get_root_fpath(), DataDirectories.RESULTS.value)
 
 # Local configurations

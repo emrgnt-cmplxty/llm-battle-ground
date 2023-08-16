@@ -1,0 +1,276 @@
+{"frontend_question_id": 41.0, "question_id": 41.0, "question_slug": "first-missing-positive", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 81.0, "question_id": 81.0, "question_slug": "search-in-rotated-sorted-array-ii", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 301.0, "question_id": 301.0, "question_slug": "remove-invalid-parentheses", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 363.0, "question_id": 363.0, "question_slug": "max-sum-of-rectangle-no-larger-than-k", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 458.0, "question_id": 458.0, "question_slug": "poor-pigs", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 691.0, "question_id": 691.0, "question_slug": "stickers-to-spell-word", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 790.0, "question_id": 806.0, "question_slug": "domino-and-tromino-tiling", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 871.0, "question_id": 902.0, "question_slug": "minimum-number-of-refueling-stops", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 991.0, "question_id": 1033.0, "question_slug": "broken-calculator", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 1255.0, "question_id": 1381.0, "question_slug": "maximum-score-words-formed-by-letters", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 1312.0, "question_id": 1437.0, "question_slug": "minimum-insertion-steps-to-make-a-string-palindrome", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 1359.0, "question_id": 1461.0, "question_slug": "count-all-valid-pickup-and-delivery-options", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 1562.0, "question_id": 1684.0, "question_slug": "find-latest-group-of-size-m", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 1670.0, "question_id": 1767.0, "question_slug": "design-front-middle-back-queue", "difficulty": 2.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 1829.0, "question_id": 1940.0, "question_slug": "maximum-xor-for-each-query", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 1987.0, "question_id": 2115.0, "question_slug": "number-of-unique-good-subsequences", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 2040.0, "question_id": 2150.0, "question_slug": "kth-smallest-product-of-two-sorted-arrays", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 2092.0, "question_id": 2213.0, "question_slug": "find-all-people-with-secret", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 2141.0, "question_id": 2263.0, "question_slug": "maximum-running-time-of-n-computers", "difficulty": 3.0, "status": "Submission Timed-Out", "reward": false, "done": false}
+{"frontend_question_id": 2193.0, "question_id": 1356.0, "question_slug": "minimum-number-of-moves-to-make-palindrome", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 2244.0, "question_id": 2362.0, "question_slug": "minimum-rounds-to-complete-all-tasks", "difficulty": 2.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 2294.0, "question_id": 2387.0, "question_slug": "partition-array-such-that-maximum-difference-is-k", "difficulty": 2.0, "status": "Submission Timed-Out", "reward": false, "done": false}
+{"frontend_question_id": 2400.0, "question_id": 2477.0, "question_slug": "number-of-ways-to-reach-a-position-after-exactly-k-steps", "difficulty": 2.0, "status": "Submission Timed-Out", "reward": false, "done": false}
+{"frontend_question_id": 2497.0, "question_id": 2590.0, "question_slug": "maximum-star-sum-of-a-graph", "difficulty": 2.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 2657.0, "question_id": 2766.0, "question_slug": "find-the-prefix-common-array-of-two-arrays", "difficulty": 2.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 2734.0, "question_id": 2828.0, "question_slug": "lexicographically-smallest-string-after-substring-operation", "difficulty": 2.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 3.0, "question_id": 3.0, "question_slug": "longest-substring-without-repeating-characters", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 4.0, "question_id": 4.0, "question_slug": "median-of-two-sorted-arrays", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 6.0, "question_id": 6.0, "question_slug": "zigzag-conversion", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 8.0, "question_id": 8.0, "question_slug": "string-to-integer-atoi", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 10.0, "question_id": 10.0, "question_slug": "regular-expression-matching", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 16.0, "question_id": 16.0, "question_slug": "3sum-closest", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 23.0, "question_id": 23.0, "question_slug": "merge-k-sorted-lists", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 25.0, "question_id": 25.0, "question_slug": "reverse-nodes-in-k-group", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 26.0, "question_id": 26.0, "question_slug": "remove-duplicates-from-sorted-array", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 30.0, "question_id": 30.0, "question_slug": "substring-with-concatenation-of-all-words", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 31.0, "question_id": 31.0, "question_slug": "next-permutation", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 32.0, "question_id": 32.0, "question_slug": "longest-valid-parentheses", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 33.0, "question_id": 33.0, "question_slug": "search-in-rotated-sorted-array", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 36.0, "question_id": 36.0, "question_slug": "valid-sudoku", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 37.0, "question_id": 37.0, "question_slug": "sudoku-solver", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 38.0, "question_id": 38.0, "question_slug": "count-and-say", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 42.0, "question_id": 42.0, "question_slug": "trapping-rain-water", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 44.0, "question_id": 44.0, "question_slug": "wildcard-matching", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 45.0, "question_id": 45.0, "question_slug": "jump-game-ii", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 47.0, "question_id": 47.0, "question_slug": "permutations-ii", "difficulty": 2.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 49.0, "question_id": 49.0, "question_slug": "group-anagrams", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 51.0, "question_id": 51.0, "question_slug": "n-queens", "difficulty": 3.0, "status": "Runtime Error", "reward": false, "done": false}
+{"frontend_question_id": 52.0, "question_id": 52.0, "question_slug": "n-queens-ii", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 53.0, "question_id": 53.0, "question_slug": "maximum-subarray", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 54.0, "question_id": 54.0, "question_slug": "spiral-matrix", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 57.0, "question_id": 57.0, "question_slug": "insert-interval", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 60.0, "question_id": 60.0, "question_slug": "permutation-sequence", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 65.0, "question_id": 65.0, "question_slug": "valid-number", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 68.0, "question_id": 68.0, "question_slug": "text-justification", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 71.0, "question_id": 71.0, "question_slug": "simplify-path", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 72.0, "question_id": 72.0, "question_slug": "edit-distance", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 75.0, "question_id": 75.0, "question_slug": "sort-colors", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 76.0, "question_id": 76.0, "question_slug": "minimum-window-substring", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 84.0, "question_id": 84.0, "question_slug": "largest-rectangle-in-histogram", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 85.0, "question_id": 85.0, "question_slug": "maximal-rectangle", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 86.0, "question_id": 86.0, "question_slug": "partition-list", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 87.0, "question_id": 87.0, "question_slug": "scramble-string", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 93.0, "question_id": 93.0, "question_slug": "restore-ip-addresses", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 98.0, "question_id": 98.0, "question_slug": "validate-binary-search-tree", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 103.0, "question_id": 103.0, "question_slug": "binary-tree-zigzag-level-order-traversal", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 105.0, "question_id": 105.0, "question_slug": "construct-binary-tree-from-preorder-and-inorder-traversal", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 106.0, "question_id": 106.0, "question_slug": "construct-binary-tree-from-inorder-and-postorder-traversal", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 110.0, "question_id": 110.0, "question_slug": "balanced-binary-tree", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 111.0, "question_id": 111.0, "question_slug": "minimum-depth-of-binary-tree", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 113.0, "question_id": 113.0, "question_slug": "path-sum-ii", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 115.0, "question_id": 115.0, "question_slug": "distinct-subsequences", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 118.0, "question_id": 118.0, "question_slug": "pascals-triangle", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 122.0, "question_id": 122.0, "question_slug": "best-time-to-buy-and-sell-stock-ii", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 123.0, "question_id": 123.0, "question_slug": "best-time-to-buy-and-sell-stock-iii", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 124.0, "question_id": 124.0, "question_slug": "binary-tree-maximum-path-sum", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 125.0, "question_id": 125.0, "question_slug": "valid-palindrome", "difficulty": 1.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 126.0, "question_id": 126.0, "question_slug": "word-ladder-ii", "difficulty": 3.0, "status": "Submission Timed-Out", "reward": false, "done": false}
+{"frontend_question_id": 127.0, "question_id": 127.0, "question_slug": "word-ladder", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 128.0, "question_id": 128.0, "question_slug": "longest-consecutive-sequence", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 129.0, "question_id": 129.0, "question_slug": "sum-root-to-leaf-numbers", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 130.0, "question_id": 130.0, "question_slug": "surrounded-regions", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 132.0, "question_id": 132.0, "question_slug": "palindrome-partitioning-ii", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 133.0, "question_id": 133.0, "question_slug": "clone-graph", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 134.0, "question_id": 134.0, "question_slug": "gas-station", "difficulty": 2.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 135.0, "question_id": 135.0, "question_slug": "candy", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 137.0, "question_id": 137.0, "question_slug": "single-number-ii", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 139.0, "question_id": 139.0, "question_slug": "word-break", "difficulty": 2.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 140.0, "question_id": 140.0, "question_slug": "word-break-ii", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 142.0, "question_id": 142.0, "question_slug": "linked-list-cycle-ii", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 143.0, "question_id": 143.0, "question_slug": "reorder-list", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 145.0, "question_id": 145.0, "question_slug": "binary-tree-postorder-traversal", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 146.0, "question_id": 146.0, "question_slug": "lru-cache", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 149.0, "question_id": 149.0, "question_slug": "max-points-on-a-line", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 150.0, "question_id": 150.0, "question_slug": "evaluate-reverse-polish-notation", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 153.0, "question_id": 153.0, "question_slug": "find-minimum-in-rotated-sorted-array", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 154.0, "question_id": 154.0, "question_slug": "find-minimum-in-rotated-sorted-array-ii", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 162.0, "question_id": 162.0, "question_slug": "find-peak-element", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 164.0, "question_id": 164.0, "question_slug": "maximum-gap", "difficulty": 3.0, "status": "Runtime Error", "reward": false, "done": false}
+{"frontend_question_id": 165.0, "question_id": 165.0, "question_slug": "compare-version-numbers", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 166.0, "question_id": 166.0, "question_slug": "fraction-to-recurring-decimal", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 167.0, "question_id": 167.0, "question_slug": "two-sum-ii-input-array-is-sorted", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 172.0, "question_id": 172.0, "question_slug": "factorial-trailing-zeroes", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 173.0, "question_id": 173.0, "question_slug": "binary-search-tree-iterator", "difficulty": 2.0, "status": "Runtime Error", "reward": false, "done": false}
+{"frontend_question_id": 174.0, "question_id": 174.0, "question_slug": "dungeon-game", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 179.0, "question_id": 179.0, "question_slug": "largest-number", "difficulty": 2.0, "status": "Runtime Error", "reward": false, "done": false}
+{"frontend_question_id": 188.0, "question_id": 188.0, "question_slug": "best-time-to-buy-and-sell-stock-iv", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 191.0, "question_id": 191.0, "question_slug": "number-of-1-bits", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 198.0, "question_id": 198.0, "question_slug": "house-robber", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 199.0, "question_id": 199.0, "question_slug": "binary-tree-right-side-view", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 201.0, "question_id": 201.0, "question_slug": "bitwise-and-of-numbers-range", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 208.0, "question_id": 208.0, "question_slug": "implement-trie-prefix-tree", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 209.0, "question_id": 209.0, "question_slug": "minimum-size-subarray-sum", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 211.0, "question_id": 211.0, "question_slug": "design-add-and-search-words-data-structure", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 212.0, "question_id": 212.0, "question_slug": "word-search-ii", "difficulty": 3.0, "status": "Runtime Error", "reward": false, "done": false}
+{"frontend_question_id": 213.0, "question_id": 213.0, "question_slug": "house-robber-ii", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 214.0, "question_id": 214.0, "question_slug": "shortest-palindrome", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 216.0, "question_id": 216.0, "question_slug": "combination-sum-iii", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 218.0, "question_id": 218.0, "question_slug": "the-skyline-problem", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 220.0, "question_id": 220.0, "question_slug": "contains-duplicate-iii", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 224.0, "question_id": 224.0, "question_slug": "basic-calculator", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 227.0, "question_id": 227.0, "question_slug": "basic-calculator-ii", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 229.0, "question_id": 229.0, "question_slug": "majority-element-ii", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 233.0, "question_id": 233.0, "question_slug": "number-of-digit-one", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 235.0, "question_id": 235.0, "question_slug": "lowest-common-ancestor-of-a-binary-search-tree", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 239.0, "question_id": 239.0, "question_slug": "sliding-window-maximum", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 242.0, "question_id": 242.0, "question_slug": "valid-anagram", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 260.0, "question_id": 260.0, "question_slug": "single-number-iii", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 264.0, "question_id": 264.0, "question_slug": "ugly-number-ii", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 268.0, "question_id": 268.0, "question_slug": "missing-number", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 273.0, "question_id": 273.0, "question_slug": "integer-to-english-words", "difficulty": 3.0, "status": "Runtime Error", "reward": false, "done": false}
+{"frontend_question_id": 274.0, "question_id": 274.0, "question_slug": "h-index", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 279.0, "question_id": 279.0, "question_slug": "perfect-squares", "difficulty": 2.0, "status": "Submission Timed-Out", "reward": false, "done": false}
+{"frontend_question_id": 282.0, "question_id": 282.0, "question_slug": "expression-add-operators", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 287.0, "question_id": 287.0, "question_slug": "find-the-duplicate-number", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 290.0, "question_id": 290.0, "question_slug": "word-pattern", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 295.0, "question_id": 295.0, "question_slug": "find-median-from-data-stream", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 297.0, "question_id": 297.0, "question_slug": "serialize-and-deserialize-binary-tree", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 299.0, "question_id": 299.0, "question_slug": "bulls-and-cows", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 300.0, "question_id": 300.0, "question_slug": "longest-increasing-subsequence", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 304.0, "question_id": 304.0, "question_slug": "range-sum-query-2d-immutable", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 309.0, "question_id": 309.0, "question_slug": "best-time-to-buy-and-sell-stock-with-cooldown", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 312.0, "question_id": 312.0, "question_slug": "burst-balloons", "difficulty": 3.0, "status": "Submission Timed-Out", "reward": false, "done": false}
+{"frontend_question_id": 313.0, "question_id": 313.0, "question_slug": "super-ugly-number", "difficulty": 2.0, "status": "Submission Timed-Out", "reward": false, "done": false}
+{"frontend_question_id": 315.0, "question_id": 315.0, "question_slug": "count-of-smaller-numbers-after-self", "difficulty": 3.0, "status": "Submission Timed-Out", "reward": false, "done": false}
+{"frontend_question_id": 321.0, "question_id": 321.0, "question_slug": "create-maximum-number", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 324.0, "question_id": 324.0, "question_slug": "wiggle-sort-ii", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 327.0, "question_id": 327.0, "question_slug": "count-of-range-sum", "difficulty": 3.0, "status": "Submission Timed-Out", "reward": false, "done": false}
+{"frontend_question_id": 329.0, "question_id": 329.0, "question_slug": "longest-increasing-path-in-a-matrix", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 330.0, "question_id": 330.0, "question_slug": "patching-array", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 332.0, "question_id": 332.0, "question_slug": "reconstruct-itinerary", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 335.0, "question_id": 335.0, "question_slug": "self-crossing", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 336.0, "question_id": 336.0, "question_slug": "palindrome-pairs", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 337.0, "question_id": 337.0, "question_slug": "house-robber-iii", "difficulty": 2.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 338.0, "question_id": 338.0, "question_slug": "counting-bits", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 341.0, "question_id": 341.0, "question_slug": "flatten-nested-list-iterator", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 347.0, "question_id": 347.0, "question_slug": "top-k-frequent-elements", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 349.0, "question_id": 349.0, "question_slug": "intersection-of-two-arrays", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 352.0, "question_id": 352.0, "question_slug": "data-stream-as-disjoint-intervals", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 354.0, "question_id": 354.0, "question_slug": "russian-doll-envelopes", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 357.0, "question_id": 357.0, "question_slug": "count-numbers-with-unique-digits", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 365.0, "question_id": 365.0, "question_slug": "water-and-jug-problem", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 367.0, "question_id": 367.0, "question_slug": "valid-perfect-square", "difficulty": 1.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 368.0, "question_id": 368.0, "question_slug": "largest-divisible-subset", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 372.0, "question_id": 372.0, "question_slug": "super-pow", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 373.0, "question_id": 373.0, "question_slug": "find-k-pairs-with-smallest-sums", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 375.0, "question_id": 375.0, "question_slug": "guess-number-higher-or-lower-ii", "difficulty": 2.0, "status": "Runtime Error", "reward": false, "done": false}
+{"frontend_question_id": 376.0, "question_id": 376.0, "question_slug": "wiggle-subsequence", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 378.0, "question_id": 378.0, "question_slug": "kth-smallest-element-in-a-sorted-matrix", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 381.0, "question_id": 381.0, "question_slug": "insert-delete-getrandom-o1-duplicates-allowed", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 382.0, "question_id": 382.0, "question_slug": "linked-list-random-node", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 385.0, "question_id": 385.0, "question_slug": "mini-parser", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 386.0, "question_id": 386.0, "question_slug": "lexicographical-numbers", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 391.0, "question_id": 391.0, "question_slug": "perfect-rectangle", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 394.0, "question_id": 394.0, "question_slug": "decode-string", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 395.0, "question_id": 395.0, "question_slug": "longest-substring-with-at-least-k-repeating-characters", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 397.0, "question_id": 397.0, "question_slug": "integer-replacement", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 398.0, "question_id": 398.0, "question_slug": "random-pick-index", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 399.0, "question_id": 399.0, "question_slug": "evaluate-division", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 402.0, "question_id": 402.0, "question_slug": "remove-k-digits", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 403.0, "question_id": 403.0, "question_slug": "frog-jump", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 406.0, "question_id": 406.0, "question_slug": "queue-reconstruction-by-height", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 407.0, "question_id": 407.0, "question_slug": "trapping-rain-water-ii", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 410.0, "question_id": 410.0, "question_slug": "split-array-largest-sum", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 413.0, "question_id": 413.0, "question_slug": "arithmetic-slices", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 414.0, "question_id": 414.0, "question_slug": "third-maximum-number", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 419.0, "question_id": 419.0, "question_slug": "battleships-in-a-board", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 420.0, "question_id": 420.0, "question_slug": "strong-password-checker", "difficulty": 3.0, "status": "Runtime Error", "reward": false, "done": false}
+{"frontend_question_id": 421.0, "question_id": 421.0, "question_slug": "maximum-xor-of-two-numbers-in-an-array", "difficulty": 2.0, "status": "Submission Timed-Out", "reward": false, "done": false}
+{"frontend_question_id": 423.0, "question_id": 423.0, "question_slug": "reconstruct-original-digits-from-english", "difficulty": 2.0, "status": "Runtime Error", "reward": false, "done": false}
+{"frontend_question_id": 424.0, "question_id": 424.0, "question_slug": "longest-repeating-character-replacement", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 427.0, "question_id": 772.0, "question_slug": "construct-quad-tree", "difficulty": 2.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 430.0, "question_id": 766.0, "question_slug": "flatten-a-multilevel-doubly-linked-list", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 432.0, "question_id": 432.0, "question_slug": "all-oone-data-structure", "difficulty": 3.0, "status": "Runtime Error", "reward": false, "done": false}
+{"frontend_question_id": 433.0, "question_id": 433.0, "question_slug": "minimum-genetic-mutation", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 436.0, "question_id": 436.0, "question_slug": "find-right-interval", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 440.0, "question_id": 440.0, "question_slug": "k-th-smallest-in-lexicographical-order", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 445.0, "question_id": 445.0, "question_slug": "add-two-numbers-ii", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 446.0, "question_id": 446.0, "question_slug": "arithmetic-slices-ii-subsequence", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 447.0, "question_id": 447.0, "question_slug": "number-of-boomerangs", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 449.0, "question_id": 449.0, "question_slug": "serialize-and-deserialize-bst", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 451.0, "question_id": 451.0, "question_slug": "sort-characters-by-frequency", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 453.0, "question_id": 453.0, "question_slug": "minimum-moves-to-equal-array-elements", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 454.0, "question_id": 454.0, "question_slug": "4sum-ii", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 459.0, "question_id": 459.0, "question_slug": "repeated-substring-pattern", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 460.0, "question_id": 460.0, "question_slug": "lfu-cache", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 466.0, "question_id": 466.0, "question_slug": "count-the-repetitions", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 467.0, "question_id": 467.0, "question_slug": "unique-substrings-in-wraparound-string", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 468.0, "question_id": 468.0, "question_slug": "validate-ip-address", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 472.0, "question_id": 472.0, "question_slug": "concatenated-words", "difficulty": 3.0, "status": "Submission Timed-Out", "reward": false, "done": false}
+{"frontend_question_id": 473.0, "question_id": 473.0, "question_slug": "matchsticks-to-square", "difficulty": 2.0, "status": "Submission Timed-Out", "reward": false, "done": false}
+{"frontend_question_id": 474.0, "question_id": 474.0, "question_slug": "ones-and-zeroes", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 475.0, "question_id": 475.0, "question_slug": "heaters", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 477.0, "question_id": 477.0, "question_slug": "total-hamming-distance", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 478.0, "question_id": 915.0, "question_slug": "generate-random-point-in-a-circle", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 479.0, "question_id": 479.0, "question_slug": "largest-palindrome-product", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 480.0, "question_id": 480.0, "question_slug": "sliding-window-median", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 483.0, "question_id": 483.0, "question_slug": "smallest-good-base", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 488.0, "question_id": 488.0, "question_slug": "zuma-game", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 493.0, "question_id": 493.0, "question_slug": "reverse-pairs", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 496.0, "question_id": 496.0, "question_slug": "next-greater-element-i", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 502.0, "question_id": 502.0, "question_slug": "ipo", "difficulty": 3.0, "status": "Runtime Error", "reward": false, "done": false}
+{"frontend_question_id": 503.0, "question_id": 503.0, "question_slug": "next-greater-element-ii", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 509.0, "question_id": 1013.0, "question_slug": "fibonacci-number", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 513.0, "question_id": 513.0, "question_slug": "find-bottom-left-tree-value", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 514.0, "question_id": 514.0, "question_slug": "freedom-trail", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 515.0, "question_id": 515.0, "question_slug": "find-largest-value-in-each-tree-row", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 516.0, "question_id": 516.0, "question_slug": "longest-palindromic-subsequence", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 517.0, "question_id": 517.0, "question_slug": "super-washing-machines", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 519.0, "question_id": 913.0, "question_slug": "random-flip-matrix", "difficulty": 2.0, "status": "Memory Limit Exceeded", "reward": false, "done": false}
+{"frontend_question_id": 522.0, "question_id": 522.0, "question_slug": "longest-uncommon-subsequence-ii", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 524.0, "question_id": 524.0, "question_slug": "longest-word-in-dictionary-through-deleting", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 525.0, "question_id": 525.0, "question_slug": "contiguous-array", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 528.0, "question_id": 912.0, "question_slug": "random-pick-with-weight", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 529.0, "question_id": 529.0, "question_slug": "minesweeper", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 532.0, "question_id": 532.0, "question_slug": "k-diff-pairs-in-an-array", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 539.0, "question_id": 539.0, "question_slug": "minimum-time-difference", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 546.0, "question_id": 546.0, "question_slug": "remove-boxes", "difficulty": 3.0, "status": "Submission Timed-Out", "reward": false, "done": false}
+{"frontend_question_id": 547.0, "question_id": 547.0, "question_slug": "number-of-provinces", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 551.0, "question_id": 551.0, "question_slug": "student-attendance-record-i", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 552.0, "question_id": 552.0, "question_slug": "student-attendance-record-ii", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 556.0, "question_id": 556.0, "question_slug": "next-greater-element-iii", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 558.0, "question_id": 773.0, "question_slug": "logical-or-of-two-binary-grids-represented-as-quad-trees", "difficulty": 2.0, "status": "Runtime Error", "reward": false, "done": false}
+{"frontend_question_id": 564.0, "question_id": 564.0, "question_slug": "find-the-closest-palindrome", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 565.0, "question_id": 565.0, "question_slug": "array-nesting", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 567.0, "question_id": 567.0, "question_slug": "permutation-in-string", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 572.0, "question_id": 572.0, "question_slug": "subtree-of-another-tree", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 583.0, "question_id": 583.0, "question_slug": "delete-operation-for-two-strings", "difficulty": 2.0, "status": "Runtime Error", "reward": false, "done": false}
+{"frontend_question_id": 587.0, "question_id": 587.0, "question_slug": "erect-the-fence", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 591.0, "question_id": 591.0, "question_slug": "tag-validator", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 599.0, "question_id": 599.0, "question_slug": "minimum-index-sum-of-two-lists", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 600.0, "question_id": 600.0, "question_slug": "non-negative-integers-without-consecutive-ones", "difficulty": 3.0, "status": "Runtime Error", "reward": false, "done": false}
+{"frontend_question_id": 609.0, "question_id": 609.0, "question_slug": "find-duplicate-file-in-system", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 617.0, "question_id": 617.0, "question_slug": "merge-two-binary-trees", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 621.0, "question_id": 621.0, "question_slug": "task-scheduler", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 623.0, "question_id": 623.0, "question_slug": "add-one-row-to-tree", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 629.0, "question_id": 629.0, "question_slug": "k-inverse-pairs-array", "difficulty": 3.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 630.0, "question_id": 630.0, "question_slug": "course-schedule-iii", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 632.0, "question_id": 632.0, "question_slug": "smallest-range-covering-elements-from-k-lists", "difficulty": 3.0, "status": "Runtime Error", "reward": false, "done": false}
+{"frontend_question_id": 633.0, "question_id": 633.0, "question_slug": "sum-of-square-numbers", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 636.0, "question_id": 636.0, "question_slug": "exclusive-time-of-functions", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 639.0, "question_id": 639.0, "question_slug": "decode-ways-ii", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 641.0, "question_id": 859.0, "question_slug": "design-circular-deque", "difficulty": 2.0, "status": "Wrong Answer", "reward": false, "done": false}
+{"frontend_question_id": 645.0, "question_id": 645.0, "question_slug": "set-mismatch", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 646.0, "question_id": 646.0, "question_slug": "maximum-length-of-pair-chain", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 650.0, "question_id": 650.0, "question_slug": "2-keys-keyboard", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 652.0, "question_id": 652.0, "question_slug": "find-duplicate-subtrees", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 655.0, "question_id": 655.0, "question_slug": "print-binary-tree", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 659.0, "question_id": 659.0, "question_slug": "split-array-into-consecutive-subsequences", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 664.0, "question_id": 664.0, "question_slug": "strange-printer", "difficulty": 3.0, "status": "Runtime Error", "reward": false, "done": false}
+{"frontend_question_id": 665.0, "question_id": 665.0, "question_slug": "non-decreasing-array", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 667.0, "question_id": 667.0, "question_slug": "beautiful-arrangement-ii", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 668.0, "question_id": 668.0, "question_slug": "kth-smallest-number-in-multiplication-table", "difficulty": 3.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 669.0, "question_id": 669.0, "question_slug": "trim-a-binary-search-tree", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 670.0, "question_id": 670.0, "question_slug": "maximum-swap", "difficulty": 2.0, "status": "Accepted", "reward": true, "done": true}
+{"frontend_question_id": 671.0, "question_id": 671.0, "question_slug": "second-minimum-node-in-a-binary-tree", "difficulty": 1.0, "status": "Accepted", "reward": true, "done": true}

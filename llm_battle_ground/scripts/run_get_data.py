@@ -1,75 +1,23 @@
-import argparse
 import ast
 import logging
 import os
-import re
 import time
 from typing import Any
 
-import dotenv
 import leetcode
 import leetcode.auth
 import pandas as pd
 
-from bs4 import BeautifulSoup
+from llm_battle_ground.scripts import common_arg_parser
+from llm_battle_ground.types import DataDirectories, Datasets
+from llm_battle_ground.utils import get_configured_logger, get_root_fpath
 
-dotenv.load_dotenv()
-
-
-def clean_html_content(html_content: str) -> str:
-    """Clean the HTML content of a LeetCode problem description"""
-    if not isinstance(html_content, str):
-        return html_content
-    # Parse the HTML content
-    soup = BeautifulSoup(html_content, "html.parser")
-
-    # Convert HTML to text with newline characters
-    text_content = soup.get_text(separator="\n", strip=True)
-
-    # Replace scientific notation numbers
-    cleaned_content = re.sub(
-        r"(\b10)\s+(\d+\b)", r"\1e\2", text_content
-    )  # Replace "10 4" with "10e4"
-
-    # Specific handling for power notation
-    cleaned_content = re.sub(r"(\b\d+)\s+(\d+\b)", r"\1^\2", cleaned_content)
-
-    # Spaces around operators
-    cleaned_content = re.sub(r"(\s*<=\s*)", " <= ", cleaned_content)
-
-    # Replace specific patterns with newline characters
-    cleaned_content = cleaned_content.replace(
-        " . ", ".\n"
-    )  # Newline after periods
-
-    # Specific handling for "O ( n 2 )" pattern
-    cleaned_content = cleaned_content.replace("O ( n^2 )", "O(n^2)")
-
-    # Replace unnecessary characters and whitespace
-    cleaned_content = re.sub(
-        r"\s+", " ", cleaned_content
-    )  # Collapse multiple whitespace
-
-    # Remove spaces after commas and before periods
-    cleaned_content = re.sub(r"\s*,\s*", ", ", cleaned_content)
-    cleaned_content = re.sub(r"\s*\.\s*", ". ", cleaned_content)
-
-    # Specific handling for .length accessor
-    cleaned_content = cleaned_content.replace(" . length", ".length")
-
-    # Remove leading asterisks from problem numbers
-    cleaned_content = re.sub(r"\*+(\d+)\.?", r"\1.", cleaned_content)
-
-    # Remove trailing asterisks
-    cleaned_content = re.sub(r"\*+$", "", cleaned_content)
-
-    cleaned_content = cleaned_content.replace(". length", ".length")
-    cleaned_content = cleaned_content.replace("***", "")
-    cleaned_content = cleaned_content.replace("'. '", ".")
-    return cleaned_content.strip()
+OUT_DIR = os.path.join(get_root_fpath(), DataDirectories.DATASETS.value)
+OUT_FILE_NAME = Datasets.LEETCODE_FULL.value
 
 
 def get_info(question_slug: str, api_instance) -> dict:
+    """Requests the question info from the LeetCode API."""
     graphql_request = leetcode.GraphqlQuery(
         query="""
                 query getQuestionDetail($titleSlug: String!) {
@@ -96,43 +44,80 @@ def get_info(question_slug: str, api_instance) -> dict:
 
 # TODO - Add typing for leetcode
 def build_dataset(
-    logger: logging.Logger, out_path: str, api_instance: Any
+    logger: logging.Logger, out_fpath: str, api_instance: Any
 ) -> pd.DataFrame:
-    """Builds a dataset of the first 5 questions in the algorithms topic"""
+    """Builds a dataset of the questions in the algorithms topic."""
     question_infos = api_instance.api_problems_topic_get(topic="algorithms")
 
+    # Initialize the dataset
     df = pd.DataFrame()
+    question_ids = set()
+
+    # Load existing dataset if it exists
+    if os.path.exists(out_fpath):
+        df = pd.read_csv(out_fpath)
+        question_ids = set(df["question_id"].values)
+        logger.info(f"Dataset already exists, {len(df)} entries stored...")
+
+    # Determine the counter, offset by 1
+    # since incrementation is performed before adding
+    counter = len(df) - 1
+
+    # Build the dataset
     for ind, question in enumerate(question_infos.stat_status_pairs):
-        logger.info(f"Processing ind={ind}")
+        question_id = int(question.stat.question_id)
+
+        # Skip if question already exists
+        if question_id in question_ids:
+            logger.info(f"Already processed question {question_id}, skipping.")
+            continue
+
+        # Skip if question is paid
+        if question.paid_only:
+            logger.info(f"Skipping paid question {question_id}.")
+            continue
+
+        logger.info(f"Processing index at {ind}.")
         try:
             question_slug = question.stat.question__title_slug
             info = get_info(question_slug, api_instance)
+
             snippets = info["code_snippets"]
 
-            df.at[ind, "question_slug"] = question.stat.question__title_slug
-            df.at[ind, "question_title"] = question.stat.question__title
-            df.at[ind, "frontend_question_id"] = int(
+            # Increment the counter before adding
+            counter += 1
+
+            # Add the question to the dataset
+            df.at[
+                counter, "question_slug"
+            ] = question.stat.question__title_slug
+            df.at[counter, "question_title"] = question.stat.question__title
+            df.at[counter, "frontend_question_id"] = int(
                 question.stat.frontend_question_id
             )
-            df.at[ind, "question_id"] = int(question.stat.question_id)
-            df.at[ind, "raw_content"] = info["content"]
-            df.at[ind, "difficulty"] = question.difficulty.level
-            df.at[ind, "paid_only"] = question.paid_only
+            df.at[counter, "question_id"] = int(question.stat.question_id)
+            df.at[counter, "raw_content"] = info["content"]
+            df.at[counter, "difficulty"] = question.difficulty.level
+            df.at[counter, "paid_only"] = question.paid_only
 
             for snippet in snippets:
-                df.at[ind, snippet["lang_slug"] + "_snippet"] = snippet["code"]
+                df.at[counter, snippet["lang_slug"] + "_snippet"] = snippet[
+                    "code"
+                ]
 
-            logger.info(f"Resulting Entry = {df.iloc[ind]}")
-            df.to_csv(out_path, index=False)
+            logger.info(f"Resulting Entry = {df.iloc[counter]}.")
+            df.to_csv(out_fpath, index=False)
+            logger.info(f"Dataset is now {len(df)} entries long.")
 
+            # Sleep to avoid rate limiting
             time.sleep(1)
         except Exception as e:
-            logger.error(f"Error {e} with question {question_slug}")
+            logger.error(f"Error {e} with question {question_slug}.")
 
     return df
 
 
-def main(logger: logging.Logger, out_path: str) -> None:
+def main(logger: logging.Logger, out_fpath: str) -> None:
     """Runs the main script"""
     configuration = leetcode.Configuration()
 
@@ -150,33 +135,9 @@ def main(logger: logging.Logger, out_path: str) -> None:
 
     # Build the dataset
     logger.info("Building dataset now...")
-    dataset = build_dataset(logger, out_path, api_instance)
+    dataset = build_dataset(logger, out_fpath, api_instance)
 
-    dataset["raw_snippet"] = dataset["raw_content"].apply(
-        lambda x: (x.split("</p>")[0] + "</p>" if isinstance(x, str) else "")
-    )
-    dataset["raw_forward_completion"] = dataset["raw_content"].apply(
-        lambda x: (
-            "<p>" + "</p>".join(x.split("</p>")[1:])
-            if isinstance(x, str) and "</p>" in x
-            else ""
-        )
-    )
-
-    dataset["cleaned_snippet"] = dataset.apply(
-        lambda x: f"\nLeetCode Problem #{int(x['frontend_question_id'])}\nTitle: {x['question_title']}\nDescription:\n{clean_html_content(x['raw_snippet'])}...\n",
-        axis=1,
-    )
-    dataset["cleaned_forward_completion"] = dataset[
-        "raw_forward_completion"
-    ].apply(lambda x: f"{clean_html_content(x)}\n")
-
-    dataset["cleaned_content"] = dataset["raw_content"].apply(
-        lambda x: clean_html_content(x)
-    )
-
-    dataset = dataset[dataset["paid_only"] == False]
-    dataset.to_csv(out_path, index=True)
+    dataset.to_csv(out_fpath, index=False)
 
     logger.info(
         f"Dataset successfully built, {len(dataset)} entries stored..."
@@ -184,34 +145,12 @@ def main(logger: logging.Logger, out_path: str) -> None:
 
 
 if __name__ == "__main__":
-    # get path to script
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--log-level",
-        type=str,
-        default="INFO",
-        help="Logging level, e.g. DEBUG, INFO, WARNING, ERROR, CRITICAL",
-    )
-
-    script_directory = os.path.dirname(os.path.abspath(__file__))
-
-    parser.add_argument(
-        "--out-path",
-        type=str,
-        default=os.path.join(
-            script_directory, "..", "datasets", "leetcode.csv"
-        ),
-        help="Path to save the dataset, defaults to $WORKDIR/datasets/leetcode.csv",
-    )
-
+    parser = common_arg_parser()
     args = parser.parse_args()
-    log_level = getattr(logging, args.log_level.upper(), logging.INFO)
 
-    logging.basicConfig(
-        level=log_level,
-        format="%(asctime)s - %(levelname)s - %(message)s",
+    logger = get_configured_logger(__name__, args.log_level)
+
+    out_fpath = os.path.join(
+        args.out_dir or OUT_DIR, args.out_file_name or OUT_FILE_NAME
     )
-
-    logger = logging.getLogger()
-
-    main(logger, args.out_path)
+    main(logger, out_fpath)

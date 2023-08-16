@@ -2,7 +2,6 @@ import os
 from abc import ABC, abstractmethod
 from typing import List
 
-
 # Modify this to change cache location
 os.environ["HF_HOME"] = os.environ.get("HF_HOME", "/JawTitan/huggingface/")
 
@@ -92,9 +91,15 @@ class DecoderBase(ABC):
 
 
 class HFTorchDecoder(DecoderBase):
-    def __init__(self, name: str, batch_size: int = 1, temperature: float = 0.8):
-        super().__init__(name=name, batch_size=batch_size, temperature=temperature)
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    def __init__(
+        self, name: str, batch_size: int = 1, temperature: float = 0.8
+    ):
+        super().__init__(
+            name=name, batch_size=batch_size, temperature=temperature
+        )
+        self.device = torch.device(
+            "cuda" if torch.cuda.is_available() else "cpu"
+        )
         kwargs = {
             "trust_remote_code": name
             in {
@@ -194,7 +199,9 @@ class IncoderDecoder(HFTorchDecoder):
         self, prompt: str, do_sample: bool = True, num_samples: int = 200
     ) -> List[str]:
         input = prompt + self.infill_ph + self.extra_end
-        input_tokens = self.tokenizer.encode(input, return_tensors="pt").to(self.device)
+        input_tokens = self.tokenizer.encode(input, return_tensors="pt").to(
+            self.device
+        )
         scores = StoppingCriteriaList(
             [
                 EndOfFunctionCriteria(
@@ -247,7 +254,9 @@ class Codegen2Decoder(HFTorchDecoder):
         self, prompt: str, do_sample: bool = True, num_samples: int = 200
     ) -> List[str]:
         input = prompt + self.infill_ph + self.extra_end
-        input_tokens = self.tokenizer.encode(input, return_tensors="pt").to(self.device)
+        input_tokens = self.tokenizer.encode(input, return_tensors="pt").to(
+            self.device
+        )
         scores = StoppingCriteriaList(
             [
                 EndOfFunctionCriteria(
@@ -299,7 +308,9 @@ class SantaCoder(HFTorchDecoder):
         self, prompt: str, do_sample: bool = True, num_samples: int = 200
     ) -> List[str]:
         input = self.prefix_token + prompt + self.suffix_token
-        input_tokens = self.tokenizer.encode(input, return_tensors="pt").to(self.device)
+        input_tokens = self.tokenizer.encode(input, return_tensors="pt").to(
+            self.device
+        )
         scores = StoppingCriteriaList(
             [
                 EndOfFunctionCriteria(
@@ -351,7 +362,9 @@ class StarCoder(HFTorchDecoder):
         self, prompt: str, do_sample: bool = True, num_samples: int = 200
     ) -> List[str]:
         input = self.prefix_token + prompt + self.suffix_token
-        input_tokens = self.tokenizer.encode(input, return_tensors="pt").to(self.device)
+        input_tokens = self.tokenizer.encode(input, return_tensors="pt").to(
+            self.device
+        )
         scores = StoppingCriteriaList(
             [
                 EndOfFunctionCriteria(

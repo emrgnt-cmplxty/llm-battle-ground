@@ -20,7 +20,18 @@ python-dotenv = "^1.0.0"
 pandas = "^2.0.3"
 evalplus = "^0.1.6"
 gym = "^0.26.2"
+torch = "^2.0.1"
+transformers = "^4.31.0"
 
 [tool.black]
 line-length = 79
 include = '\.pyi?$'
+exclude = '''
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | llm_battle_ground/leetcode_hard_gym
+)/
+)
+'''

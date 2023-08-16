@@ -2,7 +2,7 @@ import argparse
 import logging
 import os
 from time import sleep
-from typing import List, Tuple
+from typing import Tuple
 
 import pandas as pd
 from evalplus.data import write_jsonl
@@ -14,6 +14,7 @@ from llm_battle_ground.leetcode_hard_gym.leetcode_env.types import (
     LeetCodeSubmission,
     ProgrammingLanguage,
 )
+from llm_battle_ground.constants import RESULTS_DIRECTORY
 from llm_battle_ground.scripts import common_arg_parser
 from llm_battle_ground.types import DataDirectories, Datasets
 from llm_battle_ground.utils import (
@@ -61,7 +62,7 @@ def load_data(args: dict, in_path: str) -> Tuple[pd.DataFrame, pd.DataFrame]:
     leetcode_reference_data_path = os.path.join(
         get_root_fpath(),
         DataDirectories.DATASETS.value,
-        Datasets.LEETCODE_DATASET.value,
+        Datasets.LEETCODE_FULL.value,
     )
     leetcode_reference_data = pd.read_csv(leetcode_reference_data_path)
 
@@ -71,14 +72,15 @@ def load_data(args: dict, in_path: str) -> Tuple[pd.DataFrame, pd.DataFrame]:
 
 
 def establish_output_path(args: argparse.Namespace, in_file_name: str) -> str:
-    out_dir = args.out_dir or DataDirectories.RESULTS.value
+    out_dir = args.out_dir or RESULTS_DIRECTORY
     out_file_name = args.out_file_name or in_file_name.replace(
-        "_generation__", "_evaluation__"
+        "generation_", "evaluation_"
     )
     return os.path.join(out_dir, out_file_name)
 
 
-def read_existing_results(out_path):
+def read_existing_results(out_path: str) -> list[dict]:
+    """Reads existing results from out_path if it exists, otherwise returns empty list"""
     return read_jsonl(out_path) if os.path.exists(out_path) else []
 
 
@@ -97,7 +99,7 @@ def process_submission(
     lookup_entry,
     result: dict,
     logger: logging.Logger,
-    new_results: List[dict],
+    new_results: list[dict],
     session_manager: SessionManager,
 ):
     try:

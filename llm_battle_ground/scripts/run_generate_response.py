@@ -49,6 +49,7 @@ OUTPUT_FILE_NAME = (
 )
 
 
+# TODO - Build a helper class to assist this script in experiment running.
 def main(
     logger: logging.Logger,
     in_path: str,
@@ -70,14 +71,16 @@ def main(
     )
     processor = LeetCodeProcessor()
 
+    logger.info(f"Saving results to {out_path}.")
     if os.path.exists(out_path):
         logger.info(f"Loading existing results from {out_path}.")
         outputs = read_jsonl(out_path)
     else:
+        logger.info("Beginning new results.")
         outputs = []
 
     observed_ids = {x["frontend_question_id"] for x in outputs}
-    max_observed_id = max(observed_ids, default=0)
+    max_observed_id = outputs[-1]["frontend_question_id"] if outputs else 0
 
     for loc in range(len(dataset)):
         entry = dataset.iloc[loc]
@@ -92,17 +95,17 @@ def main(
             continue
 
         # Skipping past previously processed problems
-        frontend_question_id = dataset.iloc[loc]["frontend_question_id"]
+        frontend_question_id = int(dataset.iloc[loc]["frontend_question_id"])
         if frontend_question_id in observed_ids:
             logger.info(
-                "Continuing because this problem has been processed previously."
+                f"Continuing because {frontend_question_id} problem has been processed previously."
             )
             continue
 
         # Since we use rng, we need to skip past old max when re-loading data
         if frontend_question_id <= max_observed_id:
             logger.info(
-                "Continuing because this problem has been processed previously."
+                f"Continuing because {frontend_question_id} has been processed previously."
             )
             continue
         else:
@@ -113,7 +116,8 @@ def main(
                 max_observed_id = 0
 
         # Generating input for completion
-        task_input = processor.clean_html_content(entry["raw_content"])
+        task_input = f"LeetCode Problem #{frontend_question_id}\nTitle: {entry['question_title']}\nDescription:\n{processor.clean_html_content(entry['raw_content'])}\n\n"
+
         code_snippet = entry["python3_snippet"]
         raw_response = provider.get_completion(
             task_input=task_input, code_snippet=code_snippet
@@ -128,8 +132,7 @@ def main(
             "loc": loc,
         }
         outputs.append(result)
-        # write_jsonl(out_path, outputs)
-        break
+        write_jsonl(out_path, outputs)
     return outputs
 
 
@@ -152,8 +155,9 @@ if __name__ == "__main__":
         N_PASS=args.n_pass or N_PASS,
         RUN_MODE=args.run_mode or RUN_MODE,
     )
-    out_path = os.path.join(args.out_dir or OUT_DIR, out_file_name)
-
+    out_path = os.path.join(
+        args.out_dir or OUT_DIR, out_file_name.replace("-", "_")
+    )
     outputs = main(
         logger,
         in_path,

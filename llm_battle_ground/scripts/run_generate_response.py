@@ -1,5 +1,6 @@
 import logging
 import os
+
 import openai
 import pandas as pd
 from evalplus.data import write_jsonl
@@ -9,11 +10,8 @@ from llm_battle_ground.constants import DATA_DIRECTORY
 from llm_battle_ground.helpers import LeetCodeProcessor
 from llm_battle_ground.scripts import common_arg_parser
 from llm_battle_ground.types import DataDirectories, Datasets, LLMProviders
-from llm_battle_ground.utils import (
-    get_configured_logger,
-    get_root_fpath,
-    read_jsonl,
-)
+from llm_battle_ground.utils import (get_configured_logger, get_root_fpath,
+                                     read_jsonl)
 
 # Pathing
 IN_FILE_NAME = Datasets.LEETCODE_FULL.value
@@ -161,7 +159,6 @@ if __name__ == "__main__":
         os.makedirs(out_dir)
 
     out_path = os.path.join(out_dir, out_file_name.replace("-", "_"))
-
     outputs = main(
         logger,
         in_path,

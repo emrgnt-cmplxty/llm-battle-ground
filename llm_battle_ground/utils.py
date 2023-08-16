@@ -4,6 +4,7 @@ import os
 import re
 
 import numpy as np
+import pandas as pd
 
 
 def read_jsonl(in_jsonl_path: str) -> list[dict]:
@@ -16,6 +17,14 @@ def read_jsonl(in_jsonl_path: str) -> list[dict]:
         jsonl_loaded.append(result)
 
     return jsonl_loaded
+
+
+def write_df_to_jsonl(df: pd.DataFrame, out_jsonl_path: str):
+    with open(out_jsonl_path, "w") as file:
+        for index, row in df.iterrows():
+            json_record = json.dumps(row.to_dict())
+            file.write(json_record + "\n")
+    print(f"JSONL file saved to {out_jsonl_path}.")
 
 
 def get_root_fpath() -> str:

@@ -7,6 +7,7 @@ from typing import Tuple
 import pandas as pd
 from evalplus.data import write_jsonl
 
+from llm_battle_ground.constants import RESULTS_DIRECTORY
 from llm_battle_ground.leetcode_hard_gym.leetcode_env.environment import (
     LeetCodeEnv,
 )
@@ -14,7 +15,6 @@ from llm_battle_ground.leetcode_hard_gym.leetcode_env.types import (
     LeetCodeSubmission,
     ProgrammingLanguage,
 )
-from llm_battle_ground.constants import RESULTS_DIRECTORY
 from llm_battle_ground.scripts import common_arg_parser
 from llm_battle_ground.types import DataDirectories, Datasets
 from llm_battle_ground.utils import (
@@ -24,7 +24,8 @@ from llm_battle_ground.utils import (
     read_jsonl,
 )
 
-API_WAIT_TIME = 5  # seconds, per client
+USER_WAIT_TIME = 10  # seconds, per client
+IP_WAIT_TIME = 5  # seconds, per IP
 TIMEOUT_WAIT = 7
 MAX_SAMPLES = int(1e10)
 
@@ -39,7 +40,7 @@ class SessionManager:
         self.envs = []
         for index in range(len(self.SESSIONS)):
             self.set_env(index)
-            env = LeetCodeEnv(API_WAIT_TIME)
+            env = LeetCodeEnv(USER_WAIT_TIME)
             logging.info(
                 f"Creating a LeetCodeEnv leetcode_session = {os.environ['LEETCODE_SESSION']}"
             )
@@ -74,7 +75,7 @@ def load_data(args: dict, in_path: str) -> Tuple[pd.DataFrame, pd.DataFrame]:
 def establish_output_path(args: argparse.Namespace, in_file_name: str) -> str:
     out_dir = args.out_dir or RESULTS_DIRECTORY
     out_file_name = args.out_file_name or in_file_name.replace(
-        "generation_", "evaluation_"
+        "generation", "evaluation"
     )
     return os.path.join(out_dir, out_file_name)
 
@@ -105,7 +106,9 @@ def process_submission(
     try:
         extracted_code = extract_code(answer.raw_response)
     except Exception as e:
-        logger.error(f"Failed to extract code for {loc}", exc_info=True)
+        logger.error(
+            f"Failed to extract code for {loc} with {e}", exc_info=True
+        )
         result["status"] = "Wrong Answer"
         result["reward"] = False
         result["done"] = False
@@ -133,7 +136,7 @@ def process_submission(
     result["done"] = done
 
     logger.info("Sleeping now...")
-    sleep(API_WAIT_TIME)  # TODO - Why can't we rely on client sleep?
+    sleep(IP_WAIT_TIME)  # TODO - Why can't we rely on client sleep?
 
     new_results.append(result)
 
@@ -220,7 +223,7 @@ def process_answers(
         except Exception as e:
             logger.error(f"Failed to process answer with {e}", exc_info=True)
             logger.info("Sleeping full downtime...")
-            sleep(API_WAIT_TIME)  # TODO - Why can't we rely on client sleep?
+            sleep(IP_WAIT_TIME)  # TODO - Why can't we rely on client sleep?
 
 
 if __name__ == "__main__":
@@ -235,6 +238,7 @@ if __name__ == "__main__":
 
     leetcode_reference_data, generated_answers = load_data(args, in_path)
     out_path = establish_output_path(args, in_path)
+    logger.info(f"Saving results to {out_path}")
     session_manager = SessionManager()
     logger.info("Processing provided answers...")
     process_answers(

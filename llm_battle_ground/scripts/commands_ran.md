@@ -5,6 +5,8 @@
 
 ```bash
 poetry run python llm_battle_ground/scripts/run_get_data.py
+
+poetry run python llm_battle_ground/scripts/run_sample_leetcode.py
 ```
 
 ## To create the similarity data

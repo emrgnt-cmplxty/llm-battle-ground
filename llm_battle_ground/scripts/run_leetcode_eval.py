@@ -33,17 +33,22 @@ class SessionManager:
 
     def __init__(self):
         self.counter = 0
+        self.envs = []
+        for index in range(len(self.SESSIONS)):
+            self.set_env(index)
+            self.envs.append(LeetCodeEnv())
 
-    def get_next_session(self):
-        session_id = self.SESSIONS[self.counter % len(self.SESSIONS)]
-        logger.info(
-            f"Setting session_id = {self.SESSIONS[self.counter % len(self.SESSIONS)]}"
-        )
+    def set_env(self, index: int) -> None:
+        session_id = self.SESSIONS[index % len(self.SESSIONS)]
+        logger.info(f"Setting session_id = {session_id}")
         os.environ["LEETCODE_SESSION"] = self.sessions[
-            self.counter % len(self.SESSIONS)
+            index % len(self.SESSIONS)
         ]
+
+    def get_next_env(self) -> LeetCodeEnv:
+        env = self.envs[self.counter % len(self.envs)]
         self.counter += 1
-        return session_id
+        return env
 
 
 def load_data(args: dict, in_path: str) -> Tuple[pd.DataFrame, pd.DataFrame]:
@@ -105,11 +110,12 @@ def process_submission(
         question_id=str(int(lookup_entry.question_id)),
         question_slug=lookup_entry.question_slug,
     )
-    new_session_id = session_manager.get_next_session()
-    logger.info(f"New session id = {new_session_id}")
-    env = LeetCodeEnv()
-
-    status, reward, done, submission_result = env.step(sub)
+    (
+        status,
+        reward,
+        done,
+        submission_result,
+    ) = session_manager.get_next_env().step(sub)
     logger.info(
         f"Status:{status}, Reward:{reward}, Done:{done}, Result:{submission_result}"
     )
@@ -173,10 +179,17 @@ def process_answers(
 
     logger.info(f"Loaded {len(new_results)} existing results")
     logger.info(f"Looping over {len(generated_answers)} generated answers...")
+    generated_answers = generated_answers.sort_values(
+        by=["frontend_question_id"]
+    )[::-1]
+
+    print(f"generated_answers = {generated_answers}")
     for loc in range(len(generated_answers)):
         logger.info(f"Processing answer at location {loc}...")
         answer = generated_answers.iloc[loc]
         logger.info("Processing answer...")
+        if len(new_results) >= 100:
+            break
         try:
             result = process_answer(
                 loc,

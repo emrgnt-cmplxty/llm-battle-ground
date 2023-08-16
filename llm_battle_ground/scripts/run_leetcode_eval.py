@@ -23,7 +23,9 @@ from llm_battle_ground.utils import (
     read_jsonl,
 )
 
-DEFAULT_WAIT_TIME = 5  # seconds
+API_WAIT_TIME = 5  # seconds, per client
+TIMEOUT_WAIT = 7
+MAX_SAMPLES = int(1e10)
 
 
 class SessionManager:
@@ -36,7 +38,11 @@ class SessionManager:
         self.envs = []
         for index in range(len(self.SESSIONS)):
             self.set_env(index)
-            self.envs.append(LeetCodeEnv())
+            env = LeetCodeEnv(API_WAIT_TIME)
+            logging.info(
+                f"Creating a LeetCodeEnv leetcode_session = {os.environ['LEETCODE_SESSION']}"
+            )
+            self.envs.append(env)
 
     def set_env(self, index: int) -> None:
         session_id = self.SESSIONS[index % len(self.SESSIONS)]
@@ -109,6 +115,7 @@ def process_submission(
         lang=ProgrammingLanguage.PYTHON3,
         question_id=str(int(lookup_entry.question_id)),
         question_slug=lookup_entry.question_slug,
+        timeout=TIMEOUT_WAIT,
     )
     (
         status,
@@ -122,6 +129,10 @@ def process_submission(
     result["status"] = status
     result["reward"] = reward
     result["done"] = done
+
+    logger.info("Sleeping now...")
+    sleep(API_WAIT_TIME)  # TODO - Why can't we rely on client sleep?
+
     new_results.append(result)
 
 
@@ -150,6 +161,7 @@ def process_answer(
 
     logger.info("Building result...")
     result = build_result(answer, lookup_entry)
+
     logger.info("Processing submission...")
     process_submission(
         loc,
@@ -170,6 +182,7 @@ def process_answers(
     logger: logging.Logger,
     out_path: str,
     session_manager: SessionManager,
+    max_samples: int,
 ):
     logger.info(f"Loding existing results from {out_path}...")
     new_results = read_existing_results(out_path)
@@ -188,7 +201,7 @@ def process_answers(
         logger.info(f"Processing answer at location {loc}...")
         answer = generated_answers.iloc[loc]
         logger.info("Processing answer...")
-        if len(new_results) >= 100:
+        if len(new_results) >= max_samples:
             break
         try:
             result = process_answer(
@@ -202,10 +215,10 @@ def process_answers(
             )
             if result:
                 write_jsonl(out_path, new_results)
-                sleep(DEFAULT_WAIT_TIME / float(len(session_manager.sessions)))
         except Exception as e:
             logger.error(f"Failed to process answer with {e}", exc_info=True)
-            sleep(DEFAULT_WAIT_TIME)
+            logger.info("Sleeping full downtime...")
+            sleep(API_WAIT_TIME)  # TODO - Why can't we rely on client sleep?
 
 
 if __name__ == "__main__":
@@ -228,4 +241,5 @@ if __name__ == "__main__":
         logger,
         out_path,
         session_manager,
+        args.max_samples or MAX_SAMPLES,
     )

@@ -17,3 +17,8 @@ class DataDirectories(Enum):
 
 class Datasets(Enum):
     LEETCODE_DATASET = "leetcode_full.csv"
+
+
+class LLMProviders(Enum):
+    HUGGING_FACE = "hugging-face"
+    OPENAI = "openai"

@@ -63,6 +63,12 @@ def common_arg_parser() -> argparse.ArgumentParser:
         help="Temperature to use for the script.",
     )
     parser.add_argument(
+        "--max-samples",
+        type=int,
+        default=None,
+        help="Maximum number of samples to process.",
+    )
+    parser.add_argument(
         "--n-pass",
         type=int,
         default=None,

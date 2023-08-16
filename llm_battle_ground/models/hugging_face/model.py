@@ -2,12 +2,6 @@ import os
 from abc import ABC, abstractmethod
 from typing import List
 
-# Modify this to change cache location
-# os.environ["HF_HOME"] = os.environ.get("HF_HOME", "/JawTitan/huggingface/")
-
-# Acknowledgements:
-# Modified from https://github.com/evalplus/evalplus/blob/master/codegen/model.py
-
 import torch
 from transformers import (
     AutoModelForCausalLM,
@@ -15,6 +9,13 @@ from transformers import (
     StoppingCriteria,
     StoppingCriteriaList,
 )
+
+# Modify this to change cache location
+# os.environ["HF_HOME"] = os.environ.get("HF_HOME", "/JawTitan/huggingface/")
+
+# Acknowledgements:
+# Modified from https://github.com/evalplus/evalplus/blob/master/codegen/model.py
+
 
 HUMANEVAL_EOS = ["\nclass", "\ndef", "\n#", "\n@", "\nprint", "\nif"]
 NON_CODE_EOS = ["<|endoftext|>", "\n```", "\n</s>", "<|endofmask|>"]

@@ -1,9 +1,12 @@
+import argparse
 import logging
-from typing import List, Tuple
 import os
 from time import sleep
+from typing import List, Tuple
+
 import pandas as pd
-from llm_battle_ground.types import DataDirectories, Datasets
+from evalplus.data import write_jsonl
+
 from llm_battle_ground.leetcode_hard_gym.leetcode_env.environment import (
     LeetCodeEnv,
 )
@@ -12,13 +15,13 @@ from llm_battle_ground.leetcode_hard_gym.leetcode_env.types import (
     ProgrammingLanguage,
 )
 from llm_battle_ground.scripts import common_arg_parser
+from llm_battle_ground.types import DataDirectories, Datasets
 from llm_battle_ground.utils import (
     extract_code,
     get_configured_logger,
     get_root_fpath,
     read_jsonl,
 )
-from evalplus.data import write_jsonl
 
 DEFAULT_WAIT_TIME = 5  # seconds
 
@@ -56,7 +59,7 @@ def load_data(args: dict, in_path: str) -> Tuple[pd.DataFrame, pd.DataFrame]:
     return leetcode_reference_data, generated_answers
 
 
-def establish_output_path(args: dict, in_file_name: str) -> str:
+def establish_output_path(args: argparse.Namespace, in_file_name: str) -> str:
     out_dir = args.out_dir or DataDirectories.RESULTS.value
     out_file_name = args.out_file_name or in_file_name.replace(
         "_generation__", "_evaluation__"
@@ -68,10 +71,10 @@ def read_existing_results(out_path):
     return read_jsonl(out_path) if os.path.exists(out_path) else []
 
 
-def build_result(answer: str, lookup_entry: pd.Series):
+def build_result(answer: pd.Series, lookup_entry: pd.Series):
     return {
-        "frontend_question_id": answer.frontend_question_id,
-        "question_id": lookup_entry.question_id,
+        "frontend_question_id": int(answer.frontend_question_id),
+        "question_id": int(lookup_entry.question_id),
         "question_slug": lookup_entry.question_slug,
         "difficulty": lookup_entry.difficulty,
     }
@@ -99,7 +102,7 @@ def process_submission(
     sub = LeetCodeSubmission(
         code=extracted_code,
         lang=ProgrammingLanguage.PYTHON3,
-        question_id=int(lookup_entry.question_id),
+        question_id=str(int(lookup_entry.question_id)),
         question_slug=lookup_entry.question_slug,
     )
     new_session_id = session_manager.get_next_session()
@@ -135,8 +138,8 @@ def process_answer(
 
     logger.info(f"Creating submission for {answer.frontend_question_id}")
     lookup_entry = leetcode_reference_data[
-        leetcode_reference_data.frontend_question_id.astype(int)
-        == int(answer.frontend_question_id)
+        leetcode_reference_data.frontend_question_id
+        == answer.frontend_question_id
     ].iloc[0]
 
     logger.info("Building result...")

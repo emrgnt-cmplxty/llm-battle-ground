@@ -1,9 +1,9 @@
 import os
-from llm_battle_ground.helpers import SimilarityExperimentRunner
 
 import openai
 from evalplus.data import write_jsonl
 
+from llm_battle_ground.helpers import SimilarityExperimentRunner
 from llm_battle_ground.scripts import common_arg_parser
 from llm_battle_ground.utils import get_configured_logger
 

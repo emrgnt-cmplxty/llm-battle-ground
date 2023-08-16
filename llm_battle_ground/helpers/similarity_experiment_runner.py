@@ -1,19 +1,16 @@
-import pandas as pd
-
-
 import logging
 import os
+
+import pandas as pd
+from evalplus.data import write_jsonl
 
 from llm_battle_ground.completion_provider import CompletionProvider, RunMode
 from llm_battle_ground.helpers.leet_code_processor import LeetCodeProcessor
 from llm_battle_ground.helpers.similarity_response_evaluator import (
     SimilarityResponseEvaluator,
 )
-from llm_battle_ground.utils import calc_similarity, read_jsonl
-from llm_battle_ground.types import DataDirectories, Datasets
-from llm_battle_ground.utils import get_root_fpath
-
-from evalplus.data import write_jsonl
+from llm_battle_ground.types import DataDirectories, Datasets, LLMProviders
+from llm_battle_ground.utils import calc_similarity, get_root_fpath, read_jsonl
 
 # Pathing
 IN_DIR = os.path.join(get_root_fpath(), DataDirectories.DATASETS.value)
@@ -26,6 +23,7 @@ MODEL = "gpt-4-0613"
 TEMPERATURE = 0.7
 N_PASS = 1
 RUN_MODE = "similarity"
+PROVIDER = "openai"
 
 
 class SimilarityExperimentRunner:
@@ -41,6 +39,7 @@ class SimilarityExperimentRunner:
             run_mode=RunMode(RUN_MODE),
             model=self.args.model,
             temperature=self.args.temperature,
+            provider=LLMProviders(self.args.provider or PROVIDER),
         )
 
         self.output_file_name = (

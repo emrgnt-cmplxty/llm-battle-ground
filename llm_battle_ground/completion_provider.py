@@ -1,10 +1,12 @@
 """Module for the completion provider"""
 import textwrap
 from enum import Enum
+from typing import Optional
 
 from automata.llm import OpenAIChatCompletionProvider, OpenAIConversation
 
 from llm_battle_ground.models import make_model
+from llm_battle_ground.types import LLMProviders
 
 
 class RunMode(Enum):
@@ -22,19 +24,26 @@ class CompletionProvider:
         run_mode: RunMode,
         model: str,
         temperature: float,
-        provider: str = "openai",
+        provider: LLMProviders,
     ):
         self.run_mode = run_mode
         self.provider = provider
         self.model = model
         self.temperature = temperature
-        if self.provider == "openai":
-            pass  # nothing needs to be done
+        if self.provider == LLMProviders.OPENAI:
+            self.completion_instance = OpenAIChatCompletionProvider(
+                model=self.model,
+                temperature=self.temperature,
+                stream=True,
+                conversation=OpenAIConversation(),
+                functions=[],
+            )
+
         elif self.provider:
             # means we need to load the model locally
             # TODO: batch size
-            self.model = make_model(
-                provider=self.provider,
+            self.completion_instance = make_model(
+                provider=self.provider.value,
                 name=self.model,
                 batch_size=1,
                 temperature=temperature,
@@ -42,32 +51,34 @@ class CompletionProvider:
 
     def get_completion(self, **kwargs) -> str:
         """Returns the raw and cleaned completions for the given prompt"""
+        code_snippet = kwargs.get("code_snippet")
+        if not isinstance(code_snippet, str):
+            raise ValueError("Code snippet must be provided as a string.")
 
-        if self.run_mode in [RunMode.SIMILARITY, RunMode.VANILLA_ZERO_SHOT]:
-            vanilla_instructions = self.get_formatted_instruction(**kwargs)
-            raw_completion = self.generate_vanilla_completion(
-                vanilla_instructions,
-                code_snippet=kwargs.get("code_snippet"),
-            )
-        else:
+        if self.run_mode not in [
+            RunMode.SIMILARITY,
+            RunMode.VANILLA_ZERO_SHOT,
+        ]:
             raise ValueError("No such run mode.")
-        return raw_completion
+        vanilla_instructions = self.get_formatted_instruction(**kwargs)
+        return self.generate_vanilla_completion(
+            vanilla_instructions,
+            code_snippet=code_snippet,
+        )
 
     def generate_vanilla_completion(
-        self, instructions: str, code_snippet: str
+        self, instructions: str, code_snippet: Optional[str] = None
     ) -> str:
         """Generates a vanilla completion for the given prompt"""
-        if self.provider == "openai":
-            provider = OpenAIChatCompletionProvider(
-                model=self.model,
-                temperature=self.temperature,
-                stream=True,
-                conversation=OpenAIConversation(),
-                functions=[],
+        if self.provider == LLMProviders.OPENAI:
+            assert isinstance(
+                self.completion_instance, OpenAIChatCompletionProvider
             )
-            return provider.standalone_call(instructions)
-        elif self.provider == "hugging-face":
-            return f"{code_snippet}\n{self.model.codegen(instructions, num_samples=1)[0]}"
+            return self.completion_instance.standalone_call(instructions)
+        elif self.provider == LLMProviders.HUGGING_FACE:
+            # TODO - Add assertion to protect against faulty instance
+            # e.g. assert isinstnace(...)
+            return f"{code_snippet}\n{self.completion_instance.codegen(instructions, num_samples=1)[0]}"
         else:
             raise ValueError("No such provider.")
 

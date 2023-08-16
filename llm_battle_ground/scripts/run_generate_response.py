@@ -1,8 +1,8 @@
 import logging
-import numpy as np
 import os
 import random
 
+import numpy as np
 import openai
 import pandas as pd
 from evalplus.data import write_jsonl
@@ -12,7 +12,7 @@ random.seed(0)
 from llm_battle_ground.completion_provider import CompletionProvider, RunMode
 from llm_battle_ground.helpers import LeetCodeProcessor
 from llm_battle_ground.scripts import common_arg_parser
-from llm_battle_ground.types import DataDirectories, Datasets
+from llm_battle_ground.types import DataDirectories, Datasets, LLMProviders
 from llm_battle_ground.utils import (
     get_configured_logger,
     get_root_fpath,
@@ -39,6 +39,9 @@ DIFFICULTY_SAMPLE_RATES = {
 }
 
 
+MAX_VAL = int(1e10)
+
+
 OUTPUT_FILE_NAME = (
     "leetcode_generation__provider_eq_{PROVIDER}__{RUN_MODE}__filter_ez_eq_%s_filter_med_eq_%s_filter_hrd_eq_%s__model_eq_{MODEL}__temperature_eq_{TEMPERATURE}__n_pass_{N_PASS}.jsonl"
     % (
@@ -54,16 +57,19 @@ def main(
     logger: logging.Logger,
     in_path: str,
     out_path: str,
-    provider: str,
+    provider: LLMProviders,
     run_mode: RunMode,
     model: str,
     temperature: float,
+    max_samples: int,
     n_pass: int,  # TODO - Implement this.
-) -> None:
+) -> list[dict]:
     logger.info(f"Loading dataset file from {in_path}.")
-    dataset = pd.read_csv(in_path).sort_values(by=["frontend_question_id"])
+    dataset = pd.read_csv(in_path).sort_values(by=["frontend_question_id"])[
+        ::-1
+    ]
 
-    provider = CompletionProvider(
+    completion_provider = CompletionProvider(
         run_mode=run_mode,
         model=model,
         temperature=temperature,
@@ -80,8 +86,10 @@ def main(
         outputs = []
 
     observed_ids = {x["frontend_question_id"] for x in outputs}
-    max_observed_id = outputs[-1]["frontend_question_id"] if outputs else 0
-
+    min_observed_id = (
+        outputs[-1]["frontend_question_id"] if outputs else MAX_VAL
+    )
+    print(f"outputs = {outputs}, len(outputs) = {len(outputs)}")
     for loc in range(len(dataset)):
         entry = dataset.iloc[loc]
         difficulty = entry["difficulty"]
@@ -103,23 +111,23 @@ def main(
             continue
 
         # Since we use rng, we need to skip past old max when re-loading data
-        if frontend_question_id <= max_observed_id:
+        if frontend_question_id > min_observed_id:
             logger.info(
                 f"Continuing because {frontend_question_id} has been processed previously."
             )
             continue
         else:
-            if max_observed_id != 0:
+            if min_observed_id != MAX_VAL:
                 logger.info(
-                    "Processing first example, resetting max_observed_id to 0."
+                    f"Processing first example, resetting min_observed_id to {MAX_VAL}."
                 )
-                max_observed_id = 0
+                min_observed_id = MAX_VAL
 
         # Generating input for completion
         task_input = f"LeetCode Problem #{frontend_question_id}\nTitle: {entry['question_title']}\nDescription:\n{processor.clean_html_content(entry['raw_content'])}\n\n"
 
         code_snippet = entry["python3_snippet"]
-        raw_response = provider.get_completion(
+        raw_response = completion_provider.get_completion(
             task_input=task_input, code_snippet=code_snippet
         )
         result = {
@@ -132,6 +140,8 @@ def main(
             "loc": loc,
         }
         outputs.append(result)
+        if len(outputs) >= max_samples:
+            break
         write_jsonl(out_path, outputs)
     return outputs
 
@@ -148,8 +158,10 @@ if __name__ == "__main__":
         args.in_dir or IN_DIR, args.in_file_name or IN_FILE_NAME
     )
 
+    args.provider = args.provider or LLMProviders(PROVIDER)
+
     out_file_name = args.out_file_name or OUTPUT_FILE_NAME.format(
-        PROVIDER=args.provider or PROVIDER,
+        PROVIDER=args.provider.value,
         MODEL=args.model or MODEL,
         # note if temperature = 0, regular approach will evaluate to false and use default
         TEMPERATURE=args.temperature
@@ -165,10 +177,11 @@ if __name__ == "__main__":
         logger,
         in_path,
         out_path,
-        args.provider or PROVIDER,
+        args.provider,
         RunMode(args.run_mode or RUN_MODE),
         args.model or MODEL,
         args.temperature or TEMPERATURE,
+        args.max_samples or MAX_VAL,
         args.n_pass or N_PASS,
     )
     write_jsonl(out_path, outputs)

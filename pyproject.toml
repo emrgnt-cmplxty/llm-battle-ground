@@ -20,6 +20,8 @@ python-dotenv = "^1.0.0"
 pandas = "^2.0.3"
 evalplus = "^0.1.6"
 gym = "^0.26.2"
+torch = "^2.0.1"
+transformers = "^4.31.0"
 
 [tool.black]
 line-length = 79

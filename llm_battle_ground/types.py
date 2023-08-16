@@ -1,9 +1,18 @@
+import os
 from enum import Enum
 
 
 class DataDirectories(Enum):
-    DATASETS = "datasets"
-    RESULTS = "results"
+    DATASETS = (
+        "datasets_debug"
+        if os.getenv("LLM_BATTLE_GROUND_DEBUG") == "True"
+        else "datasets"
+    )
+    RESULTS = (
+        "results_debug"
+        if os.getenv("LLM_BATTLE_GROUND_DEBUG") == "True"
+        else "results"
+    )
 
 
 class Datasets(Enum):

@@ -45,7 +45,7 @@ def common_arg_parser() -> argparse.ArgumentParser:
     )
 
     parser.add_argument(
-        "--run_mode",
+        "--run-mode",
         type=str,
         default=None,
         help="Mode to run the experiment in, e.g. `zero-shot`, `finetune`....",

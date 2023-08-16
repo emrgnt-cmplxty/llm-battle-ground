@@ -4,7 +4,7 @@ from enum import Enum
 
 from automata.llm import OpenAIChatCompletionProvider, OpenAIConversation
 
-from llm_battle_ground.models import make_model
+# from llm_battle_ground.models import make_model
 
 
 class RunMode(Enum):

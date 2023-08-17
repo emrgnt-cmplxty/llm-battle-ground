@@ -78,7 +78,7 @@ class CompletionProvider:
         elif self.provider == LLMProviders.HUGGING_FACE:
             # TODO - Add assertion to protect against faulty instance
             # e.g. assert isinstnace(...)
-            return f"{code_snippet}\n{self.completion_instance.codegen(instructions, num_samples=1)[0]}"
+            return f"{code_snippet}{self.completion_instance.codegen(instructions, num_samples=1)[0]}"
         else:
             raise ValueError("No such provider.")
 
@@ -93,20 +93,27 @@ class CompletionProvider:
             num_forward_examples = kwargs.get("num_forward_examples")
             if not task_input or not num_forward_examples:
                 raise ValueError("Missing required arguments.")
-            return textwrap.dedent(
-                """
-                Closely examine the following examples -
-
-                Input:
-                {TASK_INPUT}
-
-                Now, use those examples to predict the next {NUM_FORWARD_EXAMPLES} examples that will follow. DO NOT OUTPUT ANY ADDITIONAL TEXT, ONLY THE NEXT {NUM_FORWARD_EXAMPLES} EXAMPLES.
-                Output:
-                """
-            ).format(
-                TASK_INPUT=task_input,
-                NUM_FORWARD_EXAMPLES=num_forward_examples,
-            )
+            if self.provider in [LLMProviders.HUGGING_FACE]:
+                return textwrap.dedent(
+                    """
+                    {TASK_INPUT}
+                    Example"""
+                ).format(TASK_INPUT=task_input)
+            else:
+                return textwrap.dedent(
+                    """
+                    Closely examine the following examples -
+    
+                    Input:
+                    {TASK_INPUT}
+    
+                    Now, use those examples to predict the next {NUM_FORWARD_EXAMPLES} examples that will follow. DO NOT OUTPUT ANY ADDITIONAL TEXT, ONLY THE NEXT {NUM_FORWARD_EXAMPLES} EXAMPLES.
+                    Output:
+                    """
+                ).format(
+                    TASK_INPUT=task_input,
+                    NUM_FORWARD_EXAMPLES=num_forward_examples,
+                )
         elif self.run_mode == RunMode.VANILLA_ZERO_SHOT:
             task_input = kwargs.get("task_input")
             code_snippet = kwargs.get("code_snippet")
@@ -114,7 +121,7 @@ class CompletionProvider:
                 raise ValueError("Missing required arguments.")
 
             # if hugging-face we use a simplified version of the instructions
-            if self.provider in ["hugging-face"]:
+            if self.provider in [LLMProviders.HUGGING_FACE]:
                 return textwrap.dedent(
                     """
         ### Introduction:

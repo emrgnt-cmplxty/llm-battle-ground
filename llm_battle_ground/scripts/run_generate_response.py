@@ -107,7 +107,7 @@ def main(
 
         code_snippet = entry["python3_snippet"]
         raw_response = completion_provider.get_completion(
-            task_input=task_input, code_snippet=code_snippet
+            task_input=task_input, code_snippet=code_snippet + "\n"
         )
         result = {
             "task_input": task_input,

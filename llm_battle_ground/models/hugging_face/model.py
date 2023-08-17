@@ -1,6 +1,6 @@
 import os
 from abc import ABC, abstractmethod
-from typing import List
+from typing import List, Dict, Union
 
 import torch
 from transformers import (
@@ -101,7 +101,7 @@ class HFTorchDecoder(DecoderBase):
         self.device = torch.device(
             "cuda" if torch.cuda.is_available() else "cpu"
         )
-        kwargs = {
+        kwargs: Dict[str, Union[str, bool, torch.dtype]] = {
             "trust_remote_code": name
             in {
                 "bigcode/santacoder",

@@ -45,9 +45,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     provider = args.provider or PROVIDER
-    if provider == "openai":
-        # TODO - Rename this to `OPENAI_API_KEY`
-        openai.api_key = os.getenv("OPENAI_API_KEY_LOCAL", "")
+    # if provider == "openai": # remove this for now since even local needs openai similarity calculation
+    # TODO - add perplexity related measure for local models
+    # TODO - Rename this to `OPENAI_API_KEY`
+    openai.api_key = os.getenv("OPENAI_API_KEY_LOCAL", "")
 
     logger = get_configured_logger(__name__, args.log_level)
 
@@ -56,4 +57,4 @@ if __name__ == "__main__":
     outputs = experiment.run()
 
     # Finalize
-    write_jsonl(experiment.out_dir, outputs)
+    write_jsonl(experiment.out_path, outputs)

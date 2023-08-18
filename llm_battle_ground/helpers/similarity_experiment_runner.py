@@ -171,7 +171,9 @@ class SimilarityExperimentRunner:
                 similarity = 0
                 for _ in range(self.args.n_pass):
                     while True:
-                        response = provider.generate_vanilla_completion(prompt)
+                        response = provider.generate_vanilla_completion(
+                            prompt, code_snippet="Example"
+                        )
                         if "as an AI language model" not in response:
                             break
 

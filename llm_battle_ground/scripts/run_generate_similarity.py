@@ -41,14 +41,26 @@ if __name__ == "__main__":
         default=BUFFER,
         help="The size of the forward example buffer",
     )
+    parser.add_argument(
+        "--perplexity",
+        action="store_true",
+        help="Whether to use perplexity as a measure of similarity (note can only do this with local models)",
+    )
 
     args = parser.parse_args()
 
     provider = args.provider or PROVIDER
-    # if provider == "openai": # remove this for now since even local needs openai similarity calculation
-    # TODO - add perplexity related measure for local models
-    # TODO - Rename this to `OPENAI_API_KEY`
-    openai.api_key = os.getenv("OPENAI_API_KEY_LOCAL", "")
+    if (
+        provider == "openai"
+        or provider in ["hugging-face"]
+        and not args.perplexity
+    ):
+        # TODO - Rename this to `OPENAI_API_KEY`
+        openai.api_key = os.getenv("OPENAI_API_KEY_LOCAL", "")
+
+    assert not (
+        provider == "openai" and args.perplexity
+    ), "Cannot use perplexity with OpenAI API"
 
     logger = get_configured_logger(__name__, args.log_level)
 

@@ -26,6 +26,7 @@ OUT_DIR = os.path.join(
 )
 
 OUT_FILE_NAME = "similarity_{IN_FILE_NAME}__{MODEL}__step_size_eq_{STEP_SIZE}__num_input_examples_eq_{NUM_OUTPUT_EXAMPLES}__num_output_examples_eq_{NUM_OUTPUT_EXAMPLES}__buffer_eq_{BUFFER}__temperature_eq_{TEMPERATURE}__n_pass_{N_PASS}.jsonl"
+PERPLEXITY_OUT_FILE_NAME = "perplexity_{IN_FILE_NAME}__{MODEL}__step_size_eq_{STEP_SIZE}__num_input_examples_eq_{NUM_OUTPUT_EXAMPLES}__num_output_examples_eq_{NUM_OUTPUT_EXAMPLES}__buffer_eq_{BUFFER}__temperature_eq_{TEMPERATURE}__n_pass_{N_PASS}.jsonl"
 
 # Default input constants
 MODEL = "gpt-4-0613"
@@ -51,9 +52,13 @@ class SimilarityExperimentRunner:
             provider=LLMProviders(self.args.provider or PROVIDER),
         )
 
+        if self.args.perplexity:
+            FORMAT_FILE_NAME = PERPLEXITY_OUT_FILE_NAME
+        else:
+            FORMAT_FILE_NAME = OUT_FILE_NAME
         self.output_file_name = (
             self.args.out_file_name
-            or OUT_FILE_NAME.format(
+            or FORMAT_FILE_NAME.format(
                 IN_FILE_NAME=(args.in_file_name or IN_FILE_NAME)
                 .replace(".csv", "")
                 .replace(".jsonl", ""),
@@ -105,9 +110,85 @@ class SimilarityExperimentRunner:
             outputs = []
             start_index = self.args.num_input_examples + 1
 
-        self._generate_similarity(dataset, start_index, self.provider, outputs)
+        if self.args.perplexity:
+            self._generate_perplexity(
+                dataset, start_index, self.provider, outputs
+            )
+        else:
+            self._generate_similarity(
+                dataset, start_index, self.provider, outputs
+            )
         write_jsonl(self.out_path, outputs)
         return outputs
+
+    def _generate_perplexity(
+        self,
+        dataset: pd.DataFrame,
+        start_index: int,
+        provider: CompletionProvider,
+        outputs: list,
+    ) -> None:
+        for iloc in range(start_index, len(dataset), self.args.step_size):
+            try:
+                if iloc + self.args.num_output_examples >= len(dataset):
+                    break
+
+                input_context = "\n".join(
+                    f"Example {counter + 1}: {dataset.iloc[i]['example_statement']}..."
+                    for counter, i in enumerate(
+                        range(iloc - self.args.num_input_examples, iloc)
+                    )
+                )
+
+                logging.info(f"Running for input context:\n{input_context}")
+
+                expected_response = "\n".join(
+                    f"Example {counter + 1}: {dataset.iloc[i]['example_statement']}..."
+                    for counter, i in enumerate(
+                        range(
+                            iloc,
+                            iloc + self.args.num_output_examples,
+                        ),
+                        start=self.args.num_input_examples,
+                    )
+                )
+
+                # remove first Example
+                expected_response = expected_response[7:]
+
+                prompt = provider.get_formatted_instruction(
+                    task_input=input_context,
+                    num_forward_examples=self.args.num_output_examples
+                    + self.args.buffer,
+                )
+                logging.info(f"Running for with formatted prompt:\n{prompt}")
+
+                result = {
+                    "input_context": input_context,
+                    "expected_response": expected_response,
+                    "iloc": iloc,
+                    "frontend_question_id": dataset.iloc[
+                        iloc + self.args.num_output_examples
+                    ]["frontend_question_id"],
+                    "n_pass": self.args.n_pass,
+                }
+
+                # in perplexity mode, we only need to run once
+                perplexity = provider.get_perplexity(
+                    prefix=prompt, completion=expected_response
+                )
+
+                self.logger.info(f"Latest Perplexity = {perplexity}")
+                result["response"] = ""
+                result["cleaned_response"] = ""
+                result["similarity"] = perplexity
+                self.logger.info(f"Similarity = {perplexity}")
+
+                outputs.append(result)
+                write_jsonl(self.out_path, outputs)
+            except:
+                self.logger.exception(f"Failed to process {iloc}.")
+                continue
 
     def _generate_similarity(
         self,

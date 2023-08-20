@@ -84,6 +84,10 @@ class DecoderBase(ABC):
     ) -> List[str]:
         pass
 
+    @abstractmethod
+    def perplexity(self, prompt: str, completion: str) -> float:
+        pass
+
     def __repr__(self) -> str:
         return self.name
 
@@ -130,6 +134,31 @@ class HFTorchDecoder(DecoderBase):
             self.model = self.model.half()
             self.skip_special_tokens = True
         self.model = self.model.to(self.device)
+
+    @torch.inference_mode()
+    def perplexity(self, prompt: str, completion: str) -> float:
+        input_tokens = self.tokenizer(prompt, return_tensors="pt").to(
+            self.device
+        )
+        completion_tokens = self.tokenizer(
+            prompt + completion, return_tensors="pt"
+        ).to(self.device)
+
+        begin_loc = input_tokens.input_ids.size(1)
+        input_ids = completion_tokens.input_ids
+        target_ids = input_ids.clone()
+        target_ids[:, :begin_loc] = -100
+
+        with torch.no_grad():
+            outputs = self.model(input_ids, labels=target_ids)
+
+            # loss is calculated using CrossEntropyLoss which averages over valid labels
+            # N.B. the model only calculates loss over trg_len - 1 labels, because it internally shifts the labels
+            # to the left by 1.
+            neg_log_likelihood = outputs.loss
+
+        ppl = torch.exp(neg_log_likelihood).item()
+        return ppl
 
     # Assumption is that all inputs should probably fit under maximum context. but can add a checking function
     # just in case. TODO: think about
@@ -358,6 +387,28 @@ class StarCoder(HFTorchDecoder):
         super().__init__(name, batch_size, temperature)
         self.prefix_token = "<fim_prefix>"
         self.suffix_token = "<fim_suffix><fim_middle>"
+
+    @torch.inference_mode()
+    def perplexity(self, prompt: str, completion: str) -> float:
+        input_tokens = self.tokenizer(
+            self.prefix_token + prompt + self.suffix_token, return_tensors="pt"
+        ).to(self.device)
+        completion_tokens = self.tokenizer(
+            self.prefix_token + prompt + self.suffix_token + completion,
+            return_tensors="pt",
+        ).to(self.device)
+
+        begin_loc = input_tokens.input_ids.size(1)
+        input_ids = completion_tokens.input_ids
+        target_ids = input_ids.clone()
+        target_ids[:, :begin_loc] = -100
+
+        with torch.no_grad():
+            outputs = self.model(input_ids, labels=target_ids)
+            neg_log_likelihood = outputs.loss
+
+        ppl = torch.exp(neg_log_likelihood).item()
+        return ppl
 
     def codegen(
         self, prompt: str, do_sample: bool = True, num_samples: int = 200

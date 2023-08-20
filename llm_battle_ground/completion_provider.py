@@ -82,6 +82,15 @@ class CompletionProvider:
         else:
             raise ValueError("No such provider.")
 
+    def get_perplexity(self, prefix: str, completion: str) -> float:
+        """Returns the perplexity of the completion for the given prompt"""
+        if self.provider == LLMProviders.HUGGING_FACE:
+            return self.completion_instance.perplexity(prefix, completion)
+        else:
+            raise ValueError(
+                "No such provider or provider does not support perplexity."
+            )
+
     def get_formatted_instruction(
         self,
         **kwargs,

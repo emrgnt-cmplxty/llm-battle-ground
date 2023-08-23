@@ -1,4 +1,5 @@
 import argparse
+import ast
 import logging
 import os
 from time import sleep
@@ -109,6 +110,17 @@ def process_submission(
         result["status"] = "Wrong Answer"
         result["reward"] = False
         result["done"] = False
+        new_results.append(result)
+        return
+
+    try:
+        ast.parse(extracted_code)
+    except Exception as e:
+        logger.error("Syntax Error", exc_info=True)
+        result["status"] = "Wrong Answer"
+        result["reward"] = False
+        result["done"] = False
+        result["status"] = "Syntax Error"
         new_results.append(result)
         return
 

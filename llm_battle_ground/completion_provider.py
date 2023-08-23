@@ -103,11 +103,28 @@ class CompletionProvider:
             if not task_input or not num_forward_examples:
                 raise ValueError("Missing required arguments.")
             if self.provider in [LLMProviders.HUGGING_FACE]:
-                return textwrap.dedent(
-                    """
-                    {TASK_INPUT}
-                    Example"""
-                ).format(TASK_INPUT=task_input)
+                if self.model in [
+                    "wizardcoder"
+                ]:  # some models are instruction based.
+                    return textwrap.dedent(
+                        """
+                        Closely examine the following examples -
+
+                        Input:
+                        {TASK_INPUT}
+
+                        Now, use those examples to predict the next {NUM_FORWARD_EXAMPLES} examples that will follow. DO NOT OUTPUT ANY ADDITIONAL TEXT, ONLY THE NEXT {NUM_FORWARD_EXAMPLES} EXAMPLES.
+                        """
+                    ).format(
+                        TASK_INPUT=task_input,
+                        NUM_FORWARD_EXAMPLES=num_forward_examples,
+                    )
+                else:
+                    return textwrap.dedent(
+                        """
+                        {TASK_INPUT}
+                        Example"""
+                    ).format(TASK_INPUT=task_input)
             else:
                 return textwrap.dedent(
                     """

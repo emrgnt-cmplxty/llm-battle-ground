@@ -6,6 +6,7 @@ from llm_battle_ground.models.hugging_face.model import (
     IncoderDecoder,
     SantaCoder,
     StarCoder,
+    WizardCoder,
 )
 
 
@@ -98,6 +99,12 @@ def make_model_hugging_face(
         return StarCoder(
             batch_size=batch_size,
             name="bigcode/starcoder",
+            temperature=temperature,
+        )
+    elif name == "wizardcoder":
+        return WizardCoder(
+            batch_size=batch_size,
+            name="WizardLM/WizardCoder-15B-V1.0",
             temperature=temperature,
         )
 

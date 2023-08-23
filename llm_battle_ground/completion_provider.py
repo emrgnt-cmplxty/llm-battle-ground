@@ -106,6 +106,7 @@ class CompletionProvider:
                 if self.model in [
                     "wizardcoder",
                     "platypus",
+                    "mpt-instruct",
                 ]:  # some models are instruction based.
                     return textwrap.dedent(
                         """

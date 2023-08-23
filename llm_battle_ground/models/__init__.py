@@ -8,6 +8,7 @@ from llm_battle_ground.models.hugging_face.model import (
     StarCoder,
     WizardCoder,
     StablePlatypus2,
+    MPTInstruct,
 )
 
 
@@ -112,6 +113,18 @@ def make_model_hugging_face(
         return StablePlatypus2(
             batch_size=batch_size,
             name="garage-bAInd/Stable-Platypus2-13B",
+            temperature=temperature,
+        )
+    elif name == "mpt":  # currently 40GB cannot support this model.
+        return HFTorchDecoder(
+            batch_size=batch_size,
+            name="mosaicml/mpt-30b",
+            temperature=temperature,
+        )
+    elif name == "mpt-instruct":
+        return MPTInstruct(
+            batch_size=batch_size,
+            name="mosaicml/mpt-7b-instruct",
             temperature=temperature,
         )
 

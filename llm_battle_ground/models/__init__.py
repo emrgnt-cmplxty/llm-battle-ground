@@ -7,6 +7,7 @@ from llm_battle_ground.models.hugging_face.model import (
     SantaCoder,
     StarCoder,
     WizardCoder,
+    StablePlatypus2,
 )
 
 
@@ -105,6 +106,12 @@ def make_model_hugging_face(
         return WizardCoder(
             batch_size=batch_size,
             name="WizardLM/WizardCoder-15B-V1.0",
+            temperature=temperature,
+        )
+    elif name == "platypus":
+        return StablePlatypus2(
+            batch_size=batch_size,
+            name="garage-bAInd/Stable-Platypus2-13B",
             temperature=temperature,
         )
 

@@ -104,7 +104,8 @@ class CompletionProvider:
                 raise ValueError("Missing required arguments.")
             if self.provider in [LLMProviders.HUGGING_FACE]:
                 if self.model in [
-                    "wizardcoder"
+                    "wizardcoder",
+                    "platypus",
                 ]:  # some models are instruction based.
                     return textwrap.dedent(
                         """

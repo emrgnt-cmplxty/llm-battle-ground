@@ -152,14 +152,9 @@ class SimilarityExperimentRunner:
                         start=self.args.num_input_examples,
                     )
                 )
-
-                # remove first Example
-                expected_response = expected_response[7:]
-
                 prompt = provider.get_formatted_instruction(
                     task_input=input_context,
-                    num_forward_examples=self.args.num_output_examples
-                    + self.args.buffer,
+                    num_forward_examples=self.args.num_output_examples,
                 )
                 logging.info(f"Running for with formatted prompt:\n{prompt}")
 

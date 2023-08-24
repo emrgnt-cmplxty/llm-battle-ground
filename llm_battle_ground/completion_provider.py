@@ -85,7 +85,15 @@ class CompletionProvider:
     def get_perplexity(self, prefix: str, completion: str) -> float:
         """Returns the perplexity of the completion for the given prompt"""
         if self.provider == LLMProviders.HUGGING_FACE:
-            return self.completion_instance.perplexity(prefix, completion)
+            if self.model in [
+                "wizardcoder",
+                "platypus",
+                "mpt-instruct",
+            ]:  # some models are instruction based.
+                return self.completion_instance.perplexity(prefix, completion)
+            else:
+                # remove first Example
+                return self.completion_instance.perplexity(prefix, completion[7:])
         else:
             raise ValueError(
                 "No such provider or provider does not support perplexity."

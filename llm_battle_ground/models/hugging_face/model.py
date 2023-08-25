@@ -116,6 +116,8 @@ class HFTorchDecoder(DecoderBase):
                 "Salesforce/codegen2-16B",
                 "mosaicml/mpt-30b",
                 "mosaicml/mpt-7b-instruct",
+                "tiiuae/falcon-7b",
+                "tiiuae/falcon-7b-instruct",
             }
         }
         if "codegen-" in name:  # use fp16 for codegen models
@@ -138,6 +140,8 @@ class HFTorchDecoder(DecoderBase):
             # config.attn_config['attn_impl'] = 'triton'
             config.init_device = "cuda"
             kwargs["config"] = config
+            kwargs["torch_dtype"] = torch.bfloat16
+        if "falcon" in name:
             kwargs["torch_dtype"] = torch.bfloat16
 
         self.tokenizer = AutoTokenizer.from_pretrained(name)

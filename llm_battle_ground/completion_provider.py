@@ -89,6 +89,7 @@ class CompletionProvider:
                 "wizardcoder",
                 "platypus",
                 "mpt-instruct",
+                "falcon-instruct",
             ]:  # some models are instruction based.
                 return self.completion_instance.perplexity(prefix, completion)
             else:
@@ -115,6 +116,7 @@ class CompletionProvider:
                     "wizardcoder",
                     "platypus",
                     "mpt-instruct",
+                    "falcon-instruct",
                 ]:  # some models are instruction based.
                     return textwrap.dedent(
                         """

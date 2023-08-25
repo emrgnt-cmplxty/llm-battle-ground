@@ -127,6 +127,19 @@ def make_model_hugging_face(
             name="mosaicml/mpt-7b-instruct",
             temperature=temperature,
         )
+    elif name == "falcon":
+        return HFTorchDecoder(
+            batch_size=batch_size,
+            name="tiiuae/falcon-7b",
+            temperature=temperature,
+        )
+    elif name == "falcon-instruct":
+        # we use the stable platypus2 model to generate the instruction.
+        return StablePlatypus2(
+            batch_size=batch_size,
+            name="tiiuae/falcon-7b-instruct",
+            temperature=temperature,
+        )
 
     raise ValueError(f"Invalid model name: {name}")
 

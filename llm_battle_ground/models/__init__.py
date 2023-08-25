@@ -9,6 +9,7 @@ from llm_battle_ground.models.hugging_face.model import (
     WizardCoder,
     StablePlatypus2,
     MPTInstruct,
+    StableBeluga,
 )
 
 
@@ -138,6 +139,12 @@ def make_model_hugging_face(
         return StablePlatypus2(
             batch_size=batch_size,
             name="tiiuae/falcon-7b-instruct",
+            temperature=temperature,
+        )
+    elif name == "stablebeluga":
+        return StableBeluga(
+            batch_size=batch_size,
+            name="stabilityai/StableBeluga-7B",
             temperature=temperature,
         )
 

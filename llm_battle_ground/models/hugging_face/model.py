@@ -143,6 +143,8 @@ class HFTorchDecoder(DecoderBase):
             kwargs["torch_dtype"] = torch.bfloat16
         if "falcon" in name:
             kwargs["torch_dtype"] = torch.bfloat16
+        if "StableBeluga" in name:
+            kwargs["torch_dtype"] = torch.float16
 
         self.tokenizer = AutoTokenizer.from_pretrained(name)
         self.model = AutoModelForCausalLM.from_pretrained(name, **kwargs)
@@ -665,6 +667,83 @@ class MPTInstruct(HFTorchDecoder):
         super().__init__(name, batch_size, temperature)
         self.prefix_token = "Below is an instruction that describes a task. Write a response that appropriately completes the request.\n### Instruction:\n"
         self.suffix_token = "\n### Response:"
+
+    @torch.inference_mode()
+    def perplexity(self, prompt: str, completion: str) -> float:
+        input_tokens = self.tokenizer(
+            self.prefix_token + prompt + self.suffix_token, return_tensors="pt"
+        ).to(self.device)
+        completion_tokens = self.tokenizer(
+            self.prefix_token + prompt + self.suffix_token + completion,
+            return_tensors="pt",
+        ).to(self.device)
+
+        begin_loc = input_tokens.input_ids.size(1)
+        input_ids = completion_tokens.input_ids
+        target_ids = input_ids.clone()
+        target_ids[:, :begin_loc] = -100
+
+        with torch.no_grad():
+            outputs = self.model(input_ids, labels=target_ids)
+            neg_log_likelihood = outputs.loss
+
+        ppl = torch.exp(neg_log_likelihood).item()
+        return ppl
+
+    @torch.inference_mode()
+    def codegen(
+        self, prompt: str, do_sample: bool = True, num_samples: int = 200
+    ) -> List[str]:
+        input = self.prefix_token + prompt + self.suffix_token
+        input_tokens = self.tokenizer.encode(input, return_tensors="pt").to(
+            self.device
+        )
+        scores = StoppingCriteriaList(
+            [
+                EndOfFunctionCriteria(
+                    start_length=len(input_tokens[0]),
+                    eos=self.eos,
+                    tokenizer=self.tokenizer,
+                )
+            ]
+        )
+        raw_outputs = self.model.generate(
+            input_tokens,
+            max_new_tokens=self.max_new_tokens,
+            stopping_criteria=scores,
+            do_sample=do_sample,
+            top_p=0.95,
+            top_k=None,
+            temperature=self.temperature,
+            num_return_sequences=min(self.batch_size, num_samples),
+            output_scores=True,
+            return_dict_in_generate=True,
+            pad_token_id=self.tokenizer.pad_token_id,
+            eos_token_id=self.tokenizer.eos_token_id,
+        )
+        gen_seqs = raw_outputs.sequences[:, len(input_tokens[0]) :]
+        gen_strs = self.tokenizer.batch_decode(
+            gen_seqs, skip_special_tokens=self.skip_special_tokens
+        )
+        outputs = []
+        # removes eos tokens.
+        for output in gen_strs:
+            min_index = 10000
+            for eos in self.eos:
+                if eos in output:
+                    min_index = min(min_index, output.index(eos))
+            outputs.append(output[:min_index])
+        return outputs
+
+
+class StableBeluga(HFTorchDecoder):
+    def __init__(
+        self, name: str, batch_size: int = 1, temperature: float = 0.8
+    ) -> None:
+        super().__init__(name, batch_size, temperature)
+        self.prefix_token = "### System:\nYou are StableBeluga, an AI that follows instructions extremely well. Help " \
+                            "as much as you can. Remember, be safe, and don't do anything illegal.\n\n### User:\n "
+        self.suffix_token = "\n### Assistant:"
 
     @torch.inference_mode()
     def perplexity(self, prompt: str, completion: str) -> float:

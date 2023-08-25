@@ -244,6 +244,29 @@ class IncoderDecoder(HFTorchDecoder):
         ]
         self.eos = self.eos + self.extra_eos
 
+    @torch.inference_mode()
+    def perplexity(self, prompt: str, completion: str) -> float:
+        input_tokens = self.tokenizer(
+            prompt + self.infill_ph + self.extra_end, return_tensors="pt"
+        ).to(self.device)
+        completion_tokens = self.tokenizer(
+            prompt + self.infill_ph + self.extra_end + completion,
+            return_tensors="pt",
+        ).to(self.device)
+
+        begin_loc = input_tokens.input_ids.size(1)
+        input_ids = completion_tokens.input_ids
+        target_ids = input_ids.clone()
+        target_ids[:, :begin_loc] = -100
+
+        with torch.no_grad():
+            outputs = self.model(input_ids, labels=target_ids)
+            neg_log_likelihood = outputs.loss
+
+        ppl = torch.exp(neg_log_likelihood).item()
+        return ppl
+
+    @torch.inference_mode()
     def codegen(
         self, prompt: str, do_sample: bool = True, num_samples: int = 200
     ) -> List[str]:

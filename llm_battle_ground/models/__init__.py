@@ -6,6 +6,10 @@ from llm_battle_ground.models.hugging_face.model import (
     IncoderDecoder,
     SantaCoder,
     StarCoder,
+    WizardCoder,
+    StablePlatypus2,
+    MPTInstruct,
+    StableBeluga,
 )
 
 
@@ -98,6 +102,49 @@ def make_model_hugging_face(
         return StarCoder(
             batch_size=batch_size,
             name="bigcode/starcoder",
+            temperature=temperature,
+        )
+    elif name == "wizardcoder":
+        return WizardCoder(
+            batch_size=batch_size,
+            name="WizardLM/WizardCoder-15B-V1.0",
+            temperature=temperature,
+        )
+    elif name == "platypus":
+        return StablePlatypus2(
+            batch_size=batch_size,
+            name="garage-bAInd/Stable-Platypus2-13B",
+            temperature=temperature,
+        )
+    elif name == "mpt":  # currently 40GB cannot support this model.
+        return HFTorchDecoder(
+            batch_size=batch_size,
+            name="mosaicml/mpt-30b",
+            temperature=temperature,
+        )
+    elif name == "mpt-instruct":
+        return MPTInstruct(
+            batch_size=batch_size,
+            name="mosaicml/mpt-7b-instruct",
+            temperature=temperature,
+        )
+    elif name == "falcon":
+        return HFTorchDecoder(
+            batch_size=batch_size,
+            name="tiiuae/falcon-7b",
+            temperature=temperature,
+        )
+    elif name == "falcon-instruct":
+        # we use the stable platypus2 model to generate the instruction.
+        return StablePlatypus2(
+            batch_size=batch_size,
+            name="tiiuae/falcon-7b-instruct",
+            temperature=temperature,
+        )
+    elif name == "stablebeluga":
+        return StableBeluga(
+            batch_size=batch_size,
+            name="stabilityai/StableBeluga-7B",
             temperature=temperature,
         )
 

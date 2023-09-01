@@ -85,7 +85,17 @@ class CompletionProvider:
     def get_perplexity(self, prefix: str, completion: str) -> float:
         """Returns the perplexity of the completion for the given prompt"""
         if self.provider == LLMProviders.HUGGING_FACE:
-            return self.completion_instance.perplexity(prefix, completion)
+            if self.model in [
+                "wizardcoder",
+                "platypus",
+                "mpt-instruct",
+                "falcon-instruct",
+                "stablebeluga",
+            ]:  # some models are instruction based.
+                return self.completion_instance.perplexity(prefix, completion)
+            else:
+                # remove first Example
+                return self.completion_instance.perplexity(prefix, completion[7:])
         else:
             raise ValueError(
                 "No such provider or provider does not support perplexity."
@@ -103,11 +113,32 @@ class CompletionProvider:
             if not task_input or not num_forward_examples:
                 raise ValueError("Missing required arguments.")
             if self.provider in [LLMProviders.HUGGING_FACE]:
-                return textwrap.dedent(
-                    """
-                    {TASK_INPUT}
-                    Example"""
-                ).format(TASK_INPUT=task_input)
+                if self.model in [
+                    "wizardcoder",
+                    "platypus",
+                    "mpt-instruct",
+                    "falcon-instruct",
+                    "stablebeluga",
+                ]:  # some models are instruction based.
+                    return textwrap.dedent(
+                        """
+                        Closely examine the following examples -
+
+                        Input:
+                        {TASK_INPUT}
+
+                        Now, use those examples to predict the next {NUM_FORWARD_EXAMPLES} examples that will follow. DO NOT OUTPUT ANY ADDITIONAL TEXT, ONLY THE NEXT {NUM_FORWARD_EXAMPLES} EXAMPLES.
+                        """
+                    ).format(
+                        TASK_INPUT=task_input,
+                        NUM_FORWARD_EXAMPLES=num_forward_examples,
+                    )
+                else:
+                    return textwrap.dedent(
+                        """
+                        {TASK_INPUT}
+                        Example"""
+                    ).format(TASK_INPUT=task_input)
             else:
                 return textwrap.dedent(
                     """
